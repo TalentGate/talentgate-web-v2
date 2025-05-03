@@ -1,10 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button"
 
-interface LoginButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface RegisterButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     id: string
     name: string
     variant: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null
@@ -13,8 +12,7 @@ interface LoginButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
     className: string
 }
 
-const LoginButton = ({ ...props }: Partial<LoginButtonProps>) => {
-
+const RegisterButton = ({ ...props }: Partial<RegisterButtonProps>) => {
     return (
         <Button
             id={props.id}
@@ -24,15 +22,9 @@ const LoginButton = ({ ...props }: Partial<LoginButtonProps>) => {
             disabled={props.isLoading}
             className={props.className}
         >
-            {props.isLoading ? (
-                <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                </>
-            ) : (
-                "Login"
-            )}
+            Register
         </Button>
-    )
-}
+    );
+};
 
-export default LoginButton;
+export default RegisterButton;

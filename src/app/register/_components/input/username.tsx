@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Input } from "@/components/ui/input"
 
-interface PasswordInputProps extends React.HTMLAttributes<HTMLDivElement> {
+interface UsernameInputProps extends React.HTMLAttributes<HTMLDivElement> {
     id: string
     name: string
     type: React.HTMLInputTypeAttribute
@@ -14,7 +14,7 @@ interface PasswordInputProps extends React.HTMLAttributes<HTMLDivElement> {
     className: string
 }
 
-const PasswordInput = ({ ...props }: Partial<PasswordInputProps>) => {
+const UsernameInput = ({ ...props }: Partial<UsernameInputProps>) => {
     return (
         <Input
             id={props.id}
@@ -29,4 +29,4 @@ const PasswordInput = ({ ...props }: Partial<PasswordInputProps>) => {
     );
 };
 
-export default PasswordInput;
+export default UsernameInput;

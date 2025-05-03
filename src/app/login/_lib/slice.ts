@@ -15,12 +15,12 @@ export interface LoginError {
 }
 
 export const loginApi = createApi({
-    reducerPath: 'postApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/login` }),
+    reducerPath: 'loginApi',
+    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth` }),
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (body) => ({
-                url: 'posts',
+                url: 'login',
                 method: 'POST',
                 body: body,
             }),

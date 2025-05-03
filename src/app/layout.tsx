@@ -1,8 +1,8 @@
 "use client"
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Provider } from 'react-redux';
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css";
 import {store} from "@/lib/store";
 
@@ -29,6 +29,7 @@ export default function RootLayout({
       <Provider store={store}>
           {children}
       </Provider>
+      <Toaster richColors={true}/>
       </body>
     </html>
   );

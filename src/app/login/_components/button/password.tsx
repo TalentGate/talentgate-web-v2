@@ -1,10 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button"
 
-interface LoginButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ForgotPasswordButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     id: string
     name: string
     variant: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null
@@ -13,8 +12,7 @@ interface LoginButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
     className: string
 }
 
-const LoginButton = ({ ...props }: Partial<LoginButtonProps>) => {
-
+const ForgotPasswordButton = ({ ...props }: Partial<ForgotPasswordButtonProps>) => {
     return (
         <Button
             id={props.id}
@@ -24,15 +22,9 @@ const LoginButton = ({ ...props }: Partial<LoginButtonProps>) => {
             disabled={props.isLoading}
             className={props.className}
         >
-            {props.isLoading ? (
-                <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                </>
-            ) : (
-                "Login"
-            )}
+            Forgot password?
         </Button>
-    )
-}
+    );
+};
 
-export default LoginButton;
+export default ForgotPasswordButton;

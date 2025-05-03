@@ -1,21 +1,22 @@
 "use client"
 
 import * as React from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
-// import LoginButton from "./_components/button/login";
-// import GoogleButton from "./_components/button/google";
-// import LinkedinButton from "./_components/button/linkedin";
-import { Button } from "@/components/ui/button";
-// import {redirect} from "next/navigation";
-import Link from "next/link";
-import {LoginRequest, useLoginMutation} from "@/app/login/_lib/slice";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {LoginError, LoginRequest, useLoginMutation} from "@/app/login/_lib/slice";
 import {useState} from "react";
 import EmailInput from "@/app/login/_components/input/email";
 import PasswordInput from "@/app/login/_components/input/password";
 import LoginButton from "@/app/login/_components/button/login";
+import { toast } from "sonner";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import GoogleButton from "@/app/login/_components/button/google";
+import LinkedinButton from "@/app/login/_components/button/linkedin";
+import ForgotPasswordButton from "@/app/login/_components/button/password";
+import Register from "@/app/login/_components/button/register";
+import { redirect } from "next/navigation";
 
 export default function Login() {
-    const [login, { data, isLoading, error }] = useLoginMutation();
+    const [login, { isLoading: isLoginLoading }] = useLoginMutation();
 
     const [loginRequest, setLoginRequest] = useState<LoginRequest>({
         email: '',
@@ -26,40 +27,47 @@ export default function Login() {
         setLoginRequest({ ...loginRequest, [e.target.name]: e.target.value });
     };
 
-    const handleLoginSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleLoginSubmit = async () => {
         try {
             await login(loginRequest).unwrap();
         } catch (err) {
-            console.error('Failed to create post:', err);
+            toast.error("Authentication Failed", {
+                description: ((err as FetchBaseQueryError)?.data as LoginError)?.detail || "Something went wrong. Please try again later.",
+            })
         }
+    };
+
+    const handleForgotPasswordSubmit = async () => {
+        redirect("/reset-password");
+    };
+
+    const handleRegisterSubmit = async () => {
+        redirect("/register");
     };
 
     return (
         <main className="flex h-screen justify-center items-center">
-            {loginRequest.email}
-            {loginRequest.password}
             <Card className="rounded-3xl shadow-md p-5 w-96">
-                <CardHeader className="flex items-center">
-                    <CardTitle className="text-2xl">Login</CardTitle>
+                <CardHeader className="flex justify-center">
+                    <CardTitle className="text-2xl">
+                        Login
+                    </CardTitle>
                 </CardHeader>
-                <CardContent className="grid grid-cols-1 gap-5">
-                    <EmailInput id="email" name="email" type="email" placeholder="Email" value={loginRequest.email} onChange={handleLoginRequestChange} className={"focus-visible:ring-transparent"} />
-                    <PasswordInput id="password" name="password" type="password" placeholder="Password" value={loginRequest.password} onChange={handleLoginRequestChange} className={"focus-visible:ring-transparent"} />
-                    <div className="grid grid-cols-2">
-                        <div className="flex items-center space-x-2">
-                            {/*<Checkbox id="terms" />*/}
-                            <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                Remember me
-                            </label>
-                        </div>
-                        <div className="flex justify-end">
-                            <Button variant="link" className="p-0 h-auto underline decoration-transparent">
-                                Forgot Password?
-                            </Button>
-                        </div>
-                    </div>
-                    <LoginButton id="login" name="login" variant="outline" onClick={handleLoginSubmit} />
+                <CardContent className="grid grid-cols-1 gap-4">
+                    <EmailInput id="email" name="email" type="email" placeholder="Email" value={loginRequest.email} onChange={handleLoginRequestChange} isLoading={isLoginLoading} className={"focus-visible:ring-transparent"} />
+                    <PasswordInput id="password" name="password" type="password" placeholder="Password" value={loginRequest.password} onChange={handleLoginRequestChange} isLoading={isLoginLoading} className={"focus-visible:ring-transparent"} />
+                    <LoginButton id="login" name="login" variant="outline" onClick={handleLoginSubmit} isLoading={isLoginLoading}/>
+                </CardContent>
+                <CardContent className="flex flex-col items-center">
+                    <CardDescription className="flex flex-row justify-center items-center">
+                        <ForgotPasswordButton id="forgot-password" name="forgot-password" variant="link" onClick={handleForgotPasswordSubmit} isLoading={isLoginLoading}/>
+                    </CardDescription>
+                    <CardDescription className="flex flex-row justify-center items-center">
+                        <span className="text-muted-foreground">{"Don't have an account?"}</span>
+                        <Register id="register" name="register" variant="link" onClick={handleRegisterSubmit} isLoading={isLoginLoading} className="p-1"/>
+                    </CardDescription>
+                </CardContent>
+                <CardContent className="grid grid-cols-1 gap-4">
                     <div className="relative">
                         <div className="absolute inset-0 flex items-center">
                             <span className="w-full border-t" />
@@ -70,19 +78,11 @@ export default function Login() {
                             </span>
                         </div>
                     </div>
-                    {/*<GoogleButton id="google" variant="outline" onClick={handleGoogleSignIn} />*/}
-                    {/*<LinkedinButton id="linkedin" variant="outline" onClick={handleLinkedinSignIn} />*/}
                 </CardContent>
-                <CardFooter className="flex flex-col items-center">
-                    <CardDescription className="flex flex-row justify-center items-center">
-                        <span className="text-muted-foreground">{"Don't have an account?"}</span>
-                        <Link href={"/register"}>
-                            <Button variant="link" className="p-0 ml-1 underline decoration-transparent">
-                                Register
-                            </Button>
-                        </Link>
-                    </CardDescription>
-                </CardFooter>
+                <CardContent className="grid grid-cols-1 gap-4">
+                    <GoogleButton id="google" name="google" variant="outline" />
+                    <LinkedinButton id="linkedin" name="google" variant="outline" />
+                </CardContent>
             </Card>
         </main>
     );
