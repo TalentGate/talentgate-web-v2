@@ -268,72 +268,19 @@ const data = {
       icon: LayoutDashboardIcon,
     },
     {
-      title: 'Calendar',
-      url: '/calendar',
+      title: 'Jobs',
+      url: '/jobs',
       icon: CalendarIcon,
+    },
+    {
+      title: 'Applications',
+      url: '/applications',
+      icon: FolderIcon,
     },
     {
       title: 'Analytics',
       url: '#',
       icon: BarChartIcon,
-    },
-    {
-      title: 'Projects',
-      url: '#',
-      icon: FolderIcon,
-    },
-    {
-      title: 'Employees',
-      url: '/employees',
-      icon: UsersIcon,
-    },
-  ],
-  navClouds: [
-    {
-      title: 'Capture',
-      icon: CameraIcon,
-      isActive: true,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Proposal',
-      icon: FileTextIcon,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Prompts',
-      icon: FileCodeIcon,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
     },
   ],
   navSecondary: [
@@ -342,33 +289,8 @@ const data = {
       url: '#',
       icon: SettingsIcon,
     },
-    {
-      title: 'Get Help',
-      url: '#',
-      icon: HelpCircleIcon,
-    },
-    {
-      title: 'Search',
-      url: '#',
-      icon: SearchIcon,
-    },
   ],
   documents: [
-    {
-      name: 'Data Library',
-      url: '#',
-      icon: DatabaseIcon,
-    },
-    {
-      name: 'Reports',
-      url: '#',
-      icon: ClipboardListIcon,
-    },
-    {
-      name: 'Word Assistant',
-      url: '#',
-      icon: FileIcon,
-    },
   ],
 };
 
