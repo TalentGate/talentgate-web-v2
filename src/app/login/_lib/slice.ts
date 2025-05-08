@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface LoginResponse {
     access_token?: string;
@@ -15,17 +15,17 @@ export interface LoginError {
 }
 
 export const loginApi = createApi({
-    reducerPath: 'loginApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth` }),
-    endpoints: (builder) => ({
-        login: builder.mutation<LoginResponse, LoginRequest>({
-            query: (body) => ({
-                url: 'login',
-                method: 'POST',
-                body: body,
-            }),
-        }),
+  reducerPath: 'loginApi',
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth` }),
+  endpoints: (builder) => ({
+    login: builder.mutation<LoginResponse, LoginRequest>({
+      query: (body) => ({
+        url: 'login',
+        method: 'POST',
+        body: body,
+      }),
     }),
+  }),
 });
 
 export const { useLoginMutation } = loginApi;
