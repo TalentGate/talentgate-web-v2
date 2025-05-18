@@ -1,6 +1,7 @@
 'use client';
 
-import * as React from 'react';
+import { signIn } from 'next-auth/react';
+import React from 'react';
 
 import { Button } from '@/components/ui/button';
 
@@ -8,21 +9,24 @@ interface GoogleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
     id: string
     name: string
     variant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null
-    onClick: React.MouseEventHandler<HTMLButtonElement>
     isLoading: boolean
     className: string
 }
 
 const GoogleButton = ({ ...props }: Partial<GoogleButtonProps>) => {
-  return (
-    <Button
-      id={props.id}
-      name={props.name}
-      variant={props.variant}
-      onClick={props.onClick}
-      disabled={props.isLoading}
-      className={props.className}
-    >
+    const handleGoogleSubmit = async () => {
+        await signIn("google");
+    };
+
+    return (
+        <Button
+            id={props.id}
+            name={props.name}
+            variant={props.variant}
+            onClick={handleGoogleSubmit}
+            disabled={props.isLoading}
+            className={props.className}
+        >
             Google
     </Button>
   );

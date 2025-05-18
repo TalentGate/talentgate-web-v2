@@ -1,6 +1,7 @@
 'use client';
 
-import * as React from 'react';
+import { signIn } from 'next-auth/react';
+import React from 'react';
 
 import { Button } from '@/components/ui/button';
 
@@ -8,22 +9,25 @@ interface LinkedinButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
     id: string
     name: string
     variant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null
-    onClick: React.MouseEventHandler<HTMLButtonElement>
     isLoading: boolean
     className: string
 }
 
 const LinkedinButton = ({ ...props }: Partial<LinkedinButtonProps>) => {
-  return (
+    const handleLinkedinSubmit = async () => {
+        await signIn("linkedin");
+    };
+
+    return (
     <Button
-      id={props.id}
-      name={props.name}
-      variant={props.variant}
-      onClick={props.onClick}
-      disabled={props.isLoading}
-      className={props.className}
+        id={props.id}
+        name={props.name}
+        variant={props.variant}
+        onClick={handleLinkedinSubmit}
+        disabled={props.isLoading}
+        className={props.className}
     >
-            LinkedIn
+        LinkedIn
     </Button>
   );
 };

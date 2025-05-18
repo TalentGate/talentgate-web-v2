@@ -1,10 +1,11 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
 
-interface GoogleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface LoginButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     id: string
     name: string
     variant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null
@@ -13,7 +14,8 @@ interface GoogleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
     className: string
 }
 
-const GoogleButton = ({ ...props }: Partial<GoogleButtonProps>) => {
+const LoginButton = ({ ...props }: Partial<LoginButtonProps>) => {
+
   return (
     <Button
       id={props.id}
@@ -23,9 +25,15 @@ const GoogleButton = ({ ...props }: Partial<GoogleButtonProps>) => {
       disabled={props.isLoading}
       className={props.className}
     >
-            Google
+      {props.isLoading ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        </>
+      ) : (
+        'Send Reset Link'
+      )}
     </Button>
   );
 };
 
-export default GoogleButton;
+export default LoginButton;

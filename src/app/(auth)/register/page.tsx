@@ -7,8 +7,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-import Login from '@/app/register/_components/button/login';
-import { RegisterError, RegisterRequest, useRegisterMutation } from '@/app/register/_lib/slice';
+import GoogleButton from "@/app/(auth)/_components/button/google";
+import LinkedinButton from "@/app/(auth)/_components/button/linkedin";
+import Login from '@/app/(auth)/register/_components/button/login';
+import { RegisterError, RegisterRequest, useRegisterMutation } from '@/app/(auth)/register/_lib/slice';
 import {
   Card,
   CardContent,
@@ -62,7 +64,7 @@ export default function Register() {
           </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <FirstnameInput
               id="firstname"
               name="firstname"
@@ -122,6 +124,12 @@ export default function Register() {
             isLoading={isRegisterLoading}
           />
         </CardContent>
+        <CardContent className="flex flex-col justify-center items-center">
+        <CardDescription className="flex flex-row justify-center items-center">
+          <span className="text-muted-foreground">{'Already have an account?'}</span>
+          <Login id="register" name="register" variant="link" onClick={handleLoginSubmit} isLoading={isRegisterLoading} className="p-1"/>
+        </CardDescription>
+        </CardContent>
         <CardContent className="grid grid-cols-1 gap-4">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -134,10 +142,18 @@ export default function Register() {
             </div>
           </div>
         </CardContent>
-        <CardDescription className="flex flex-row justify-center items-center">
-          <span className="text-muted-foreground">{'Already have an account?'}</span>
-          <Login id="register" name="register" variant="link" onClick={handleLoginSubmit} isLoading={isRegisterLoading} className="p-1"/>
-        </CardDescription>
+        <CardContent className="grid grid-cols-1 gap-4">
+          <GoogleButton
+              id="google"
+              name="google"
+              variant="outline"
+          />
+          <LinkedinButton
+              id="linkedin"
+              name="google"
+              variant="outline"
+          />
+        </CardContent>
       </Card>
     </main>
   );
