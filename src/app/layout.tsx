@@ -9,6 +9,8 @@ import { Provider } from 'react-redux';
 
 
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from "@/components/theme-provider"
+
 import { store } from '@/lib/store';
 
 const geistSans = Geist({
@@ -27,12 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <SessionProvider>
           <Provider store={store}>
-              {children}
-          </Provider>
+            <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            </ThemeProvider>
+        </Provider>
       </SessionProvider>
       <Toaster richColors={true}/>
       </body>

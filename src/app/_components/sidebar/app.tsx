@@ -14,7 +14,8 @@ import {
   LogOutIcon,
   MoreVerticalIcon,
   UserCircleIcon,
-    CalendarIcon
+    CalendarIcon,
+    MoonIcon
 } from 'lucide-react';
 
 import {
@@ -45,6 +46,7 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from '@/components/ui/sidebar';
+import { useTheme } from 'next-themes';
 
 export function NavDocuments({
   items,
@@ -176,6 +178,7 @@ export function NavUser({
     }
 }) {
   const { isMobile } = useSidebar();
+  const { setTheme, theme } = useTheme();
 
   return (
     <SidebarMenu>
@@ -221,6 +224,12 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                <MoonIcon />
+                Dark Mode
+              </DropdownMenuItem>
               <DropdownMenuItem>
                 <UserCircleIcon />
                                 Account
