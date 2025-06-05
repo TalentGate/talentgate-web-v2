@@ -1,116 +1,129 @@
-'use client';
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import JobItem from "./_components/card/job_item";
+import SearchField from "./_components/input/search_field";
+import DepartmentFilter from "./_components/select/department_filter";
+import LocationFilter from "./_components/select/location_filter";
+import JobTypeFilter from "./_components/select/job_type_filter";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Button } from "@/components/ui/button";
+import { PlusIcon } from "lucide-react";
+import Link from "next/link";
 
+export type Job = {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  department: string;
+  type: string;
+  salary_range: string;
+  total_applicants: number;
+  postedAt: string;
+  description: string;
+};
 
-type Job = {
-    id: string
-    title: string
-    company: string
-    location: string
-    type: string
-    postedAt: string
-    description: string
-}
-
-interface JobCardProps {
-    job: Job
-}
-
-export function JobCard({ job }: JobCardProps) {
-
-    return (
-        <Card className="h-full flex flex-col justify-between p-6">
-            <CardHeader>
-                <CardTitle>{job.title}</CardTitle>
-                <CardDescription className="text-sm text-muted-foreground">
-                    {job.company} • {job.location} • {job.type}
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <p className="text-sm line-clamp-3">{job.description}</p>
-            </CardContent>
-            <CardFooter className="flex justify-between items-center text-sm">
-                <span className="text-muted-foreground">Posted on {job.postedAt}</span>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button size="sm" variant="outline">View</Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogTitle>{job.title}</DialogTitle>
-                        <DialogDescription>{job.description}</DialogDescription>
-                    </DialogContent>
-                </Dialog>
-            </CardFooter>
-        </Card>
-    )
-}
-
-
-const jobs = [
-    {
-        id: "1",
-        title: "Frontend Developer",
-        company: "Tech Corp",
-        location: "Remote",
-        type: "Full-time",
-        postedAt: "May 9, 2025",
-        description: "We’re looking for a React developer with experience in Next.js and Tailwind CSS."
-    },
-    {
-        id: "2",
-        title: "Backend Engineer",
-        company: "API Solutions",
-        location: "New York, NY",
-        type: "Part-time",
-        postedAt: "May 7, 2025",
-        description: "Join our backend team to work on scalable APIs using Node.js and PostgreSQL."
-    },
-    {
-        id: "3",
-        title: "Backend Engineer",
-        company: "API Solutions",
-        location: "New York, NY",
-        type: "Part-time",
-        postedAt: "May 7, 2025",
-        description: "Join our backend team to work on scalable APIs using Node.js and PostgreSQL."
-    },
-]
-
-function JobsList() {
-    return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {jobs.map(job => (
-                <JobCard key={job.id} job={job} />
-            ))}
-        </div>
-    )
-}
+const jobs: Job[] = [
+  {
+    id: "1",
+    title: "Frontend Developer",
+    company: "Tech Corp",
+    location: "Remote",
+    department: "Engineering",
+    type: "Full-time",
+    salary_range: "$120k - $150k",
+    total_applicants: 25,
+    postedAt: "May 9, 2025",
+    description:
+      "We’re looking for a React developer with experience in Next.js and Tailwind CSS.",
+  },
+  {
+    id: "2",
+    title: "Backend Engineer",
+    company: "API Solutions",
+    location: "New York, NY",
+    department: "Engineering",
+    type: "Part-time",
+    salary_range: "$120k - $150k",
+    total_applicants: 25,
+    postedAt: "May 7, 2025",
+    description:
+      "Join our backend team to work on scalable APIs using Node.js and PostgreSQL.",
+  },
+  {
+    id: "3",
+    title: "Backend Engineer",
+    company: "API Solutions",
+    location: "New York, NY",
+    department: "Engineering",
+    type: "Internship",
+    salary_range: "$120k - $150k",
+    total_applicants: 25,
+    postedAt: "May 7, 2025",
+    description:
+      "Join our backend team to work on scalable APIs using Node.js and PostgreSQL.",
+  },
+];
 
 export default function Jobs() {
-    return (
-        <main>
-            <div className="p-6">
-                <h1 className="text-3xl font-semibold mb-6">Available Jobs</h1>
-                <JobsList />
-            </div>
-            {/*<div className="flex flex-1 flex-col gap-4 p-4">*/}
-            {/*    <div className="grid auto-rows-min gap-4 md:grid-cols-3">*/}
-            {/*        <div className="aspect-video rounded-xl bg-muted/50" >*/}
-            {/*            Jobs*/}
-            {/*        </div>*/}
-            {/*        <div className="aspect-video rounded-xl bg-muted/50" />*/}
-            {/*        <div className="aspect-video rounded-xl bg-muted/50" />*/}
-            {/*    </div>*/}
-            {/*    <div className="grid auto-rows-min gap-4 md:grid-cols-3">*/}
-            {/*        <div className="aspect-video rounded-xl bg-muted/50" />*/}
-            {/*        <div className="aspect-video rounded-xl bg-muted/50" />*/}
-            {/*        <div className="aspect-video rounded-xl bg-muted/50" />*/}
-            {/*    </div>*/}
-            {/*    <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />*/}
-            {/*</div>*/}
-        </main>
-    );
+  return (
+    <main className="p-6 space-y-6 h-full w-full">
+      {/* HEADER AND CREATE JOB BUTTON */}
+      <section className="flex justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold">Jobs</h2>
+          <p className="text-muted-foreground text-sm">
+            Manage open positions and track applications.
+          </p>
+        </div>
+
+        <Button asChild>
+          <Link href="/jobs/create-job">
+            <PlusIcon />
+            <span>Create job</span>
+          </Link>
+        </Button>
+      </section>
+
+      {/* SEARCH AND FILTERS */}
+      <section className="flex w-full gap-4 flex-wrap">
+        <SearchField />
+        <DepartmentFilter />
+        <LocationFilter />
+        <JobTypeFilter />
+      </section>
+
+      {/* JOBS GRID */}
+      <section className="grid md:grid-cols-2 gap-4">
+        {jobs.map((job) => (
+          <JobItem key={job.id} job={job} />
+        ))}
+      </section>
+
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    </main>
+  );
 }
