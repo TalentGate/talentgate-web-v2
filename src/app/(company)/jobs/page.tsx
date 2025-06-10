@@ -1,7 +1,7 @@
 "use client";
 
 import JobItem from "./_components/card/job_item";
-import SearchField from "./_components/input/search_field";
+import SearchField from "./_components/input/search-field";
 import DepartmentFilter from "./_components/select/department_filter";
 import LocationFilter from "./_components/select/location_filter";
 import JobTypeFilter from "./_components/select/job_type_filter";
@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
+import Header from "@/components/section/header";
 
 export type Job = {
   id: string;
@@ -78,12 +79,10 @@ export default function Jobs() {
     <main className="p-6 space-y-6 h-full w-full">
       {/* HEADER AND CREATE JOB BUTTON */}
       <section className="flex justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold">Jobs</h2>
-          <p className="text-muted-foreground text-sm">
-            Manage open positions and track applications.
-          </p>
-        </div>
+        <Header
+          header="Jobs"
+          description="Manage open positions and track applications."
+        />
 
         <Button asChild>
           <Link href="/jobs/create-job">
