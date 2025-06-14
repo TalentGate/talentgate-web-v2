@@ -1,28 +1,21 @@
-'use client';
+"use client";
 
 import {
   ArrowUpCircleIcon,
-  BarChartIcon,
   LayoutDashboardIcon,
   SettingsIcon,
-  FolderIcon,
-  MoreHorizontalIcon,
-  ShareIcon,
-  type LucideIcon,
+  LucideIcon,
   BellIcon,
   CreditCardIcon,
   LogOutIcon,
   MoreVerticalIcon,
   UserCircleIcon,
-    CalendarIcon,
-    MoonIcon
-} from 'lucide-react';
+  MoonIcon,
+  Briefcase,
+  BookUser,
+} from "lucide-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,13 +24,11 @@ import {
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarGroupContent,
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
@@ -45,86 +36,48 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-} from '@/components/ui/sidebar';
-import { useTheme } from 'next-themes';
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+} from "@/components/ui/sidebar";
+import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-export function NavDocuments({
-  items,
-}: {
-    items: {
-        name: string
-        url: string
-        icon: LucideIcon
-    }[]
-}) {
-  const { isMobile } = useSidebar();
-
-  return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Documents</SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-              </a>
-            </SidebarMenuButton>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuAction
-                  showOnHover
-                  className="rounded-sm data-[state=open]:bg-accent"
-                >
-                  <MoreHorizontalIcon />
-                  <span className="sr-only">More</span>
-                </SidebarMenuAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-24 rounded-lg"
-                side={isMobile ? 'bottom' : 'right'}
-                align={isMobile ? 'end' : 'start'}
-              >
-                <DropdownMenuItem>
-                  <FolderIcon />
-                  <span>Open</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <ShareIcon />
-                  <span>Share</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <MoreHorizontalIcon className="text-sidebar-foreground/70" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarGroup>
-  );
+interface NavMainProps {
+  items: {
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+  }[];
+  secondaryItems: {
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    subItems: {
+      title: string;
+      url: string;
+    }[];
+  }[];
 }
 
-export function NavMain({
-  items,
-}: {
-    items: {
-        title: string
-        url: string
-        icon?: LucideIcon
-    }[]
-}) {
+export function NavMain({ items, secondaryItems }: NavMainProps) {
+  const path = usePathname();
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton
+                className={
+                  path === item.url
+                    ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+                    : ""
+                }
+                asChild
+              >
                 <a href={item.url}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
@@ -132,34 +85,31 @@ export function NavMain({
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
-  );
-}
 
-export function NavSecondary({
-  items,
-  ...props
-}: {
-    items: {
-        title: string
-        url: string
-        icon: LucideIcon
-    }[]
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-  return (
-    <SidebarGroup {...props}>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {items.map((item) => (
+          {secondaryItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton
+                asChild
+                className={
+                  path.includes(item.url) === true
+                    ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+                    : ""
+                }
+              >
                 <a href={item.url}>
-                  <item.icon />
+                  {item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </a>
               </SidebarMenuButton>
+              <SidebarMenuSub>
+                {item.subItems.map((subItem) => (
+                  <SidebarMenuSubItem key={subItem.title}>
+                    <SidebarMenuSubButton href={subItem.url}>
+                      {subItem.title}
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                ))}
+              </SidebarMenuSub>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
@@ -171,11 +121,11 @@ export function NavSecondary({
 export function NavUser({
   user,
 }: {
-    user: {
-        name: string
-        email: string
-        avatar: string
-    }
+  user: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }) {
   const { isMobile } = useSidebar();
   const { setTheme, theme } = useTheme();
@@ -204,7 +154,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? 'bottom' : 'right'}
+            side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >
@@ -230,23 +180,21 @@ export function NavUser({
                 <MoonIcon />
                 Dark Mode
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <UserCircleIcon />
-                                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCardIcon />
-                                Billing
+              <DropdownMenuItem asChild>
+                <Link href={"/my-account"}>
+                  <UserCircleIcon />
+                  Account
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <BellIcon />
-                                Notifications
+                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOutIcon />
-                            Log out
+              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -257,40 +205,51 @@ export function NavUser({
 
 const data = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
   },
   navMain: [
     {
-      title: 'Dashboard',
-      url: '/dashboard',
+      title: "Dashboard",
+      url: "/dashboard",
       icon: LayoutDashboardIcon,
     },
     {
-      title: 'Jobs',
-      url: '/jobs',
-      icon: CalendarIcon,
+      title: "Jobs",
+      url: "/jobs",
+      icon: Briefcase,
     },
     {
-      title: 'Applications',
-      url: '/applications',
-      icon: FolderIcon,
-    },
-    {
-      title: 'Analytics',
-      url: '#',
-      icon: BarChartIcon,
+      title: "Applications",
+      url: "/applications",
+      icon: BookUser,
     },
   ],
   navSecondary: [
     {
-      title: 'Settings',
-      url: '#',
+      title: "Company Settings",
+      url: "/company-settings/company-information",
       icon: SettingsIcon,
+      subItems: [
+        {
+          title: "Company Information",
+          url: "/company-settings/company-information",
+        },
+        {
+          title: "Employees",
+          url: "/company-settings/employees",
+        },
+        {
+          title: "Billing and Subscription",
+          url: "/company-settings/billing-and-subscription",
+        },
+        {
+          title: "Contact Talentgate",
+          url: "/company-settings/contact-talentgate",
+        },
+      ],
     },
-  ],
-  documents: [
   ],
 };
 
@@ -313,9 +272,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={data.navMain} secondaryItems={data.navSecondary} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
