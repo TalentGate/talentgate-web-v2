@@ -1,25 +1,37 @@
-'use client';
-
-import * as React from 'react';
+import Header from "@/components/section/header";
+import AverageTimeToHire from "./_components/card/average-time-to-hire";
+import InterviewsScheduledToday from "./_components/card/interviews-scheduled-today copy";
+import LongestActiveJob from "./_components/card/longest-active-job";
+import NewApplicantsToday from "./_components/card/new-applicants-today";
+import OverallPipelinesOverview from "./_components/card/overall-pipelines-overview";
+import TotalActiveJobs from "./_components/card/total-active-jobs";
+import TotalApplications from "./_components/card/total-applications";
+import UpcomingInterviews from "./_components/card/upcoming-interviews";
 
 export default function Dashboard() {
   return (
-    <main>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div className="aspect-video rounded-xl bg-muted/50" >
-                    Dashboard
-                </div>
-                <div className="aspect-video rounded-xl bg-muted/50" />
-                <div className="aspect-video rounded-xl bg-muted/50" />
-            </div>
-            <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div className="aspect-video rounded-xl bg-muted/50" />
-                <div className="aspect-video rounded-xl bg-muted/50" />
-                <div className="aspect-video rounded-xl bg-muted/50" />
-            </div>
-            <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+    <main className="p-6 w-full h-fit space-y-6">
+      <Header
+        header="Dashboard"
+        description="Dashboard of the company. You can see the overview of the jobs, applications, pipelines, scheduled interviews, etc."
+      />
+
+      <section className="grid grid-cols-4 gap-4">
+        <TotalActiveJobs />
+        <TotalApplications />
+        <InterviewsScheduledToday />
+        <NewApplicantsToday />
+
+        <div className="col-span-4 grid grid-cols-2 gap-4">
+          <AverageTimeToHire />
+          <LongestActiveJob />
         </div>
+
+        <div className="col-span-4 grid grid-cols-2 gap-4">
+          <OverallPipelinesOverview />
+          <UpcomingInterviews />
+        </div>
+      </section>
     </main>
   );
 }
