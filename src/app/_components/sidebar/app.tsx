@@ -13,6 +13,7 @@ import {
   MoonIcon,
   Briefcase,
   BookUser,
+  BriefcaseBusiness,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -43,75 +44,75 @@ import {
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface NavMainProps {
   items: {
     title: string;
     url: string;
     icon?: LucideIcon;
-  }[];
-  secondaryItems: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    subItems: {
+    subItems?: {
       title: string;
       url: string;
     }[];
   }[];
 }
 
-export function NavMain({ items, secondaryItems }: NavMainProps) {
+export function NavMain({ items }: NavMainProps) {
   const path = usePathname();
 
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                className={
-                  path === item.url
-                    ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
-                    : ""
-                }
-                asChild
-              >
-                <a href={item.url}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-
-          {secondaryItems.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                asChild
-                className={
-                  path.includes(item.url) === true
-                    ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
-                    : ""
-                }
-              >
-                <a href={item.url}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-              <SidebarMenuSub>
-                {item.subItems.map((subItem) => (
-                  <SidebarMenuSubItem key={subItem.title}>
-                    <SidebarMenuSubButton href={subItem.url}>
-                      {subItem.title}
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                ))}
-              </SidebarMenuSub>
-            </SidebarMenuItem>
-          ))}
+          {items.map((item) => {
+            if (!item.subItems) {
+              return (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    className={
+                      path === item.url
+                        ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+                        : ""
+                    }
+                    asChild
+                  >
+                    <a href={item.url}>
+                      {item.icon && <item.icon />}
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            } else {
+              return (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      {item.icon && <item.icon />}
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                  <SidebarMenuSub>
+                    {item.subItems.map((subItem) => (
+                      <SidebarMenuSubItem key={subItem.title}>
+                        <SidebarMenuSubButton
+                          href={subItem.url}
+                          className={cn([
+                            path === subItem.url
+                              ? "bg-secondary text-secondary-foreground"
+                              : "",
+                          ])}
+                        >
+                          {subItem.title}
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </SidebarMenuItem>
+              );
+            }
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
@@ -225,8 +226,6 @@ const data = {
       url: "/applications",
       icon: BookUser,
     },
-  ],
-  navSecondary: [
     {
       title: "Company Settings",
       url: "/company-settings/company-information",
@@ -250,6 +249,11 @@ const data = {
         },
       ],
     },
+    {
+      title: "Careers Page",
+      url: "/careers",
+      icon: BriefcaseBusiness,
+    },
   ],
 };
 
@@ -272,7 +276,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} secondaryItems={data.navSecondary} />
+        <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
