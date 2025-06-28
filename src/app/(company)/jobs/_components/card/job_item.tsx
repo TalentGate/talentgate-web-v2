@@ -12,6 +12,7 @@ import {
   Copy,
   Ellipsis,
   EyeIcon,
+  LaptopIcon,
   MapPinIcon,
   NotebookPen,
   SquarePen,
@@ -49,6 +50,11 @@ const JobItem = ({ job }: JobItemProps) => {
               <CardDescription className="flex gap-1">
                 <MapPinIcon className="size-5" />
                 <span>{job.location}</span>
+              </CardDescription>
+
+              <CardDescription className="flex gap-1">
+                <LaptopIcon className="size-5" />
+                <span>{job.location_type}</span>
               </CardDescription>
             </div>
           </div>

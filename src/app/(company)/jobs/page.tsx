@@ -18,12 +18,14 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/section/header";
+import LocationTypeFilter from "./_components/select/location_type_filter";
 
 export type Job = {
   id: string;
   title: string;
   company: string;
   location: string;
+  location_type: string;
   department: string;
   type: string;
   salary_range: string;
@@ -38,6 +40,7 @@ const jobs: Job[] = [
     title: "Frontend Developer",
     company: "Tech Corp",
     location: "Remote",
+    location_type: "Remote",
     department: "Engineering",
     type: "Full-time",
     salary_range: "$120k - $150k",
@@ -51,6 +54,7 @@ const jobs: Job[] = [
     title: "Backend Engineer",
     company: "API Solutions",
     location: "New York, NY",
+    location_type: "On-Site",
     department: "Engineering",
     type: "Part-time",
     salary_range: "$120k - $150k",
@@ -64,6 +68,7 @@ const jobs: Job[] = [
     title: "Backend Engineer",
     company: "API Solutions",
     location: "New York, NY",
+    location_type: "Hybrid",
     department: "Engineering",
     type: "Internship",
     salary_range: "$120k - $150k",
@@ -96,8 +101,9 @@ export default function Jobs() {
       <section className="flex w-full gap-4 flex-wrap">
         <SearchField />
         <DepartmentFilter />
-        <LocationFilter />
         <JobTypeFilter />
+        <LocationFilter />
+        <LocationTypeFilter />
       </section>
 
       {/* JOBS GRID */}
