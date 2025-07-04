@@ -14,6 +14,7 @@ import {
   Briefcase,
   BookUser,
   BriefcaseBusiness,
+  CalendarIcon,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -227,6 +228,11 @@ const data = {
       icon: BookUser,
     },
     {
+      title: "Calendar",
+      url: "/calendar",
+      icon: CalendarIcon,
+    },
+    {
       title: "Company Settings",
       url: "/company-settings/company-information",
       icon: SettingsIcon,
@@ -267,7 +273,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
+              <a href="/dashboard">
                 <ArrowUpCircleIcon className="h-5 w-5" />
                 <span className="text-base font-semibold">TalentGate</span>
               </a>

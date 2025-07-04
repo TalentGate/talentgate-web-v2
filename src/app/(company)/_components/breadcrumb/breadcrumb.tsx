@@ -11,17 +11,6 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-const pathDict: Record<string, string> = {
-  "/dashboard": "Dashboard",
-  "/jobs": "Jobs",
-  "/applications": "Applications",
-  "/company-settings": "Company Settings",
-  "/company-settings/company-information": "Company Information",
-  "/company-settings/employees": "Employees",
-  "/company-settings/billing-and-subscription": "Billing & Subscription",
-  "/company-settings/contact-talentgate": "Contact TalentGate",
-};
-
 function getBreadcrumbs(path: string) {
   const segments = path.split("/").filter(Boolean);
   const breadcrumbs = [];
@@ -29,10 +18,9 @@ function getBreadcrumbs(path: string) {
 
   for (let i = 0; i < segments.length; i++) {
     currentPath += "/" + segments[i];
-    // Try to find the most specific label, fallback to capitalized segment
-    const label =
-      pathDict[currentPath] ||
-      segments[i].replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    const label = segments[i]
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (l) => l.toUpperCase());
     breadcrumbs.push({
       href: currentPath,
       label,
@@ -51,6 +39,12 @@ const AppBreadcrumb = () => {
   return (
     <Breadcrumb className="hidden md:block">
       <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href={"/dashboard"}>TalentGate</Link>
+          </BreadcrumbLink>
+          <BreadcrumbSeparator />
+        </BreadcrumbItem>
         {breadcrumbs.map((crumb, idx) => (
           <BreadcrumbItem key={crumb.href}>
             {crumb.isLast ? (

@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/app/_components/sidebar/app";
+import { AppSidebar } from "@/app/_components/sidebar/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
