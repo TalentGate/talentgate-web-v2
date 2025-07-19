@@ -1,18 +1,20 @@
 'use client';
 
+import {useRouter} from "next/navigation";
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import * as React from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 import EmailInput from '@/app/(auth)/login/_components/input/email';
-import { LoginError, LoginRequest, useLoginMutation } from '@/app/(auth)/login/_lib/slice';
+import { LoginRequest, useLoginMutation } from '@/app/(auth)/login/_lib/slice';
 import LoginButton from "@/app/(auth)/password/forgot/_components/button/login";
 import Login from "@/app/(auth)/register/_components/button/login";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export default function ForgotPassword() {
     const [login, { isLoading: isLoginLoading }] = useLoginMutation();
+    const router = useRouter();
 
     const [loginRequest, setLoginRequest] = useState<LoginRequest>({
         email: '',
@@ -24,13 +26,7 @@ export default function ForgotPassword() {
     };
 
     const handleLoginSubmit = async () => {
-        try {
-            await login(loginRequest).unwrap();
-        } catch (err) {
-            toast.error('Authentication Failed', {
-                description: ((err as FetchBaseQueryError)?.data as LoginError)?.detail || 'Something went wrong. Please try again later.',
-            });
-        }
+        router.push('/login');
     };
 
     return (

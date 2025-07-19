@@ -1,12 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import {usePathname, useRouter} from "next/navigation";
+
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import {
   ArrowUpCircleIcon,
   LayoutDashboardIcon,
   SettingsIcon,
   LucideIcon,
   BellIcon,
-  CreditCardIcon,
   LogOutIcon,
   MoreVerticalIcon,
   UserCircleIcon,
@@ -16,7 +19,12 @@ import {
   BriefcaseBusiness,
   CalendarIcon,
 } from "lucide-react";
+import {signOut} from "next-auth/react";
+import { useTheme } from "next-themes";
+import * as React from "react";
+import {toast} from "sonner";
 
+import {LogoutError, useLogoutMutation} from "@/app/_lib/slice";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -42,10 +50,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+
 
 interface NavMainProps {
   items: {
@@ -131,6 +137,24 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar();
   const { setTheme, theme } = useTheme();
+  const router = useRouter();
+  const [logout, { isSuccess: isLogoutSuccess }] = useLogoutMutation();
+
+  const handleLogoutSubmit = async () => {
+    try {
+      await logout({}).unwrap();
+    } catch (err) {
+      toast.error('Authentication Failed', {
+        description: ((err as FetchBaseQueryError)?.data as LogoutError)?.detail || 'Something went wrong. Please try again later.',
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    if (isLogoutSuccess) {
+      signOut({callbackUrl: '/login'});
+    }
+  }, [isLogoutSuccess, router]);
 
   return (
     <SidebarMenu>
@@ -183,7 +207,7 @@ export function NavUser({
                 Dark Mode
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={"/my-account"}>
+                <Link href={"/account"}>
                   <UserCircleIcon />
                   Account
                 </Link>
@@ -194,7 +218,9 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+                onClick={handleLogoutSubmit}
+            >
               <LogOutIcon />
               Log out
             </DropdownMenuItem>

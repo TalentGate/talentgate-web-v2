@@ -1,6 +1,6 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import {useRouter} from "next/navigation";
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useSession } from 'next-auth/react';
@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 
 import GoogleButton from '@/app/(auth)/_components/button/google';
 import LinkedinButton from '@/app/(auth)/_components/button/linkedin';
-import { useGoogleMutation } from '@/app/(auth)/_lib/slice';
+import {useGoogleMutation, useLinkedinMutation} from '@/app/(auth)/_lib/slice';
 import LoginButton from '@/app/(auth)/login/_components/button/login';
 import ForgotPasswordButton from '@/app/(auth)/login/_components/button/password';
 import Register from '@/app/(auth)/login/_components/button/register';
@@ -24,8 +24,10 @@ import type { Session } from "next-auth";
 
 export default function Login() {
   const { data: session } = useSession() as { data: Session | null };
-  const [login, { isLoading: isLoginLoading }] = useLoginMutation();
-  const [google] = useGoogleMutation();
+  const [login, { isLoading: isLoginLoading, isSuccess: isLoginSuccess }] = useLoginMutation();
+  const [google, { isLoading: isGoogleLoading, isSuccess: isGoogleSuccess }] = useGoogleMutation();
+  const [linkedin, { isLoading: isLinkedinLoading, isSuccess: isLinkedinSuccess }] = useLinkedinMutation();
+  const router = useRouter();
 
   const [loginRequest, setLoginRequest] = useState<LoginRequest>({
     email: '',
@@ -47,22 +49,30 @@ export default function Login() {
   };
 
   const handleForgotPasswordSubmit = async () => {
-    redirect('/password/forgot');
+    router.push('/password/forgot');
   };
 
   const handleRegisterSubmit = async () => {
-    redirect('/register');
+    router.push('/register');
   };
 
   React.useEffect(() => {
-    if (session?.idToken) {
+    if (session?.provider == 'google' && session?.idToken) {
       google({token: session.idToken}).unwrap();
     }
-  }, [google, session]);
+    if (session?.provider == 'linkedin' && session?.accessToken) {
+      linkedin({token: session.accessToken}).unwrap();
+    }
+  }, [google, linkedin, session]);
+
+  React.useEffect(() => {
+    if (isLoginSuccess || isGoogleSuccess || isLinkedinSuccess) {
+      router.push('/dashboard');
+    }
+  }, [isLoginSuccess, isGoogleSuccess, isLinkedinSuccess, router]);
 
   return (
     <main className="flex h-screen justify-center items-center">
-      { session?.idToken }
       <Card className="rounded-3xl shadow-md p-5 w-96">
         <CardHeader className="flex justify-center items-center">
           <CardTitle className="text-2xl text-center">
@@ -139,11 +149,13 @@ export default function Login() {
               id="google"
               name="google"
               variant="outline"
+              isLoading={isGoogleLoading}
           />
           <LinkedinButton
               id="linkedin"
-              name="google"
+              name="linkedin"
               variant="outline"
+              isLoading={isLinkedinLoading}
           />
         </CardContent>
       </Card>

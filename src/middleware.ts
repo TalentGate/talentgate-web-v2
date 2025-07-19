@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = ["/dashboard", "/account"];
 const unprotectedRoutes = ["/login", "/register", "/password"];
 
 export default async function middleware(request: NextRequest) {
-    const accessToken = request.cookies.get('accessToken')?.value;
-    const refreshToken = request.cookies.get('refreshToken')?.value;
+    const accessToken = request.cookies.get('access_token')?.value;
+    const refreshToken = request.cookies.get('refresh_token')?.value;
 
     if (unprotectedRoutes.some((path) => request.nextUrl.pathname.startsWith(path))) {
         if (accessToken && refreshToken) {
@@ -25,5 +25,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/login', '/register', '/password', '/dashboard/:path*'],
+    matcher: ['/login', '/register', '/password', '/dashboard/:path*', '/account'],
 };

@@ -1,3 +1,16 @@
+'use client';
+
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import { SaveIcon } from "lucide-react";
+import {useState} from "react";
+import * as React from "react";
+import {toast} from "sonner";
+
+import {LoginError} from "@/app/(auth)/login/_lib/slice";
+import {
+  RetrieveCurrentUserResponse, UpdateCurrentUserRequest,
+  useRetrieveCurrentUserMutation
+} from "@/app/(company)/account/_lib/slice";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,9 +22,29 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { SaveIcon } from "lucide-react";
+
+
+
 
 const AccountInformation = () => {
+  const [retrieveCurrentUser, { isLoading: isRetrieveCurrentUserLoading, isSuccess: isRetrieveCurrentUserSuccess }] = useRetrieveCurrentUserMutation();
+
+  const [updateCurrentUserRequest, setUpdateCurrentUserRequest] = useState<UpdateCurrentUserRequest>({
+    firstname: '',
+    lastname: '',
+    email: '',
+  });
+
+  React.useEffect(() => {
+    try {
+      retrieveCurrentUser({}).unwrap();
+    } catch (err) {
+      toast.error('Authentication Failed', {
+        description: ((err as FetchBaseQueryError)?.data as LoginError)?.detail || 'Something went wrong. Please try again later.',
+      });
+    }
+  }, [retrieveCurrentUser]);
+
   return (
     <Card>
       <CardHeader>

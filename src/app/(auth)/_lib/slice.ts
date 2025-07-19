@@ -28,7 +28,7 @@ export interface LinkedinError {
 
 export const googleApi = createApi({
     reducerPath: 'googleApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth`, credentials: "include" }),
     endpoints: (builder) => ({
         google: builder.mutation<GoogleResponse, GoogleRequest>({
             query: (body) => ({
@@ -42,7 +42,7 @@ export const googleApi = createApi({
 
 export const linkedinApi = createApi({
     reducerPath: 'linkedinApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth`, credentials: "include" }),
     endpoints: (builder) => ({
         linkedin: builder.mutation<LinkedinResponse, LinkedinRequest>({
             query: (body) => ({
