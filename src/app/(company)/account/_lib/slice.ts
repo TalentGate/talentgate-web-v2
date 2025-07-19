@@ -5,6 +5,7 @@ import {baseQueryWithReauth} from "@/app/api/baseQuery";
 export interface RetrieveCurrentUserResponse {
     firstname: string;
     lastname: string;
+    username: string;
     email: string;
 }
 

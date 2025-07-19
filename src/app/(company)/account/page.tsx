@@ -1,4 +1,5 @@
 import Header from "@/components/section/header";
+
 import AccountInformation from "./_components/card/account-information";
 import ChangePassword from "./_components/card/change-password";
 

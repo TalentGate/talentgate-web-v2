@@ -27,13 +27,7 @@ import { Label } from "@/components/ui/label";
 
 
 const AccountInformation = () => {
-  const [retrieveCurrentUser, { isLoading: isRetrieveCurrentUserLoading, isSuccess: isRetrieveCurrentUserSuccess }] = useRetrieveCurrentUserMutation();
-
-  const [updateCurrentUserRequest, setUpdateCurrentUserRequest] = useState<UpdateCurrentUserRequest>({
-    firstname: '',
-    lastname: '',
-    email: '',
-  });
+  const [retrieveCurrentUser, { data: retrieveCurrentUserData, isLoading: isRetrieveCurrentUserLoading, isSuccess: isRetrieveCurrentUserSuccess }] = useRetrieveCurrentUserMutation();
 
   React.useEffect(() => {
     try {
@@ -63,28 +57,23 @@ const AccountInformation = () => {
 
         <div className="grid gap-4 grid-cols-2">
           <div className="space-y-2">
-            <Label>First Name</Label>
-            <Input placeholder="First Name" />
+            <Label>Firstname</Label>
+            <Input value={retrieveCurrentUserData?.firstname} placeholder="First Name" />
           </div>
 
           <div className="space-y-2">
-            <Label>Last Name</Label>
-            <Input placeholder="Last Name" />
+            <Label>Lastname</Label>
+            <Input value={retrieveCurrentUserData?.lastname} placeholder="Last Name" />
           </div>
 
           <div className="space-y-2">
             <Label>Username</Label>
-            <Input placeholder="Username" />
-          </div>
-
-          <div className="space-y-2">
-            <Label>Title</Label>
-            <Input placeholder="Title" />
+            <Input value={retrieveCurrentUserData?.username} placeholder="Username" />
           </div>
 
           <div className="space-y-2 col-span-2">
-            <Label>Email Address</Label>
-            <Input placeholder="Email Address" />
+            <Label>Email</Label>
+            <Input value={retrieveCurrentUserData?.email} placeholder="Email" />
           </div>
         </div>
       </CardContent>
