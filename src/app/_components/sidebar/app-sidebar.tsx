@@ -107,7 +107,7 @@ export function NavMain({ items }: NavMainProps) {
                           href={subItem.url}
                           className={cn([
                             path === subItem.url
-                              ? "bg-secondary text-secondary-foreground"
+                              ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
                               : "",
                           ])}
                         >
@@ -254,9 +254,19 @@ const data = {
       icon: BookUser,
     },
     {
-      title: "Calendar",
-      url: "/calendar",
+      title: "Events",
+      url: "/events",
       icon: CalendarIcon,
+      subItems: [
+        {
+          title: "Event Calendar",
+          url: "/events/event-calendar",
+        },
+        {
+          title: "Event List",
+          url: "/events/event-list",
+        },
+      ],
     },
     {
       title: "Company Settings",
