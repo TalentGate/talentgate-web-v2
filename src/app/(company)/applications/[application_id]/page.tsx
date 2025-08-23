@@ -1,11 +1,12 @@
-import PersonalInfo from "./_components/card/personal-info";
-import Header from "./_components/header/header";
-import AskedQuestions from "./_components/card/asked-questions";
-import PipelineInfoCards from "./_components/section/pipeline-info-cards";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Comments from "./_components/card/evaluations";
-import AddEvaluation from "./_components/card/add-evaluation";
-import MeetingsAndInterviews from "./_components/card/meetings-and-interviews";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+import AddEvaluation from './_components/card/add-evaluation';
+import AskedQuestions from './_components/card/asked-questions';
+import Comments from './_components/card/evaluations';
+import MeetingsAndInterviews from './_components/card/meetings-and-interviews';
+import PersonalInfo from './_components/card/personal-info';
+import Header from './_components/header/header';
+import PipelineInfoCards from './_components/section/pipeline-info-cards';
 
 const ApplicationDetails = () => {
   return (

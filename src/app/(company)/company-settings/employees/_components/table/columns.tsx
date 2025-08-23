@@ -1,8 +1,13 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
-import { CircleCheck, MoreHorizontal, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+
+import { ColumnDef } from '@tanstack/react-table';
+import { CircleCheck, MoreHorizontal, Star } from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,11 +15,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Checkbox } from "@/components/ui/checkbox";
-import { DataTableColumnHeader } from "./column-header";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
+} from '@/components/ui/dropdown-menu';
+
+import { DataTableColumnHeader } from './column-header';
 
 export type DataTableEmployeeType = {
   id: string;
@@ -23,7 +26,7 @@ export type DataTableEmployeeType = {
   lastname: string;
   email: string;
   title: string;
-  role: "OWNER" | "ADMIN";
+  role: 'OWNER' | 'ADMIN';
   verified: boolean;
 };
 
@@ -51,63 +54,61 @@ export const columns: ColumnDef<DataTableEmployeeType>[] = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "username",
+    accessorKey: 'username',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Username" />;
     },
   },
   {
-    accessorKey: "firstname",
+    accessorKey: 'firstname',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="First Name" />;
     },
   },
   {
-    accessorKey: "lastname",
+    accessorKey: 'lastname',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Last Name" />;
     },
   },
   {
-    accessorKey: "email",
+    accessorKey: 'email',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Email" />;
     },
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Title" />;
     },
   },
   {
-    accessorKey: "role",
+    accessorKey: 'role',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Role" />;
     },
     cell: ({ row }) => {
-      const role: string = row.getValue("role");
+      const role: string = row.getValue('role');
       return <p className="capitalize">{role.toLowerCase()}</p>;
     },
   },
   {
-    accessorKey: "verified",
+    accessorKey: 'verified',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Verified" />;
     },
     cell: ({ row }) => {
-      const verified = row.getValue("verified");
+      const verified = row.getValue('verified');
       return (
         <div>
-          <CircleCheck
-            className={verified ? "fill-green-500 stroke-secondary" : ""}
-          />
+          <CircleCheck className={verified ? 'fill-green-500 stroke-secondary' : ''} />
         </div>
       );
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     header: () => <div className="text-right">Actions</div>,
     cell: ({ row }) => {
       const employee = row.original;
@@ -122,9 +123,7 @@ export const columns: ColumnDef<DataTableEmployeeType>[] = [
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(employee.id)}
-              >
+              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(employee.id)}>
                 Copy employee ID
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -132,9 +131,7 @@ export const columns: ColumnDef<DataTableEmployeeType>[] = [
                   View employee details
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem variant="destructive">
-                Remove Employee
-              </DropdownMenuItem>
+              <DropdownMenuItem variant="destructive">Remove Employee</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

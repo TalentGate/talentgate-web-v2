@@ -1,11 +1,7 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { KeyRoundIcon } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import {
   Dialog,
   DialogClose,
@@ -15,10 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { KeyRoundIcon } from "lucide-react";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const ChangePassword = () => {
   return (
@@ -37,6 +32,11 @@ const ChangePassword = () => {
           <Label>New Password</Label>
           <Input placeholder="New Password" type="password" />
         </div>
+
+        <div className="space-y-2">
+          <Label>Confirm Password</Label>
+          <Input placeholder="Confirm Password" type="password" />
+        </div>
       </CardContent>
       <CardFooter className="h-fit w-full space-x-4">
         <Dialog>
@@ -51,20 +51,17 @@ const ChangePassword = () => {
               <DialogTitle>Are you sure?</DialogTitle>
             </DialogHeader>
             <DialogDescription>
-              You are about to change your password. If you are not sure about
-              doing this, please cancel.
+              You are about to change your password. If you are not sure about doing this, please
+              cancel.
             </DialogDescription>
             <DialogFooter>
               <Button>Change Password</Button>
               <DialogClose asChild>
-                <Button variant={"ghost"}>Cancel</Button>
+                <Button variant={'ghost'}>Cancel</Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        <Button variant={"outline"} className="h-full">
-          Cancel
-        </Button>
       </CardFooter>
     </Card>
   );

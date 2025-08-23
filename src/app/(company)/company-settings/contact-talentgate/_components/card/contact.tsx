@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Send } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardHeader,
@@ -6,11 +8,10 @@ import {
   CardFooter,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Send } from "lucide-react";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 const Contact = () => {
   return (
@@ -32,7 +33,7 @@ const Contact = () => {
           <span>Submit</span>
         </Button>
 
-        <Button variant={"outline"} className="h-full">
+        <Button variant={'outline'} className="h-full">
           Cancel
         </Button>
       </CardFooter>

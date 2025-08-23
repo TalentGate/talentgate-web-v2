@@ -5,12 +5,12 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 
 interface ForgotPasswordButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    id: string
-    name: string
-    variant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null
-    onClick: React.MouseEventHandler<HTMLButtonElement>
-    isLoading: boolean
-    className: string
+  id: string;
+  name: string;
+  variant: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | null;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  isLoading: boolean;
+  className: string;
 }
 
 const ForgotPasswordButton = ({ ...props }: Partial<ForgotPasswordButtonProps>) => {
@@ -23,7 +23,7 @@ const ForgotPasswordButton = ({ ...props }: Partial<ForgotPasswordButtonProps>) 
       disabled={props.isLoading}
       className={props.className}
     >
-            Forgot Password
+      Forgot Password
     </Button>
   );
 };

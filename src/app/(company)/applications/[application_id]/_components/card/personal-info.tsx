@@ -5,8 +5,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+} from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 const PersonalInfo = () => {
   return (
@@ -45,14 +45,10 @@ const PersonalInfo = () => {
             </TableRow>
             <TableRow>
               <TableCell className="font-bold">Graduated From</TableCell>
-              <TableCell className="text-right">
-                Computer Engineering, BSC
-              </TableCell>
+              <TableCell className="text-right">Computer Engineering, BSC</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-bold">
-                Soonest Date They Can Start
-              </TableCell>
+              <TableCell className="font-bold">Soonest Date They Can Start</TableCell>
               <TableCell className="text-right">31/11/2026</TableCell>
             </TableRow>
           </TableBody>

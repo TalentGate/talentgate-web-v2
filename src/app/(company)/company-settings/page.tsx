@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
 export default function CompanySettings() {
-  redirect("/company-settings/company-information");
+  redirect('/company-settings/company-information');
 }

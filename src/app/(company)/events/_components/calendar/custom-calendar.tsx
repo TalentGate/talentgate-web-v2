@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   format,
@@ -12,69 +12,65 @@ import {
   addMonths,
   subMonths,
   // isSameDay,
-} from "date-fns";
-import { enUS } from "date-fns/locale";
-import { Plus } from "lucide-react";
-import React, { useState, useMemo } from "react";
+} from 'date-fns';
+import { enUS } from 'date-fns/locale';
+import { Plus } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
 
-import EventDialog from "@/app/(company)/events/_components/dialog/event-dialog";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import EventDialog from '@/app/(company)/events/_components/dialog/event-dialog';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const dummyEvents = [
   {
-    id: "1",
-    title: "Interview: Jane Doe (Frontend)",
+    id: '1',
+    title: 'Interview: Jane Doe (Frontend)',
     date: new Date(2025, 6, 28, 10, 0),
-    description: "First round interview for Senior Frontend Engineer.",
-    type: "interview",
+    description: 'First round interview for Senior Frontend Engineer.',
+    type: 'interview',
   },
   {
-    id: "2",
-    title: "Team Sync",
+    id: '2',
+    title: 'Team Sync',
     date: new Date(2025, 6, 28, 14, 30),
-    description: "Weekly team synchronization meeting.",
-    type: "meeting",
+    description: 'Weekly team synchronization meeting.',
+    type: 'meeting',
   },
   {
-    id: "3",
-    title: "Code Review: Project X",
+    id: '3',
+    title: 'Code Review: Project X',
     date: new Date(2025, 6, 29, 11, 0),
-    description: "Review pull requests for Project X.",
-    type: "code-review",
+    description: 'Review pull requests for Project X.',
+    type: 'code-review',
   },
   {
-    id: "4",
-    title: "Interview: John Smith (Backend)",
+    id: '4',
+    title: 'Interview: John Smith (Backend)',
     date: new Date(2025, 6, 30, 9, 30),
-    description: "Second round interview for Lead Backend Developer.",
-    type: "interview",
+    description: 'Second round interview for Lead Backend Developer.',
+    type: 'interview',
   },
   {
-    id: "5",
-    title: "ATS Feature Brainstorm",
+    id: '5',
+    title: 'ATS Feature Brainstorm',
     date: new Date(2025, 7, 1, 15, 0),
-    description: "Brainstorming session for new ATS features.",
-    type: "meeting",
+    description: 'Brainstorming session for new ATS features.',
+    type: 'meeting',
   },
   {
-    id: "6",
-    title: "Holiday: Independence Day",
+    id: '6',
+    title: 'Holiday: Independence Day',
     date: new Date(2025, 6, 4),
-    description: "Public holiday.",
-    type: "holiday",
+    description: 'Public holiday.',
+    type: 'holiday',
   },
   {
-    id: "7",
-    title: "Deadline: Q3 Reports",
+    id: '7',
+    title: 'Deadline: Q3 Reports',
     date: new Date(2025, 7, 5),
-    description: "Submission deadline for quarterly reports.",
-    type: "deadline",
+    description: 'Submission deadline for quarterly reports.',
+    type: 'deadline',
   },
 ];
 
@@ -83,22 +79,14 @@ interface Event {
   title: string;
   date: Date;
   description?: string;
-  type?:
-    | "interview"
-    | "meeting"
-    | "code-review"
-    | "holiday"
-    | "deadline"
-    | string;
+  type?: 'interview' | 'meeting' | 'code-review' | 'holiday' | 'deadline' | string;
 }
 
 interface CustomCalendarProps {
   events?: Event[];
 }
 
-const CustomCalendar: React.FC<CustomCalendarProps> = ({
-  events = dummyEvents,
-}) => {
+const CustomCalendar: React.FC<CustomCalendarProps> = ({ events = dummyEvents }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [isEventDialogOpen, setEventDialogOpen] = useState(false);
 
@@ -121,7 +109,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
   const eventsByDay = useMemo(() => {
     const grouped = new Map<string, Event[]>();
     events.forEach((event) => {
-      const dayKey = format(event.date, "yyyy-MM-dd");
+      const dayKey = format(event.date, 'yyyy-MM-dd');
       if (!grouped.has(dayKey)) {
         grouped.set(dayKey, []);
       }
@@ -144,28 +132,25 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
 
   const getEventTypeClasses = (type: string | undefined) => {
     switch (type) {
-      case "interview":
-        return "bg-green-100 text-green-800 border-green-200";
-      case "meeting":
-        return "bg-blue-100 text-blue-800 border-blue-200";
-      case "code-review":
-        return "bg-purple-100 text-purple-800 border-purple-200";
-      case "holiday":
-        return "bg-red-100 text-red-800 border-red-200";
-      case "deadline":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case 'interview':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'meeting':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'code-review':
+        return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'holiday':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'deadline':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   return (
     <>
       <Card className="w-full max-w-4xl mx-auto shadow-lg rounded-xl overflow-hidden">
-        <Button
-          className="w-fit self-end mr-4"
-          onClick={() => setEventDialogOpen(true)}
-        >
+        <Button className="w-fit self-end mr-4" onClick={() => setEventDialogOpen(true)}>
           <Plus />
           <span>Add Event</span>
         </Button>
@@ -175,7 +160,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
             Previous
           </Button>
           <CardTitle className="text-2xl font-bold">
-            {format(currentMonth, "MMMM yyyy", { locale: enUS })}
+            {format(currentMonth, 'MMMM yyyy', { locale: enUS })}
           </CardTitle>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm" onClick={goToNextMonth}>
@@ -189,7 +174,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
         <CardContent className="p-4">
           {/* Weekday Headers */}
           <div className="grid grid-cols-7 gap-1 mb-2 text-center font-semibold text-sm ">
-            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
               <div key={day} className="p-2">
                 {day}
               </div>
@@ -199,7 +184,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
           {/* Calendar Grid */}
           <div className="grid grid-cols-7 gap-1">
             {daysInMonthGrid.map((day, index) => {
-              const dayKey = format(day, "yyyy-MM-dd");
+              const dayKey = format(day, 'yyyy-MM-dd');
               const dayEvents = eventsByDay.get(dayKey) || [];
               const isCurrentMonth = isSameMonth(day, currentMonth);
               const isTodayDay = isToday(day);
@@ -209,22 +194,18 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
                   key={index}
                   className={`
                       h-32 p-2 border rounded-sm flex flex-col relative transition ease-in-out hover:opacity-60
-                      ${
-                        isCurrentMonth
-                          ? "bg-background border-accent"
-                          : "bg-card border-accent"
-                      }
-                      ${isTodayDay ? "bg-primary" : ""}
+                      ${isCurrentMonth ? 'bg-background border-accent' : 'bg-card border-accent'}
+                      ${isTodayDay ? 'bg-primary' : ''}
                       hover:shadow-md
                     `}
                 >
                   <span
                     className={`
                       text-sm font-medium self-end
-                      ${isTodayDay ? "text-accent" : ""}
+                      ${isTodayDay ? 'text-accent' : ''}
                     `}
                   >
-                    {format(day, "d")}
+                    {format(day, 'd')}
                   </span>
                   <div className="flex flex-col mt-1 space-y-1 overflow-hidden">
                     {dayEvents.slice(0, 2).map(
@@ -240,7 +221,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
                           `}
                           title={event.title} // Tooltip on hover
                         >
-                          {format(event.date, "HH:mm")} {event.title}
+                          {format(event.date, 'HH:mm')} {event.title}
                         </div>
                       )
                     )}
@@ -257,15 +238,13 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
                         </PopoverTrigger>
                         <PopoverContent className="w-64 p-2 bg-white shadow-lg rounded-md z-50">
                           <h4 className="font-semibold text-sm mb-2">
-                            Events on {format(day, "MMM d, yyyy")}
+                            Events on {format(day, 'MMM d, yyyy')}
                           </h4>
                           <div className="space-y-1">
                             {dayEvents.map((event) => (
                               <div key={event.id} className="text-xs">
-                                <span className="font-medium">
-                                  {format(event.date, "HH:mm")}
-                                </span>{" "}
-                                - {event.title}
+                                <span className="font-medium">{format(event.date, 'HH:mm')}</span> -{' '}
+                                {event.title}
                               </div>
                             ))}
                           </div>

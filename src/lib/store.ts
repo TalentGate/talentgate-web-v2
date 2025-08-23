@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
-import { googleApi } from "@/app/(auth)/_lib/slice";
-import { linkedinApi } from "@/app/(auth)/_lib/slice";
+import { googleApi } from '@/app/(auth)/_lib/slice';
+import { linkedinApi } from '@/app/(auth)/_lib/slice';
 import { loginApi } from '@/app/(auth)/login/_lib/slice';
 import { registerApi } from '@/app/(auth)/register/_lib/slice';
-import { usersApi } from "@/app/(company)/account/_lib/slice";
-import { logoutApi } from "@/app/_lib/slice";
+import { usersApi } from '@/app/(company)/account/_lib/slice';
+import { logoutApi } from '@/app/_lib/slice';
 
 export const store = configureStore({
   reducer: {
@@ -20,12 +20,12 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-        .concat(loginApi.middleware)
-        .concat(registerApi.middleware)
-        .concat(googleApi.middleware)
-        .concat(linkedinApi.middleware)
-        .concat(logoutApi.middleware)
-        .concat(usersApi.middleware)
+      .concat(loginApi.middleware)
+      .concat(registerApi.middleware)
+      .concat(googleApi.middleware)
+      .concat(linkedinApi.middleware)
+      .concat(logoutApi.middleware)
+      .concat(usersApi.middleware),
 });
 
 setupListeners(store.dispatch);

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import {usePathname, useRouter} from "next/navigation";
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
-import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import {
   ArrowUpCircleIcon,
   LayoutDashboardIcon,
@@ -18,14 +18,14 @@ import {
   BookUser,
   BriefcaseBusiness,
   CalendarIcon,
-} from "lucide-react";
-import {signOut} from "next-auth/react";
-import { useTheme } from "next-themes";
-import * as React from "react";
-import {toast} from "sonner";
+} from 'lucide-react';
+import { signOut } from 'next-auth/react';
+import { useTheme } from 'next-themes';
+import * as React from 'react';
+import { toast } from 'sonner';
 
-import {LogoutError, useLogoutMutation} from "@/app/_lib/slice";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LogoutError, useLogoutMutation } from '@/app/_lib/slice';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,7 +34,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   SidebarGroupContent,
   SidebarGroup,
@@ -49,9 +49,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar";
-import { cn } from "@/lib/utils";
-
+} from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 
 interface NavMainProps {
   items: {
@@ -79,8 +78,8 @@ export function NavMain({ items }: NavMainProps) {
                   <SidebarMenuButton
                     className={
                       path === item.url
-                        ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
-                        : ""
+                        ? 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
+                        : ''
                     }
                     asChild
                   >
@@ -107,8 +106,8 @@ export function NavMain({ items }: NavMainProps) {
                           href={subItem.url}
                           className={cn([
                             path === subItem.url
-                              ? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
-                              : "",
+                              ? 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
+                              : '',
                           ])}
                         >
                           {subItem.title}
@@ -145,14 +144,16 @@ export function NavUser({
       await logout({}).unwrap();
     } catch (err) {
       toast.error('Authentication Failed', {
-        description: ((err as FetchBaseQueryError)?.data as LogoutError)?.detail || 'Something went wrong. Please try again later.',
+        description:
+          ((err as FetchBaseQueryError)?.data as LogoutError)?.detail ||
+          'Something went wrong. Please try again later.',
       });
     }
   };
 
   React.useEffect(() => {
     if (isLogoutSuccess) {
-      signOut({callbackUrl: '/login'});
+      signOut({ callbackUrl: '/login' });
     }
   }, [isLogoutSuccess, router]);
 
@@ -171,16 +172,14 @@ export function NavUser({
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs text-muted-foreground">
-                  {user.email}
-                </span>
+                <span className="truncate text-xs text-muted-foreground">{user.email}</span>
               </div>
               <MoreVerticalIcon className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? 'bottom' : 'right'}
             align="end"
             sideOffset={4}
           >
@@ -192,22 +191,18 @@ export function NavUser({
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    {user.email}
-                  </span>
+                  <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              >
+              <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
                 <MoonIcon />
                 Dark Mode
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={"/account"}>
+                <Link href={'/account'}>
                   <UserCircleIcon />
                   Account
                 </Link>
@@ -218,9 +213,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-                onClick={handleLogoutSubmit}
-            >
+            <DropdownMenuItem onClick={handleLogoutSubmit}>
               <LogOutIcon />
               Log out
             </DropdownMenuItem>
@@ -233,67 +226,67 @@ export function NavUser({
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: 'shadcn',
+    email: 'm@example.com',
+    avatar: '/avatars/shadcn.jpg',
   },
   navMain: [
     {
-      title: "Dashboard",
-      url: "/dashboard",
+      title: 'Dashboard',
+      url: '/dashboard',
       icon: LayoutDashboardIcon,
     },
     {
-      title: "Jobs",
-      url: "/jobs",
+      title: 'Jobs',
+      url: '/jobs',
       icon: Briefcase,
     },
     {
-      title: "Applications",
-      url: "/applications",
+      title: 'Applications',
+      url: '/applications',
       icon: BookUser,
     },
     {
-      title: "Events",
-      url: "/events",
+      title: 'Events',
+      url: '/events',
       icon: CalendarIcon,
       subItems: [
         {
-          title: "Event Calendar",
-          url: "/events/event-calendar",
+          title: 'Event Calendar',
+          url: '/events/event-calendar',
         },
         {
-          title: "Event List",
-          url: "/events/event-list",
+          title: 'Event List',
+          url: '/events/event-list',
         },
       ],
     },
     {
-      title: "Company Settings",
-      url: "/company-settings/company-information",
+      title: 'Company Settings',
+      url: '/company-settings/company-information',
       icon: SettingsIcon,
       subItems: [
         {
-          title: "Company Information",
-          url: "/company-settings/company-information",
+          title: 'Company Information',
+          url: '/company-settings/company-information',
         },
         {
-          title: "Employees",
-          url: "/company-settings/employees",
+          title: 'Employees',
+          url: '/company-settings/employees',
         },
         {
-          title: "Billing and Subscription",
-          url: "/company-settings/billing-and-subscription",
+          title: 'Billing and Subscription',
+          url: '/company-settings/billing-and-subscription',
         },
         {
-          title: "Contact Talentgate",
-          url: "/company-settings/contact-talentgate",
+          title: 'Contact Talentgate',
+          url: '/company-settings/contact-talentgate',
         },
       ],
     },
     {
-      title: "Careers Page",
-      url: "/careers",
+      title: 'Careers Page',
+      url: '/careers',
       icon: BriefcaseBusiness,
     },
   ],
@@ -305,10 +298,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
               <a href="/dashboard">
                 <ArrowUpCircleIcon className="h-5 w-5" />
                 <span className="text-base font-semibold">TalentGate</span>

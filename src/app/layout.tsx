@@ -4,13 +4,11 @@ import './globals.css';
 
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider } from 'next-auth/react';
 import { Provider } from 'react-redux';
 
-
+import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { ThemeProvider } from "@/components/theme-provider"
-
 import { store } from '@/lib/store';
 
 const geistSans = Geist({
@@ -31,19 +29,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <SessionProvider>
+        <SessionProvider>
           <Provider store={store}>
             <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
             </ThemeProvider>
-        </Provider>
-      </SessionProvider>
-      <Toaster richColors={true}/>
+          </Provider>
+        </SessionProvider>
+        <Toaster richColors={true} />
       </body>
     </html>
   );

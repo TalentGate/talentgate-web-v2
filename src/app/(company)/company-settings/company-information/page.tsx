@@ -1,6 +1,7 @@
-import Header from "@/components/section/header";
-import CompanyOverview from "./_components/card/company-overview";
-import CompanyAddress from "./_components/card/company-address";
+import Header from '@/components/section/header';
+
+import CompanyAddress from './_components/card/company-address';
+import CompanyOverview from './_components/card/company-overview';
 
 const CompanyInformation = () => {
   return (

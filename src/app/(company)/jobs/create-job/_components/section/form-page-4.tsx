@@ -1,5 +1,6 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { LinkedinIcon, PanelTop, TwitterIcon } from "lucide-react";
+import { LinkedinIcon, PanelTop, TwitterIcon } from 'lucide-react';
+
+import { Checkbox } from '@/components/ui/checkbox';
 
 const FormPage4 = () => {
   return (

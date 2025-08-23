@@ -2,6 +2,8 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,12 +14,15 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {
       import: importPlugin,
+      prettier: prettierPlugin,
     },
     rules: {
+      // Import order rules
       'import/order': [
         'error',
         {
@@ -49,6 +54,12 @@ const eslintConfig = [
           },
         },
       ],
+      'prettier/prettier': 'error',
+    },
+  },
+  {
+    rules: {
+      ...prettierConfig.rules,
     },
   },
 ];

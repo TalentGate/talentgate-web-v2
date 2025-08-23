@@ -4,9 +4,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
-const filter_options = ["Remote", "Hybrid", "On-Site"];
+const filter_options = ['Remote', 'Hybrid', 'On-Site'];
 
 const LocationTypeFilter = () => {
   return (

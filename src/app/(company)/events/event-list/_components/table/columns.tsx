@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 // import Link from "next/link";
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from '@tanstack/react-table';
 // import { set } from "date-fns";
-import { MoreHorizontal } from "lucide-react";
-import { useState } from "react";
+import { MoreHorizontal } from 'lucide-react';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 // import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -16,10 +16,10 @@ import {
   // DropdownMenuLabel,
   // DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
-import { DataTableColumnHeader } from "./column-header";
-import EventDialog from "../../../_components/dialog/event-dialog";
+import { DataTableColumnHeader } from './column-header';
+import EventDialog from '../../../_components/dialog/event-dialog';
 
 export interface EventType {
   id: string;
@@ -58,14 +58,10 @@ function ActionsCell() {
         open={dialogOpen}
         setOpen={setDialogOpen}
         eventFields={{
-          title: "Sample Event",
-          date: new Date("2023-10-01T10:00:00"),
-          link: "https://example.com",
-          attendees: [
-            "john.doe@gmail.com",
-            "jane.smith@gmail.com",
-            "jane.smith@gmail.com",
-          ],
+          title: 'Sample Event',
+          date: new Date('2023-10-01T10:00:00'),
+          link: 'https://example.com',
+          attendees: ['john.doe@gmail.com', 'jane.smith@gmail.com', 'jane.smith@gmail.com'],
         }}
       />
     </div>
@@ -96,7 +92,7 @@ export const columns: ColumnDef<EventType>[] = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Title" />;
     },
@@ -106,19 +102,17 @@ export const columns: ColumnDef<EventType>[] = [
     },
   },
   {
-    accessorKey: "date",
+    accessorKey: 'date',
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Date & Time" />;
     },
     cell: ({ row }) => {
       const event = row.original;
-      return (
-        <p className="text-muted-foreground">{event.date.toLocaleString()}</p>
-      );
+      return <p className="text-muted-foreground">{event.date.toLocaleString()}</p>;
     },
   },
   {
-    accessorKey: "link",
+    accessorKey: 'link',
     // header: ({ column }) => {
     //   return <DataTableColumnHeader column={column} title="Link" />;
     // },
@@ -138,20 +132,18 @@ export const columns: ColumnDef<EventType>[] = [
     },
   },
   {
-    accessorKey: "attendees",
+    accessorKey: 'attendees',
     // header: ({ column }) => {
     //   return <DataTableColumnHeader column={column} title="Attendees" />;
     // },
     header: () => <div>Attendees</div>,
     cell: ({ row }) => {
       const event = row.original;
-      return (
-        <p className="text-muted-foreground">{event.attendees?.toString()}</p>
-      );
+      return <p className="text-muted-foreground">{event.attendees?.toString()}</p>;
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     header: () => <div className="text-right">Actions</div>,
     cell: () => <ActionsCell />,
   },

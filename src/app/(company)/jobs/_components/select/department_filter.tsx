@@ -4,15 +4,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
-const filter_options = [
-  "Engineering",
-  "Design",
-  "Product",
-  "Sales",
-  "Marketing",
-];
+const filter_options = ['Engineering', 'Design', 'Product', 'Sales', 'Marketing'];
 
 const DepartmentFilter = () => {
   return (

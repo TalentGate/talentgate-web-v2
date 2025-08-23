@@ -1,5 +1,6 @@
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
-import { Users } from "lucide-react";
+import { Users } from 'lucide-react';
+
+import { Card, CardContent, CardDescription } from '@/components/ui/card';
 
 const TotalApplications = () => {
   return (

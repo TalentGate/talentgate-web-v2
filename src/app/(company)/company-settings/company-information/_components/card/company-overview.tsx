@@ -1,16 +1,11 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { SaveIcon } from "lucide-react";
+import { SaveIcon } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 const CompanyOverview = () => {
   return (
@@ -40,7 +35,7 @@ const CompanyOverview = () => {
           <SaveIcon />
           <span>Save Changes</span>
         </Button>
-        <Button variant={"outline"} className="h-full">
+        <Button variant={'outline'} className="h-full">
           Cancel
         </Button>
       </CardFooter>

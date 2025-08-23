@@ -1,12 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import Link from 'next/link';
+
 import {
   Briefcase,
   Copy,
@@ -18,9 +11,11 @@ import {
   SquarePen,
   Trash2,
   Users,
-} from "lucide-react";
-import { Job } from "../../page";
-import Link from "next/link";
+} from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,7 +23,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
+
+import { Job } from '../../page';
 
 interface JobItemProps {
   job: Job;
@@ -60,7 +57,7 @@ const JobItem = ({ job }: JobItemProps) => {
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant={"ghost"}>
+              <Button variant={'ghost'}>
                 <Ellipsis />
               </Button>
             </DropdownMenuTrigger>
@@ -92,15 +89,9 @@ const JobItem = ({ job }: JobItemProps) => {
 
       <CardContent className="space-y-4">
         <>
-          {job.type === "Full-time" && (
-            <Badge variant={"full_time"}>{job.type}</Badge>
-          )}
-          {job.type === "Part-time" && (
-            <Badge variant={"part_time"}>{job.type}</Badge>
-          )}
-          {job.type === "Internship" && (
-            <Badge variant={"internship"}>{job.type}</Badge>
-          )}
+          {job.type === 'Full-time' && <Badge variant={'full_time'}>{job.type}</Badge>}
+          {job.type === 'Part-time' && <Badge variant={'part_time'}>{job.type}</Badge>}
+          {job.type === 'Internship' && <Badge variant={'internship'}>{job.type}</Badge>}
         </>
 
         <div className="flex flex-col gap-2">
@@ -114,9 +105,7 @@ const JobItem = ({ job }: JobItemProps) => {
           </CardDescription>
           <CardDescription className="flex justify-between">
             <span>Total Applicants:</span>
-            <span className="font-bold text-primary">
-              {job.total_applicants}
-            </span>
+            <span className="font-bold text-primary">{job.total_applicants}</span>
           </CardDescription>
         </div>
 
@@ -127,7 +116,7 @@ const JobItem = ({ job }: JobItemProps) => {
               <span>View Job Pipeline</span>
             </Link>
           </Button>
-          <Button variant={"outline"} className="w-1/4" asChild>
+          <Button variant={'outline'} className="w-1/4" asChild>
             <Link href={`/jobs/${job.id}/edit-job`}>
               <NotebookPen />
               <span>Edit</span>

@@ -1,5 +1,6 @@
-import Header from "@/components/section/header";
-import AddEmployee from "./_components/card/add-employee";
+import Header from '@/components/section/header';
+
+import AddEmployee from './_components/card/add-employee';
 
 const NewEmployee = () => {
   return (

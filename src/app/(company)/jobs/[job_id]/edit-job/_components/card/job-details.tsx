@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { SaveIcon } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -6,19 +8,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { SaveIcon } from "lucide-react";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 const JobDetails = () => {
   return (
@@ -61,9 +62,7 @@ const JobDetails = () => {
                 <SelectValue placeholder="Select Location" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Istanbul, Turkey">
-                  Istanbul, Turkey
-                </SelectItem>
+                <SelectItem value="Istanbul, Turkey">Istanbul, Turkey</SelectItem>
                 <SelectItem value="Ankara, Turkey">Ankara, Turkey</SelectItem>
                 <SelectItem value="Talinn, Estonia">Talinn, Estonia</SelectItem>
                 <SelectItem value="EMEA">EMEA</SelectItem>
@@ -73,10 +72,7 @@ const JobDetails = () => {
 
           <div className="grid gap-2">
             <Label htmlFor="jobRemote">Job Type</Label>
-            <RadioGroup
-              defaultValue={"Full-Time"}
-              className="space-y-1 lg:flex lg:gap-6"
-            >
+            <RadioGroup defaultValue={'Full-Time'} className="space-y-1 lg:flex lg:gap-6">
               <div className="self-end flex items-center space-x-2">
                 <RadioGroupItem value="Full-Time" id="Full-Time" />
                 <Label htmlFor="Full-Time">Full-Time</Label>
@@ -94,10 +90,7 @@ const JobDetails = () => {
 
           <div className="grid gap-2">
             <Label htmlFor="jobRemote">Location Type</Label>
-            <RadioGroup
-              defaultValue={"On-Site"}
-              className="space-y-1 lg:flex lg:gap-6"
-            >
+            <RadioGroup defaultValue={'On-Site'} className="space-y-1 lg:flex lg:gap-6">
               <div className="self-end flex items-center space-x-2">
                 <RadioGroupItem value="On-Site" id="On-Site" />
                 <Label htmlFor="On-Site">On-Site</Label>

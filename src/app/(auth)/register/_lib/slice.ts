@@ -1,22 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface RegisterResponse {
-    firstname?: string;
-    lastname?: string;
-    username?: string;
-    email?: string;
+  firstname?: string;
+  lastname?: string;
+  username?: string;
+  email?: string;
 }
 
 export interface RegisterRequest {
-    firstname?: string;
-    lastname?: string;
-    username?: string;
-    email?: string;
-    password?: string;
+  firstname?: string;
+  lastname?: string;
+  username?: string;
+  email?: string;
+  password?: string;
 }
 
 export interface RegisterError {
-    detail: string;
+  detail: string;
 }
 
 export const registerApi = createApi({

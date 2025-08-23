@@ -1,3 +1,5 @@
+import { Video, Users } from 'lucide-react';
+
 import {
   Card,
   CardContent,
@@ -5,8 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Video, Users } from "lucide-react";
+} from '@/components/ui/card';
 
 const UpcomingInterviews = () => {
   return (
@@ -21,13 +22,9 @@ const UpcomingInterviews = () => {
             <CardContent className="flex items-center gap-4">
               <Video />
               <div>
-                <CardDescription className="text-foreground">
-                  John Smith
-                </CardDescription>
+                <CardDescription className="text-foreground">John Smith</CardDescription>
                 <CardDescription>Frontend Developer</CardDescription>
-                <CardDescription className="text-foreground">
-                  Jan 15th 2025, 10:00
-                </CardDescription>
+                <CardDescription className="text-foreground">Jan 15th 2025, 10:00</CardDescription>
               </div>
             </CardContent>
             <CardFooter className="space-x-2">

@@ -1,17 +1,15 @@
-"use client";
+'use client';
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { CalendarIcon, ClockIcon, Users, Webcam } from "lucide-react";
-import Link from "next/link";
+import Link from 'next/link';
+
+import { format } from 'date-fns';
+import { CalendarIcon, ClockIcon, Users, Webcam } from 'lucide-react';
+import { useState } from 'react';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -19,16 +17,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 export const MeetingItem = () => {
   return (
@@ -64,7 +56,7 @@ export const MeetingItem = () => {
           <Label>
             <Webcam />
             <Link
-              href={"/applications"}
+              href={'/applications'}
               className="text-purple-400 hover:opacity-60 hover:underline"
             >
               Meeting Link
@@ -104,7 +96,7 @@ const SetMeeting = () => {
               <PopoverTrigger asChild>
                 <Button variant="outline" className="w-full">
                   <CalendarIcon />
-                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                  {date ? format(date, 'PPP') : <span>Pick a date</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">

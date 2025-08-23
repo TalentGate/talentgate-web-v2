@@ -1,22 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface LoginResponse {
-    access_token?: string;
-    refresh_token?: string;
+  access_token?: string;
+  refresh_token?: string;
 }
 
 export interface LoginRequest {
-    email?: string;
-    password?: string;
+  email?: string;
+  password?: string;
 }
 
 export interface LoginError {
-    detail: string;
+  detail: string;
 }
 
 export const loginApi = createApi({
   reducerPath: 'loginApi',
-  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth`, credentials: "include" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth`,
+    credentials: 'include',
+  }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (body) => ({

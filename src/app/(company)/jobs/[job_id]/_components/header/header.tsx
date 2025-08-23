@@ -1,12 +1,7 @@
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import {
-  LaptopIcon,
-  MapPin,
-  BuildingIcon,
-  EllipsisIcon,
-  PlusIcon,
-} from "lucide-react";
+import { LaptopIcon, MapPin, BuildingIcon, EllipsisIcon, PlusIcon } from 'lucide-react';
+
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 
 interface HeaderProps {
   job_id?: string | undefined;
@@ -19,15 +14,15 @@ const Header = ({ job_id }: HeaderProps) => {
         <h1 className="text-2xl font-semibold">Job Title {job_id}</h1>
 
         <div className="flex gap-2 h-fit items-center">
-          <Badge variant={"outline"}>
+          <Badge variant={'outline'}>
             <LaptopIcon />
             <p>Location Type</p>
           </Badge>
-          <Badge variant={"outline"}>
+          <Badge variant={'outline'}>
             <MapPin />
             <p>Location</p>
           </Badge>
-          <Badge variant={"outline"}>
+          <Badge variant={'outline'}>
             <BuildingIcon />
             <p>Department</p>
           </Badge>

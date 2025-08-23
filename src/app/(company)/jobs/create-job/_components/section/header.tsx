@@ -1,5 +1,5 @@
 interface HeaderProps {
-  formPage: Number;
+  formPage: number;
 }
 
 const Header = ({ formPage }: HeaderProps) => {
@@ -8,8 +8,8 @@ const Header = ({ formPage }: HeaderProps) => {
       <h2 className="text-2xl font-semibold">Create New Job</h2>
       {formPage === 1 && (
         <p className="text-muted-foreground text-sm">
-          Define title, description, department, location and location type of
-          the job position to be created.
+          Define title, description, department, location and location type of the job position to
+          be created.
         </p>
       )}
 

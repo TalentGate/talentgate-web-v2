@@ -1,12 +1,13 @@
-import Header from "@/components/section/header";
-import AverageTimeToHire from "./_components/card/average-time-to-hire";
-import InterviewsScheduledToday from "./_components/card/interviews-scheduled-today copy";
-import LongestActiveJob from "./_components/card/longest-active-job";
-import NewApplicantsToday from "./_components/card/new-applicants-today";
-import OverallPipelinesOverview from "./_components/card/overall-pipelines-overview";
-import TotalActiveJobs from "./_components/card/total-active-jobs";
-import TotalApplications from "./_components/card/total-applications";
-import UpcomingInterviews from "./_components/card/upcoming-interviews";
+import Header from '@/components/section/header';
+
+import AverageTimeToHire from './_components/card/average-time-to-hire';
+import InterviewsScheduledToday from './_components/card/interviews-scheduled-today copy';
+import LongestActiveJob from './_components/card/longest-active-job';
+import NewApplicantsToday from './_components/card/new-applicants-today';
+import OverallPipelinesOverview from './_components/card/overall-pipelines-overview';
+import TotalActiveJobs from './_components/card/total-active-jobs';
+import TotalApplications from './_components/card/total-applications';
+import UpcomingInterviews from './_components/card/upcoming-interviews';
 
 export default function Dashboard() {
   return (

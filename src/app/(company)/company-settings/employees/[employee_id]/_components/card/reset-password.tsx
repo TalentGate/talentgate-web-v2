@@ -1,11 +1,7 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { RotateCcwIcon } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
 import {
   Dialog,
   DialogClose,
@@ -15,8 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { RotateCcwIcon } from "lucide-react";
+} from '@/components/ui/dialog';
 
 const ResetPassword = () => {
   return (
@@ -24,9 +19,8 @@ const ResetPassword = () => {
       <CardHeader>
         <CardTitle>Reset Employee Password</CardTitle>
         <CardDescription>
-          From this section you can trigger a reset password action for the
-          selected employee. If selected, a reset password link will be sent to
-          the employee's email address.
+          From this section you can trigger a reset password action for the selected employee. If
+          selected, a reset password link will be sent to the employee's email address.
         </CardDescription>
       </CardHeader>
 
@@ -43,18 +37,18 @@ const ResetPassword = () => {
               <DialogTitle>Are you sure?</DialogTitle>
             </DialogHeader>
             <DialogDescription>
-              You are about to reset the employee's password. Are you sure you
-              want to proceed with this action?
+              You are about to reset the employee's password. Are you sure you want to proceed with
+              this action?
             </DialogDescription>
             <DialogFooter>
               <Button>Reset Password</Button>
               <DialogClose asChild>
-                <Button variant={"ghost"}>Cancel</Button>
+                <Button variant={'ghost'}>Cancel</Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        <Button variant={"outline"} className="h-full">
+        <Button variant={'outline'} className="h-full">
           Cancel
         </Button>
       </CardFooter>

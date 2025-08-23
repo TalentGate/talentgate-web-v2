@@ -1,14 +1,15 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { X } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { X } from "lucide-react";
+} from '@/components/ui/select';
 
 interface FormPage3Props {
   mockAddObserversFormStep: string[];
@@ -37,10 +38,7 @@ const FormPage3 = ({ mockAddObserversFormStep }: FormPage3Props) => {
         <ScrollArea>
           <ul className="grid gap-2 max-h-[40dvh]">
             {mockAddObserversFormStep.map((observer, i) => (
-              <li
-                className="p-4 rounded-md border flex justify-between"
-                key={i}
-              >
+              <li className="p-4 rounded-md border flex justify-between" key={i}>
                 <div className="flex items-center gap-2">
                   <Avatar>
                     <AvatarImage
@@ -51,7 +49,7 @@ const FormPage3 = ({ mockAddObserversFormStep }: FormPage3Props) => {
                   </Avatar>
                   <p>{observer}</p>
                 </div>
-                <Button variant={"ghost"}>
+                <Button variant={'ghost'}>
                   <X />
                 </Button>
               </li>

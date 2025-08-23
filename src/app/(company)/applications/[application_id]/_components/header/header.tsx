@@ -1,7 +1,10 @@
-"use client";
+'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { ArrowLeftRight, Calendar, Download, Ellipsis, Mail, Phone } from 'lucide-react';
+import { useState } from 'react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,16 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  ArrowLeftRight,
-  Calendar,
-  Download,
-  Ellipsis,
-  Mail,
-  Phone,
-} from "lucide-react";
-import { useState } from "react";
+} from '@/components/ui/dropdown-menu';
 
 interface HeaderProps {
   applicant_name: string;
@@ -26,11 +20,7 @@ interface HeaderProps {
   applied_at: string;
 }
 
-const Header = ({
-  applicant_name,
-  application_position,
-  applied_at,
-}: HeaderProps) => {
+const Header = ({ applicant_name, application_position, applied_at }: HeaderProps) => {
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
 
   return (
@@ -50,7 +40,7 @@ const Header = ({
 
       <DropdownMenu open={openDropdownMenu} onOpenChange={setOpenDropdownMenu}>
         <DropdownMenuTrigger asChild>
-          <Button variant={"ghost"}>
+          <Button variant={'ghost'}>
             <Ellipsis />
           </Button>
         </DropdownMenuTrigger>

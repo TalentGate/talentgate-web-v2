@@ -1,4 +1,7 @@
-"use client";
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import {
   Breadcrumb,
@@ -7,20 +10,16 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+} from '@/components/ui/breadcrumb';
 
 function getBreadcrumbs(path: string) {
-  const segments = path.split("/").filter(Boolean);
+  const segments = path.split('/').filter(Boolean);
   const breadcrumbs = [];
-  let currentPath = "";
+  let currentPath = '';
 
   for (let i = 0; i < segments.length; i++) {
-    currentPath += "/" + segments[i];
-    const label = segments[i]
-      .replace(/-/g, " ")
-      .replace(/\b\w/g, (l) => l.toUpperCase());
+    currentPath += '/' + segments[i];
+    const label = segments[i].replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
     breadcrumbs.push({
       href: currentPath,
       label,
@@ -41,7 +40,7 @@ const AppBreadcrumb = () => {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href={"/dashboard"}>TalentGate</Link>
+            <Link href={'/dashboard'}>TalentGate</Link>
           </BreadcrumbLink>
           <BreadcrumbSeparator />
         </BreadcrumbItem>

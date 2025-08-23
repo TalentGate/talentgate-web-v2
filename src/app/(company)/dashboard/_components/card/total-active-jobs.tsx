@@ -1,5 +1,6 @@
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
-import { Briefcase } from "lucide-react";
+import { Briefcase } from 'lucide-react';
+
+import { Card, CardContent, CardDescription } from '@/components/ui/card';
 
 const TotalActiveJobs = () => {
   return (

@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -8,9 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import Link from "next/link";
-
+} from '@/components/ui/dialog';
 
 interface CtaGroupProps {
   formPage: number;
@@ -31,7 +31,7 @@ const CtaGroup = ({ formPage, setFormPage }: CtaGroupProps) => {
       {formPage !== 4 && (
         <Button
           type="submit"
-          variant={"secondary"}
+          variant={'secondary'}
           className="w-full"
           onClick={() => {
             if (1 <= formPage && formPage <= 4) setFormPage(formPage + 1);
@@ -52,15 +52,13 @@ const CtaGroup = ({ formPage, setFormPage }: CtaGroupProps) => {
           <DialogHeader>
             <DialogTitle>Are you sure?</DialogTitle>
           </DialogHeader>
-          <DialogDescription>
-            If you cancel, all your changes will be lost.
-          </DialogDescription>
+          <DialogDescription>If you cancel, all your changes will be lost.</DialogDescription>
           <DialogFooter className="w-full">
-            <Button variant={"destructive"} asChild>
-              <Link href={"/jobs"}>Yes, I'm sure</Link>
+            <Button variant={'destructive'} asChild>
+              <Link href={'/jobs'}>Yes, I'm sure</Link>
             </Button>
             <DialogClose asChild>
-              <Button variant={"ghost"}>No</Button>
+              <Button variant={'ghost'}>No</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>

@@ -1,18 +1,13 @@
-"use client";
+'use client';
 
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import {
-  ClockIcon,
-  EllipsisVerticalIcon,
-  NotebookPen,
-  StarIcon,
-} from "lucide-react";
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { ClockIcon, EllipsisVerticalIcon, NotebookPen, StarIcon } from 'lucide-react';
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 interface ItemProps {
   id: number;
@@ -33,17 +28,10 @@ interface ItemProps {
 const Item = ({ item }: { item: ItemProps }) => {
   const { id, firstname, lastname, rating, comment_count, created_at } = item;
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: id,
     data: {
-      type: "item",
+      type: 'item',
       item,
     },
   });
@@ -55,10 +43,9 @@ const Item = ({ item }: { item: ItemProps }) => {
 
   return (
     <Card
-      className={cn(
-        "bg-background hover:ring-2 hover:ring-primary hover:cursor-pointer",
-        [isDragging && "opacity-50 ring-2 ring-primary"]
-      )}
+      className={cn('bg-background hover:ring-2 hover:ring-primary hover:cursor-pointer', [
+        isDragging && 'opacity-50 ring-2 ring-primary',
+      ])}
       style={style}
       ref={setNodeRef}
       {...attributes}
@@ -78,7 +65,7 @@ const Item = ({ item }: { item: ItemProps }) => {
           </div>
         </div>
 
-        <Button variant={"ghost"}>
+        <Button variant={'ghost'}>
           <EllipsisVerticalIcon />
         </Button>
       </CardHeader>

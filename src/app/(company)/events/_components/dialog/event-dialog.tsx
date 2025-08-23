@@ -1,31 +1,16 @@
-"use client";
+'use client';
 
-import { ChevronDownIcon, Plus, SaveIcon } from "lucide-react";
-import React, { useState } from "react";
+import { ChevronDownIcon, Plus, SaveIcon } from 'lucide-react';
+import React, { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Dialog, DialogContent, DialogFooter, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
-function DateAndTimePicker({
-  date,
-  setDate,
-}: {
-  date: Date;
-  setDate: (date: Date) => void;
-}) {
+function DateAndTimePicker({ date, setDate }: { date: Date; setDate: (date: Date) => void }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -33,12 +18,8 @@ function DateAndTimePicker({
       <div className="flex flex-col gap-3 w-1/2">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              id="date-picker"
-              className=" justify-between font-normal"
-            >
-              {date ? date.toLocaleDateString() : "Select date"}
+            <Button variant="outline" id="date-picker" className=" justify-between font-normal">
+              {date ? date.toLocaleDateString() : 'Select date'}
               <ChevronDownIcon />
             </Button>
           </PopoverTrigger>
@@ -68,17 +49,12 @@ function DateAndTimePicker({
         <Input
           type="time"
           id="time-picker"
-          defaultValue={date?.toISOString().substring(11, 16) || ""}
+          defaultValue={date?.toISOString().substring(11, 16) || ''}
           className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
           onChange={(e) => {
-            const timeParts = e.target.value.split(":");
+            const timeParts = e.target.value.split(':');
             const newDate = new Date(date);
-            newDate.setHours(
-              parseInt(timeParts[0]),
-              parseInt(timeParts[1]),
-              0,
-              0
-            );
+            newDate.setHours(parseInt(timeParts[0]), parseInt(timeParts[1]), 0, 0);
           }}
         />
       </div>
@@ -100,14 +76,14 @@ function EventAttendees({
           key={index}
           placeholder={`Attendee ${index + 1} Email`}
           className="bg-background w-full"
-          defaultValue={attendees[index] || ""}
+          defaultValue={attendees[index] || ''}
         />
       ))}
       <Button
-        variant={"secondary"}
+        variant={'secondary'}
         className="w-full"
         onClick={() => {
-          setAttendees?.([...attendees, ""]);
+          setAttendees?.([...attendees, '']);
         }}
       >
         <Plus />
@@ -133,12 +109,10 @@ function EventDialog({
   setOpen?: (open: boolean) => void;
   eventFields?: EditEventFieldsSchema;
 }) {
-  const [title, setTitle] = useState<string>(eventFields?.title || "");
-  const [link, setLink] = useState<string>(eventFields?.link || "");
+  const [title, setTitle] = useState<string>(eventFields?.title || '');
+  const [link, setLink] = useState<string>(eventFields?.link || '');
   const [date, setDate] = useState<Date>(eventFields?.date || new Date());
-  const [attendees, setAttendees] = useState<string[]>(
-    eventFields?.attendees || ["", ""]
-  );
+  const [attendees, setAttendees] = useState<string[]>(eventFields?.attendees || ['', '']);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

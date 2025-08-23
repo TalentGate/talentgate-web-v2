@@ -1,5 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { SaveIcon, UserPlus } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardHeader,
@@ -7,17 +9,16 @@ import {
   CardFooter,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { SaveIcon, UserPlus } from "lucide-react";
+} from '@/components/ui/select';
 
 const AddEmployee = () => {
   return (
@@ -33,7 +34,7 @@ const AddEmployee = () => {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 
-          <Button variant={"secondary"}>Select photo</Button>
+          <Button variant={'secondary'}>Select photo</Button>
         </div>
 
         <div className="grid gap-4 grid-cols-2">
@@ -69,10 +70,10 @@ const AddEmployee = () => {
                 <SelectValue placeholder="Choose User Role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={"owner"}>
+                <SelectItem value={'owner'}>
                   <span>OWNER</span>
                 </SelectItem>
-                <SelectItem value={"admin"}>
+                <SelectItem value={'admin'}>
                   <span>ADMIN</span>
                 </SelectItem>
               </SelectContent>
@@ -85,7 +86,7 @@ const AddEmployee = () => {
           <UserPlus />
           <span>Create employee</span>
         </Button>
-        <Button variant={"outline"} className="h-full">
+        <Button variant={'outline'} className="h-full">
           Cancel
         </Button>
       </CardFooter>

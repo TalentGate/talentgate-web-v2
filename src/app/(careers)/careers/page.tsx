@@ -1,6 +1,7 @@
-import Header from "@/components/section/header";
-import SearchAndFilterGroup from "./_components/section/search-and-filter-group";
-import JobGrid from "./_components/section/job-grid";
+import Header from '@/components/section/header';
+
+import JobGrid from './_components/section/job-grid';
+import SearchAndFilterGroup from './_components/section/search-and-filter-group';
 
 const Careers = () => {
   return (

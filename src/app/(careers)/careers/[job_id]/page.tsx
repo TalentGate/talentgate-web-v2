@@ -1,7 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import Link from 'next/link';
+
 import {
   Building,
   Check,
@@ -10,14 +8,18 @@ import {
   Clock,
   Laptop,
   MapPin,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
+} from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const CareerDetails = () => {
   return (
     <main className="p-6 space-y-6 h-full w-full min-h-[85dvh]">
-      <Button asChild variant={"outline"} className="mb-6">
+      <Button asChild variant={'outline'} className="mb-6">
         <Link href="/careers">
           <ChevronLeft />
           <span>Back to Careers Page</span>
@@ -26,27 +28,25 @@ const CareerDetails = () => {
 
       <Card className="w-1/2 mx-auto">
         <CardHeader className="space-y-2">
-          <CardTitle className="text-2xl font-bold">
-            Software Quality Assurance Engineer
-          </CardTitle>
+          <CardTitle className="text-2xl font-bold">Software Quality Assurance Engineer</CardTitle>
           <div className="flex items-center gap-4 flex-wrap">
-            <Badge variant={"outline"}>
+            <Badge variant={'outline'}>
               <Building className="size-5" />
               Engineering
             </Badge>
-            <Badge variant={"outline"}>
+            <Badge variant={'outline'}>
               <Laptop className="size-5" />
               Remote
             </Badge>
-            <Badge variant={"outline"}>
+            <Badge variant={'outline'}>
               <Clock className="size-5" />
               Full-Time
             </Badge>
-            <Badge variant={"outline"}>
+            <Badge variant={'outline'}>
               <MapPin className="size-5" />
               Istanbul, Turkey
             </Badge>
-            <Badge variant={"outline"}>
+            <Badge variant={'outline'}>
               <CircleDollarSign className="size-5" />
               120k$ - 150k$
             </Badge>
@@ -58,24 +58,19 @@ const CareerDetails = () => {
         <CardContent className="space-y-4">
           <CardTitle className="font-bold">Job Description</CardTitle>
           <p className="leading-relaxed text-muted-foreground">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-            molestiae facere sequi alias nam est quisquam aperiam ab qui. Autem
-            cumque harum aut unde perspiciatis labore est tenetur, culpa
-            pariatur! Possimus omnis sequi sit quo, commodi veritatis incidunt!
-            Exercitationem sit enim quidem reprehenderit porro vero nam, ratione
-            illo magni sunt, vel fuga assumenda autem rerum? Totam repellat
-            aspernatur neque magnam! Odio excepturi dolorem perferendis suscipit
-            omnis delectus enim exercitationem a eius aut quo similique deserunt
-            repellendus dignissimos dicta, dolor atque aliquam harum ex cum
-            possimus. Laudantium totam corrupti quam quo. Minus, dolorem minima
-            voluptatum accusantium repudiandae quis similique atque officiis id
-            incidunt! Molestias recusandae consectetur, aperiam molestiae
-            doloribus saepe eveniet voluptatem alias, voluptate ducimus quos
-            autem voluptatum perspiciatis possimus quae. Rerum voluptate,
-            adipisci veniam ea mollitia ullam, at cum, commodi repudiandae eius
-            nostrum quam! Illum iusto quisquam deleniti enim assumenda hic
-            voluptates impedit, consectetur, voluptatum eius facilis accusamus
-            at id.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem molestiae facere sequi
+            alias nam est quisquam aperiam ab qui. Autem cumque harum aut unde perspiciatis labore
+            est tenetur, culpa pariatur! Possimus omnis sequi sit quo, commodi veritatis incidunt!
+            Exercitationem sit enim quidem reprehenderit porro vero nam, ratione illo magni sunt,
+            vel fuga assumenda autem rerum? Totam repellat aspernatur neque magnam! Odio excepturi
+            dolorem perferendis suscipit omnis delectus enim exercitationem a eius aut quo similique
+            deserunt repellendus dignissimos dicta, dolor atque aliquam harum ex cum possimus.
+            Laudantium totam corrupti quam quo. Minus, dolorem minima voluptatum accusantium
+            repudiandae quis similique atque officiis id incidunt! Molestias recusandae consectetur,
+            aperiam molestiae doloribus saepe eveniet voluptatem alias, voluptate ducimus quos autem
+            voluptatum perspiciatis possimus quae. Rerum voluptate, adipisci veniam ea mollitia
+            ullam, at cum, commodi repudiandae eius nostrum quam! Illum iusto quisquam deleniti enim
+            assumenda hic voluptates impedit, consectetur, voluptatum eius facilis accusamus at id.
           </p>
         </CardContent>
 

@@ -5,14 +5,14 @@ import * as React from 'react';
 import { Input } from '@/components/ui/input';
 
 interface PasswordInputProps extends React.HTMLAttributes<HTMLDivElement> {
-    id: string
-    name: string
-    type: React.HTMLInputTypeAttribute
-    placeholder: string
-    value: string | number | readonly string[]
-    onChange: React.ChangeEventHandler<HTMLInputElement>
-    isLoading: boolean
-    className: string
+  id: string;
+  name: string;
+  type: React.HTMLInputTypeAttribute;
+  placeholder: string;
+  value: string | number | readonly string[];
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  isLoading: boolean;
+  className: string;
 }
 
 const PasswordInput = ({ ...props }: Partial<PasswordInputProps>) => {

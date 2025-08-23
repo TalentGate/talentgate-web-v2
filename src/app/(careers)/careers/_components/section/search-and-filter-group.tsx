@@ -1,11 +1,11 @@
-import SearchField from "@/components/input/search-field";
+import SearchField from '@/components/input/search-field';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 const SearchAndFilterGroup = () => {
   return (

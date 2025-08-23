@@ -1,6 +1,8 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Star } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardHeader,
@@ -8,17 +10,16 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Star } from "lucide-react";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 const AddEvaluation = () => {
   return (
@@ -39,26 +40,26 @@ const AddEvaluation = () => {
               <SelectValue placeholder="Add Rating" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={"None"}>
+              <SelectItem value={'None'}>
                 <span>None</span>
               </SelectItem>
-              <SelectItem value={"1"}>
+              <SelectItem value={'1'}>
                 <Star className="stroke-yellow-400 fill-yellow-400" />
                 <span>1</span>
               </SelectItem>
-              <SelectItem value={"2"}>
+              <SelectItem value={'2'}>
                 <Star className="stroke-yellow-400 fill-yellow-400" />
                 <span>2</span>
               </SelectItem>
-              <SelectItem value={"3"}>
+              <SelectItem value={'3'}>
                 <Star className="stroke-yellow-400 fill-yellow-400" />
                 <span>3</span>
               </SelectItem>
-              <SelectItem value={"4"}>
+              <SelectItem value={'4'}>
                 <Star className="stroke-yellow-400 fill-yellow-400" />
                 <span>4</span>
               </SelectItem>
-              <SelectItem value={"5"}>
+              <SelectItem value={'5'}>
                 <Star className="stroke-yellow-400 fill-yellow-400" />
                 <span>5</span>
               </SelectItem>

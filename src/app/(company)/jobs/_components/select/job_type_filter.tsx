@@ -4,9 +4,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
-const filter_options = ["Full-Time", "Part-Time", "Internship"];
+const filter_options = ['Full-Time', 'Part-Time', 'Internship'];
 
 const JobTypeFilter = () => {
   return (

@@ -1,11 +1,8 @@
-import { AppSidebar } from "@/app/_components/sidebar/app-sidebar";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import AppBreadcrumb from "./_components/breadcrumb/breadcrumb";
+import { AppSidebar } from '@/app/_components/sidebar/app-sidebar';
+import { Separator } from '@/components/ui/separator';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+
+import AppBreadcrumb from './_components/breadcrumb/breadcrumb';
 
 export default function RootLayout({
   children,

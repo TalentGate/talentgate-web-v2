@@ -1,5 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { SaveIcon, X } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -7,24 +9,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { SaveIcon, X } from "lucide-react";
+} from '@/components/ui/select';
 
 interface PipelineObserversProps {
   mockAddObserversFormStep: string[];
 }
 
-const PipelineObservers = ({
-  mockAddObserversFormStep,
-}: PipelineObserversProps) => {
+const PipelineObservers = ({ mockAddObserversFormStep }: PipelineObserversProps) => {
   return (
     <Card>
       <CardHeader>
@@ -51,10 +50,7 @@ const PipelineObservers = ({
         <ScrollArea>
           <ul className="grid gap-2 max-h-[40dvh]">
             {mockAddObserversFormStep.map((observer, i) => (
-              <li
-                className="p-4 rounded-md border flex justify-between"
-                key={i}
-              >
+              <li className="p-4 rounded-md border flex justify-between" key={i}>
                 <div className="flex items-center gap-2">
                   <Avatar>
                     <AvatarImage
@@ -65,7 +61,7 @@ const PipelineObservers = ({
                   </Avatar>
                   <p>{observer}</p>
                 </div>
-                <Button variant={"ghost"}>
+                <Button variant={'ghost'}>
                   <X />
                 </Button>
               </li>

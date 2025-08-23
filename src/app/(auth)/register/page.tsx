@@ -7,17 +7,15 @@ import * as React from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-import GoogleButton from "@/app/(auth)/_components/button/google";
-import LinkedinButton from "@/app/(auth)/_components/button/linkedin";
+import GoogleButton from '@/app/(auth)/_components/button/google';
+import LinkedinButton from '@/app/(auth)/_components/button/linkedin';
 import Login from '@/app/(auth)/register/_components/button/login';
-import { RegisterError, RegisterRequest, useRegisterMutation } from '@/app/(auth)/register/_lib/slice';
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
+  RegisterError,
+  RegisterRequest,
+  useRegisterMutation,
+} from '@/app/(auth)/register/_lib/slice';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 import RegisterButton from './_components/button/register';
 import EmailInput from './_components/input/email';
@@ -37,7 +35,9 @@ export default function Register() {
     password: '',
   });
 
-  const handleRegisterRequestChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleRegisterRequestChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setRegisterRequest({ ...registerRequest, [e.target.name]: e.target.value });
   };
 
@@ -46,7 +46,9 @@ export default function Register() {
       await register(registerRequest).unwrap();
     } catch (err) {
       toast.error('Authentication Failed', {
-        description: ((err as FetchBaseQueryError)?.data as RegisterError)?.detail || 'Something went wrong. Please try again later.',
+        description:
+          ((err as FetchBaseQueryError)?.data as RegisterError)?.detail ||
+          'Something went wrong. Please try again later.',
       });
     }
   };
@@ -59,9 +61,7 @@ export default function Register() {
     <main className="flex h-screen justify-center items-center">
       <Card className="rounded-3xl shadow-md p-5 w-96">
         <CardHeader className="flex justify-center">
-          <CardTitle className="text-2xl">
-                        Register
-          </CardTitle>
+          <CardTitle className="text-2xl">Register</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-4">
           <div className="grid grid-cols-2 gap-4">
@@ -125,10 +125,17 @@ export default function Register() {
           />
         </CardContent>
         <CardContent className="flex flex-col justify-center items-center">
-        <CardDescription className="flex flex-row justify-center items-center">
-          <span className="text-muted-foreground">{'Already have an account?'}</span>
-          <Login id="register" name="register" variant="link" onClick={handleLoginSubmit} isLoading={isRegisterLoading} className="p-1"/>
-        </CardDescription>
+          <CardDescription className="flex flex-row justify-center items-center">
+            <span className="text-muted-foreground">{'Already have an account?'}</span>
+            <Login
+              id="register"
+              name="register"
+              variant="link"
+              onClick={handleLoginSubmit}
+              isLoading={isRegisterLoading}
+              className="p-1"
+            />
+          </CardDescription>
         </CardContent>
         <CardContent className="grid grid-cols-1 gap-4">
           <div className="relative">
@@ -136,23 +143,13 @@ export default function Register() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-5 text-muted-foreground">
-                                OR
-              </span>
+              <span className="bg-background px-5 text-muted-foreground">OR</span>
             </div>
           </div>
         </CardContent>
         <CardContent className="grid grid-cols-1 gap-4">
-          <GoogleButton
-              id="google"
-              name="google"
-              variant="outline"
-          />
-          <LinkedinButton
-              id="linkedin"
-              name="google"
-              variant="outline"
-          />
+          <GoogleButton id="google" name="google" variant="outline" />
+          <LinkedinButton id="linkedin" name="google" variant="outline" />
         </CardContent>
       </Card>
     </main>

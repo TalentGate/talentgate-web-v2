@@ -1,6 +1,8 @@
-import Header from "@/components/section/header";
-import React from "react";
-import Contact from "./_components/card/contact";
+import React from 'react';
+
+import Header from '@/components/section/header';
+
+import Contact from './_components/card/contact';
 
 const ContactTalentgate = () => {
   return (

@@ -1,14 +1,14 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 const FormPage1 = () => {
   return (
@@ -55,10 +55,7 @@ const FormPage1 = () => {
 
       <div className="grid gap-2">
         <Label htmlFor="jobRemote">Job Type</Label>
-        <RadioGroup
-          defaultValue={"Full-Time"}
-          className="space-y-1 lg:flex lg:gap-6"
-        >
+        <RadioGroup defaultValue={'Full-Time'} className="space-y-1 lg:flex lg:gap-6">
           <div className="self-end flex items-center space-x-2">
             <RadioGroupItem value="Full-Time" id="Full-Time" />
             <Label htmlFor="Full-Time">Full-Time</Label>
@@ -76,10 +73,7 @@ const FormPage1 = () => {
 
       <div className="grid gap-2">
         <Label htmlFor="jobRemote">Location Type</Label>
-        <RadioGroup
-          defaultValue={"On-Site"}
-          className="space-y-1 lg:flex lg:gap-6"
-        >
+        <RadioGroup defaultValue={'On-Site'} className="space-y-1 lg:flex lg:gap-6">
           <div className="self-end flex items-center space-x-2">
             <RadioGroupItem value="On-Site" id="On-Site" />
             <Label htmlFor="On-Site">On-Site</Label>

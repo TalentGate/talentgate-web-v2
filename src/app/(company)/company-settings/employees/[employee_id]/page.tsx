@@ -1,5 +1,5 @@
-import EmployeeInformation from "./_components/card/employee-information";
-import ResetPassword from "./_components/card/reset-password";
+import EmployeeInformation from './_components/card/employee-information';
+import ResetPassword from './_components/card/reset-password';
 
 const EmployeeDetails = () => {
   return (

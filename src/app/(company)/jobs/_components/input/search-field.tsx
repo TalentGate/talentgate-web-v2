@@ -1,5 +1,6 @@
-import { Input } from "@/components/ui/input";
-import { SearchIcon } from "lucide-react";
+import { SearchIcon } from 'lucide-react';
+
+import { Input } from '@/components/ui/input';
 
 const SearchField = () => {
   return (

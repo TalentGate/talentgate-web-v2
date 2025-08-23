@@ -1,5 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { SaveIcon, Star } from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardHeader,
@@ -7,17 +9,16 @@ import {
   CardFooter,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { SaveIcon, Star } from "lucide-react";
+} from '@/components/ui/select';
 
 const EmployeeInformation = () => {
   return (
@@ -65,10 +66,10 @@ const EmployeeInformation = () => {
                 <SelectValue placeholder="Choose User Role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={"owner"}>
+                <SelectItem value={'owner'}>
                   <span>OWNER</span>
                 </SelectItem>
-                <SelectItem value={"admin"}>
+                <SelectItem value={'admin'}>
                   <span>ADMIN</span>
                 </SelectItem>
               </SelectContent>
@@ -81,7 +82,7 @@ const EmployeeInformation = () => {
           <SaveIcon />
           <span>Save Changes</span>
         </Button>
-        <Button variant={"outline"} className="h-full">
+        <Button variant={'outline'} className="h-full">
           Cancel
         </Button>
       </CardFooter>

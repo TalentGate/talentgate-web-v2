@@ -1,5 +1,5 @@
-import Header from "@/components/section/header";
-import { Button } from "@/components/ui/button";
+import Header from '@/components/section/header';
+import { Button } from '@/components/ui/button';
 
 const BillingAndSubscription = () => {
   return (
@@ -12,9 +12,7 @@ const BillingAndSubscription = () => {
       <section className="w-full rounded-md bg-card p-6 py-4 flex items-center justify-between">
         <div>
           <p className="font-semibold">Enterprise Plan</p>
-          <p className="text-muted-foreground text-sm">
-            $99/month • Unlimited users
-          </p>
+          <p className="text-muted-foreground text-sm">$99/month • Unlimited users</p>
         </div>
         <Button>Change Plan</Button>
       </section>
