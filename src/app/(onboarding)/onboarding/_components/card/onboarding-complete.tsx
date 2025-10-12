@@ -1,3 +1,8 @@
+import Link from 'next/link';
+
+import { CircleCheckBig, ArrowLeft } from 'lucide-react';
+import React from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -7,9 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { CircleCheckBig, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
-import React from 'react';
 
 function OnboardingCompleted({ decreaseStep }: { decreaseStep: () => void }) {
   return (

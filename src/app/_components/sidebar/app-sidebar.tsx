@@ -18,6 +18,7 @@ import {
   BookUser,
   BriefcaseBusiness,
   CalendarIcon,
+  SunIcon,
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
@@ -198,8 +199,17 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-                <MoonIcon />
-                Dark Mode
+                {theme === 'dark' ? (
+                  <>
+                    <SunIcon />
+                    <span>Light Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <MoonIcon />
+                    <span>Dark Mode</span>
+                  </>
+                )}
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href={'/account'}>

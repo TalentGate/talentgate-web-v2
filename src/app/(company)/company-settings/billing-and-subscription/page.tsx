@@ -1,7 +1,19 @@
+'use client';
+
+import { useState } from 'react';
+
 import Header from '@/components/section/header';
-import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+import BillingHistory from './_components/card/billing-history';
+import CurrentPlan from './_components/card/current-plan';
+import QuickStats from './_components/card/quick-stats';
+import RecentInvoices from './_components/card/recent-invoices';
+import PlanPricing from './_components/section/plan-pricing';
 
 const BillingAndSubscription = () => {
+  const [currentTab, setCurrentTab] = useState('overview');
+
   return (
     <main className="p-6 space-y-6 h-full w-full">
       <Header
@@ -9,31 +21,26 @@ const BillingAndSubscription = () => {
         description="Manage billing and subscription details."
       />
 
-      <section className="w-full rounded-md bg-card p-6 py-4 flex items-center justify-between">
-        <div>
-          <p className="font-semibold">Enterprise Plan</p>
-          <p className="text-muted-foreground text-sm">$99/month • Unlimited users</p>
-        </div>
-        <Button>Change Plan</Button>
-      </section>
-
-      <section className="space-y-2">
-        <h3 className="font-semibold text-lg mb-4">Usage this month</h3>
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Active Jobs</p>
-          <p>12 / Unlimited</p>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Team Members</p>
-          <p>8 / Unlimited</p>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Applications Processed</p>
-          <p>247 / Unlimited</p>
-        </div>
-      </section>
+      <Tabs className="w-full" value={currentTab} onValueChange={setCurrentTab}>
+        <TabsList className="w-full mb-4">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="plans-and-pricing">Plans and Pricing</TabsTrigger>
+          <TabsTrigger value="billing-history">Billing History</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <CurrentPlan className="md:col-span-2" />
+            <QuickStats className="md:col-span-1" />
+            <RecentInvoices className="md:col-span-3" setCurrentTab={setCurrentTab} />
+          </section>
+        </TabsContent>
+        <TabsContent value="plans-and-pricing">
+          <PlanPricing />
+        </TabsContent>
+        <TabsContent value="billing-history">
+          <BillingHistory />
+        </TabsContent>
+      </Tabs>
     </main>
   );
 };
