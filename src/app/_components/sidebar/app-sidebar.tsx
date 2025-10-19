@@ -23,8 +23,14 @@ import {
 import { signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import * as React from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
+import { LoginError } from '@/app/(auth)/login/_lib/slice';
+import {
+  useRetrieveCurrentUserMutation,
+  useRetrieveCurrentUserProfileMutation,
+} from '@/app/(company)/account/_lib/slice';
 import { LogoutError, useLogoutMutation } from '@/app/_lib/slice';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -138,6 +144,26 @@ export function NavUser({
   const { isMobile } = useSidebar();
   const { setTheme, theme } = useTheme();
   const router = useRouter();
+  const [
+    retrieveCurrentUser,
+    {
+      data: retrieveCurrentUserData,
+      isLoading: isRetrieveCurrentUserLoading,
+      isSuccess: isRetrieveCurrentUserSuccess,
+    },
+  ] = useRetrieveCurrentUserMutation();
+  const [
+    retrieveCurrentUserProfile,
+    {
+      data: retrieveCurrentUserProfileData,
+      isLoading: isRetrieveCurrentUserProfileLoading,
+      isSuccess: isRetrieveCurrentUserProfileSuccess,
+    },
+  ] = useRetrieveCurrentUserProfileMutation();
+
+  const [profileImage, setProfileImage] = useState(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/me/profile`
+  );
   const [logout, { isSuccess: isLogoutSuccess }] = useLogoutMutation();
 
   const handleLogoutSubmit = async () => {
@@ -151,6 +177,33 @@ export function NavUser({
       });
     }
   };
+
+  React.useEffect(() => {
+    try {
+      setProfileImage(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/me/profile#${Date.now()}`);
+      toast.success('Profile Image Updated', {
+        description: 'Your profile image has been successfully updated.',
+      });
+    } catch (err) {
+      toast.error('Retrieve Current User Failed', {
+        description:
+          ((err as FetchBaseQueryError)?.data as LoginError)?.detail ||
+          'Something went wrong. Please try again later.',
+      });
+    }
+  }, [setProfileImage, retrieveCurrentUserProfile]);
+
+  React.useEffect(() => {
+    try {
+      retrieveCurrentUser({}).unwrap();
+    } catch (err) {
+      toast.error('Retrieve Current User Failed', {
+        description:
+          ((err as FetchBaseQueryError)?.data as LoginError)?.detail ||
+          'Something went wrong. Please try again later.',
+      });
+    }
+  }, [retrieveCurrentUser]);
 
   React.useEffect(() => {
     if (isLogoutSuccess) {
@@ -167,13 +220,15 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
+              <Avatar className="h-8 w-8 rounded-lg">
+                <AvatarImage src={profileImage} alt={retrieveCurrentUserData?.username} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+                <span className="truncate font-medium">{retrieveCurrentUserData?.username}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {retrieveCurrentUserData?.email}
+                </span>
               </div>
               <MoreVerticalIcon className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -187,12 +242,14 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage src={profileImage} alt={retrieveCurrentUserData?.username} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+                  <span className="truncate font-medium">{retrieveCurrentUserData?.username}</span>
+                  <span className="truncate text-xs text-muted-foreground">
+                    {retrieveCurrentUserData?.email}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>
