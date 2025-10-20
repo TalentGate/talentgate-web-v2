@@ -16,7 +16,7 @@ import {
 } from '@/app/(company)/account/_lib/slice';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
@@ -131,7 +131,7 @@ const AccountInformation = () => {
     if (isUploadCurrentUserProfileSuccess) {
       try {
         setProfileImage(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/me/profile#${Date.now()}`);
-        toast.success('Profile Updated', {
+        toast.success('Profile Image Updated', {
           description: 'Your profile image has been successfully updated.',
         });
       } catch (err) {
@@ -146,10 +146,6 @@ const AccountInformation = () => {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Account Details</CardTitle>
-      </CardHeader>
-
       <CardContent className="space-y-4">
         <div className="flex flex-col w-fit gap-4">
           <Avatar className="size-36">
