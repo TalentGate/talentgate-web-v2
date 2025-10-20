@@ -1,14 +1,16 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useSession } from 'next-auth/react';
 import * as React from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
 import GoogleButton from '@/app/(auth)/_components/button/google';
 import LinkedinButton from '@/app/(auth)/_components/button/linkedin';
+import { useGoogleMutation, useLinkedinMutation } from '@/app/(auth)/_lib/slice';
 import Login from '@/app/(auth)/register/_components/button/login';
 import {
   RegisterError,
@@ -24,8 +26,16 @@ import LastnameInput from './_components/input/lastname';
 import PasswordInput from './_components/input/password';
 import UsernameInput from './_components/input/username';
 
+import type { Session } from 'next-auth';
+
 export default function Register() {
-  const [register, { isLoading: isRegisterLoading }] = useRegisterMutation();
+  const { data: session } = useSession() as { data: Session | null };
+  const [register, { isLoading: isRegisterLoading, isSuccess: isRegisterSuccess }] =
+    useRegisterMutation();
+  const [google, { isSuccess: isGoogleSuccess }] = useGoogleMutation();
+  const [linkedin, { isSuccess: isLinkedinSuccess }] = useLinkedinMutation();
+
+  const router = useRouter();
 
   const [registerRequest, setRegisterRequest] = useState<RegisterRequest>({
     firstname: '',
@@ -56,6 +66,24 @@ export default function Register() {
   const handleLoginSubmit = async () => {
     redirect('/login');
   };
+
+  React.useEffect(() => {
+    if (session?.provider == 'google' && session?.idToken) {
+      google({ token: session.idToken }).unwrap();
+    }
+    if (session?.provider == 'linkedin' && session?.accessToken) {
+      linkedin({ token: session.accessToken }).unwrap();
+    }
+  }, [google, linkedin, session]);
+
+  React.useEffect(() => {
+    if (isRegisterSuccess) {
+      router.push('/login');
+    }
+    if (isGoogleSuccess || isLinkedinSuccess) {
+      router.push('/dashboard');
+    }
+  }, [isRegisterSuccess, isGoogleSuccess, isLinkedinSuccess, router]);
 
   return (
     <main className="flex h-screen justify-center items-center">

@@ -67,7 +67,10 @@ const AccountInformation = () => {
   const handleUpdateCurrentUserRequestChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setUpdateCurrentUserRequest({ ...updateCurrentUserRequest, [e.target.name]: e.target.value });
+    setUpdateCurrentUserRequest({
+      ...updateCurrentUserRequest,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +111,12 @@ const AccountInformation = () => {
     if (retrieveCurrentUserData) {
       const { firstname, lastname, username, email }: UpdateCurrentUserRequest =
         retrieveCurrentUserData;
-      const updateData: UpdateCurrentUserRequest = { firstname, lastname, username, email };
+      const updateData: UpdateCurrentUserRequest = {
+        firstname,
+        lastname,
+        username,
+        email,
+      };
       setUpdateCurrentUserRequest(updateData);
     }
   }, [retrieveCurrentUserData]);
