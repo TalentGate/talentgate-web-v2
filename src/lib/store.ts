@@ -7,6 +7,7 @@ import { loginApi } from '@/app/(auth)/login/_lib/slice';
 import { registerApi } from '@/app/(auth)/register/_lib/slice';
 import { usersApi } from '@/app/(company)/account/_lib/slice';
 import { logoutApi } from '@/app/_lib/slice';
+import {paymentApi} from "@/app/(company)/company-settings/billing-and-subscription/_lib/slice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     [linkedinApi.reducerPath]: linkedinApi.reducer,
     [logoutApi.reducerPath]: logoutApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
+    [paymentApi.reducerPath]: paymentApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -25,6 +27,7 @@ export const store = configureStore({
       .concat(googleApi.middleware)
       .concat(linkedinApi.middleware)
       .concat(logoutApi.middleware)
+      .concat(paymentApi.middleware)
       .concat(usersApi.middleware),
 });
 
