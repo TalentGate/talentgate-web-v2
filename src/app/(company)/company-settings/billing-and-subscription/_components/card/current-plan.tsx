@@ -33,6 +33,10 @@ export default function CurrentPlan({ className }: { className?: string }) {
 
         <section>
           <div className="flex items-center justify-between">
+            <p className="">Subscription Status</p>
+            <p className="font-semibold text-green-600">ACTIVE</p>
+          </div>
+          <div className="flex items-center justify-between">
             <p className="">Next billing date</p>
             <p className="font-semibold">March 1, 2024</p>
           </div>

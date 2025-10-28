@@ -3,14 +3,15 @@
 import {initializePaddle, Paddle} from "@paddle/paddle-js";
 import {useEffect, useState} from "react";
 import {useUpdatePaddleCheckoutMutation} from "@/app/(company)/company-settings/billing-and-subscription/_lib/slice";
+import {toast} from "sonner";
 
 export const usePaddle = () => {
     const [paddle, setPaddle] = useState<Paddle | undefined>();
     const [
         updatePaddleCheckout,
         {
-            data: updatePaddleCheckoutData,
-            isLoading: isUpdatePaddleCheckoutLoading,
+            // data: updatePaddleCheckoutData,
+            // isLoading: isUpdatePaddleCheckoutLoading,
             isSuccess: isUpdatePaddleCheckoutSuccess,
         },
     ] = useUpdatePaddleCheckoutMutation();
@@ -22,17 +23,24 @@ export const usePaddle = () => {
             eventCallback: (data) => {
 
                 if (data.name === "checkout.completed") {
-                    console.log("OOO" + JSON.stringify(data));
-
                     updatePaddleCheckout({transaction_id: data.data!.transaction_id});
                 }
             }
-        }).then((paddleInstance) => {
-            if (paddleInstance) {
-                setPaddle(paddleInstance);
+        }).then((instance) => {
+            if (instance) {
+                setPaddle(instance);
             }
         });
     }, []);
+
+    useEffect(() => {
+        if (!isUpdatePaddleCheckoutSuccess) return;
+
+        paddle?.Checkout.close();
+        toast.success(
+            "Checkout Successful! Your new subscription has been activated."
+        );
+    }, [isUpdatePaddleCheckoutSuccess]);
 
     return paddle;
 };

@@ -28,10 +28,9 @@ const BillingAndSubscription = () => {
           <TabsTrigger value="billing-history">Billing History</TabsTrigger>
         </TabsList>
         <TabsContent value="overview">
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <CurrentPlan className="md:col-span-2" />
-            <QuickStats className="md:col-span-1" />
-            <RecentInvoices className="md:col-span-3" setCurrentTab={setCurrentTab} />
+          <section className="grid grid-cols-1 gap-6">
+            <CurrentPlan />
+            <QuickStats />
           </section>
         </TabsContent>
         <TabsContent value="plans-and-pricing">
