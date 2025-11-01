@@ -1,6 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '@/app/api/baseQuery';
+import {
+  UpdateCurrentUserRequest,
+  UpdateCurrentUserResponse,
+} from '@/app/(company)/account/_lib/slice';
 
 export interface RetrieveCurrentCompanyResponse {
   firstname: string;
@@ -14,6 +18,20 @@ export interface RetrieveCurrentCompanyRequest {
 }
 
 export interface RetrieveCurrentCompanyError {
+  detail: string;
+}
+
+export interface UpdateCurrentCompanyResponse {
+  name?: string;
+  overview?: string;
+}
+
+export interface UpdateCurrentCompanyRequest {
+  name?: string;
+  overview?: string;
+}
+
+export interface UpdateCurrentCompanyError {
   detail: string;
 }
 
@@ -39,8 +57,35 @@ export const companiesApi = createApi({
         method: 'GET',
       }),
     }),
+    updateCurrentCompany: builder.mutation<
+      UpdateCurrentCompanyResponse,
+      UpdateCurrentCompanyRequest
+    >({
+      query: (body) => ({
+        url: '/me/company',
+        method: 'PUT',
+        body: body,
+      }),
+    }),
+    uploadCurrentCompanyLogo: builder.mutation<void, File>({
+      query: (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        return {
+          url: '/me/company/logo',
+          method: 'POST',
+          body: formData,
+          headers: {},
+        };
+      },
+    }),
   }),
 });
 
-export const { useRetrieveCurrentCompanyMutation, useRetrieveCurrentCompanyLogoMutation } =
-  companiesApi;
+export const {
+  useRetrieveCurrentCompanyMutation,
+  useRetrieveCurrentCompanyLogoMutation,
+  useUpdateCurrentCompanyMutation,
+  useUploadCurrentCompanyLogoMutation,
+} = companiesApi;

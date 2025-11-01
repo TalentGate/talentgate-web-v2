@@ -150,7 +150,7 @@ const AccountInformation = () => {
         });
       }
     }
-  }, [setProfileImage, retrieveCurrentUserProfile, isUploadCurrentUserProfileSuccess]);
+  }, [setProfileImage, isUploadCurrentUserProfileSuccess]);
 
   return (
     <Card>
