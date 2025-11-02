@@ -9,8 +9,7 @@ import { usersApi } from '@/app/(company)/account/_lib/slice';
 import { companiesApi } from '@/app/(company)/company-settings/_lib/slice';
 import { paymentApi } from '@/app/(company)/company-settings/billing-and-subscription/_lib/slice';
 import { logoutApi } from '@/app/_lib/slice';
-import {companyJobsApi} from "@/app/(company)/jobs/_lib/slice";
-
+import { companyJobsApi } from '@/app/(company)/jobs/_lib/slice';
 
 export const store = configureStore({
   reducer: {

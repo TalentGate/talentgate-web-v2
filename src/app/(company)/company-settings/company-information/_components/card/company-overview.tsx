@@ -118,7 +118,21 @@ const CompanyOverview = () => {
   }, [retrieveCurrentCompanyData]);
 
   React.useEffect(() => {
-    if (isUploadCurrentCompanyLogoSuccess) {
+    if (isUpdateCurrentCompanySuccess) {
+      try {
+        retrieveCurrentCompany({}).unwrap();
+      } catch (err) {
+        toast.error('Retrieve Current User Failed', {
+          description:
+            ((err as FetchBaseQueryError)?.data as LoginError)?.detail ||
+            'Something went wrong. Please try again later.',
+        });
+      }
+    }
+  }, [retrieveCurrentCompany, isUpdateCurrentCompanySuccess]);
+
+  React.useEffect(() => {
+    if (isRetrieveCurrentCompanySuccess || isUploadCurrentCompanyLogoSuccess) {
       try {
         setLogoImage(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/me/company/logo#${Date.now()}`
@@ -134,7 +148,7 @@ const CompanyOverview = () => {
         });
       }
     }
-  }, [setLogoImage, isUploadCurrentCompanyLogoSuccess]);
+  }, [setLogoImage, isRetrieveCurrentCompanySuccess, isUploadCurrentCompanyLogoSuccess]);
 
   return (
     <Card>
