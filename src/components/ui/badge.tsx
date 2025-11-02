@@ -21,6 +21,8 @@ const badgeVariants = cva(
           'border-transparent bg-yellow-800/30 text-yellow-200 not-dark:text-yellow-800 [a&]:hover:bg-yellow-800/10',
         internship:
           'border-transparent bg-red-800/30 text-red-200 not-dark:text-red-800 [a&]:hover:bg-red-800/10',
+        contractor:
+          'border-transparent bg-pink-800/30 text-pink-200 not-dark:text-pink-800 [a&]:hover:bg-pink-800/10',
       },
     },
     defaultVariants: {

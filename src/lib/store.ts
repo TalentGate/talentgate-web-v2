@@ -9,6 +9,8 @@ import { usersApi } from '@/app/(company)/account/_lib/slice';
 import { companiesApi } from '@/app/(company)/company-settings/_lib/slice';
 import { paymentApi } from '@/app/(company)/company-settings/billing-and-subscription/_lib/slice';
 import { logoutApi } from '@/app/_lib/slice';
+import {companyJobsApi} from "@/app/(company)/jobs/_lib/slice";
+
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,7 @@ export const store = configureStore({
     [usersApi.reducerPath]: usersApi.reducer,
     [companiesApi.reducerPath]: companiesApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
+    [companyJobsApi.reducerPath]: companyJobsApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -31,7 +34,8 @@ export const store = configureStore({
       .concat(logoutApi.middleware)
       .concat(paymentApi.middleware)
       .concat(usersApi.middleware)
-      .concat(companiesApi.middleware),
+      .concat(companiesApi.middleware)
+      .concat(companyJobsApi.middleware),
 });
 
 setupListeners(store.dispatch);

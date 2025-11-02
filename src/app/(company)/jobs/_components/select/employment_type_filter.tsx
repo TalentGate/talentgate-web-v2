@@ -8,7 +8,7 @@ import {
 
 const filter_options = ['Full-Time', 'Part-Time', 'Internship'];
 
-const JobTypeFilter = () => {
+const EmploymentTypeFilter = () => {
   return (
     <Select>
       <SelectTrigger className="w-[180px]">
@@ -25,4 +25,4 @@ const JobTypeFilter = () => {
   );
 };
 
-export default JobTypeFilter;
+export default EmploymentTypeFilter;
