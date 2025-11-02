@@ -1,34 +1,57 @@
-import { BaseQueryApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  BaseQueryApi,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  QueryReturnValue,
+} from '@reduxjs/toolkit/query';
 import { signOut } from 'next-auth/react';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
   headers: { 'Content-Type': 'application/json' },
-  credentials: 'include', // ensures cookies (access + refresh) are sent
+  credentials: 'include',
 });
+
+let refreshPromise: Promise<
+  QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>
+> | null = null;
 
 export const baseQueryWithReauth = async (
   args: string | FetchArgs,
   api: BaseQueryApi,
   extraOptions: object
 ) => {
-  let result = await baseQuery(args, api, extraOptions); // ✅ use let, not const
+  let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    const refreshResult = await baseQuery(
-      {
-        url: '/auth/token/refresh',
-        method: 'POST',
-        credentials: 'include',
-        body: {}, // some backends require non-empty body
-      },
-      api,
-      extraOptions
-    );
+    if (!refreshPromise) {
+      refreshPromise = Promise.resolve(
+        baseQuery(
+          {
+            url: '/auth/token/refresh',
+            method: 'POST',
+            credentials: 'include',
+            body: {},
+          },
+          api,
+          extraOptions
+        )
+      );
+    }
 
-    if (refreshResult.data) {
+    const refreshResult = await refreshPromise;
+    refreshPromise = null;
+
+    if (refreshResult?.data) {
+      console.info('Token refresh successful. Retrying original request...');
+
+      await new Promise((r) => setTimeout(r, 200));
+
       result = await baseQuery(args, api, extraOptions);
     } else {
+      console.error('Token refresh failed. Logging out...');
 
       try {
         await baseQuery(
@@ -49,5 +72,5 @@ export const baseQueryWithReauth = async (
     }
   }
 
-  return result; // ✅ always return final result (after refresh or logout)
+  return result;
 };
