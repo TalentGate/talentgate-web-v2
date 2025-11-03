@@ -1,16 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '@/app/api/baseQuery';
-import {
-  UpdateCurrentUserRequest,
-  UpdateCurrentUserResponse,
-} from '@/app/(company)/account/_lib/slice';
 
 export interface RetrieveCurrentCompanyResponse {
-  firstname: string;
-  lastname: string;
-  username: string;
-  email: string;
+  name?: string;
+  overview?: string;
 }
 
 export interface RetrieveCurrentCompanyRequest {
@@ -76,7 +70,6 @@ export const companiesApi = createApi({
           url: '/me/company/logo',
           method: 'POST',
           body: formData,
-          headers: {},
         };
       },
     }),

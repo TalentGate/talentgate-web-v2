@@ -10,7 +10,6 @@ import { signOut } from 'next-auth/react';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
-  headers: { 'Content-Type': 'application/json' },
   credentials: 'include',
 });
 
@@ -51,22 +50,16 @@ export const baseQueryWithReauth = async (
 
       result = await baseQuery(args, api, extraOptions);
     } else {
-      console.error('Token refresh failed. Logging out...');
-
-      try {
-        await baseQuery(
-          {
-            url: '/auth/logout',
-            method: 'POST',
-            credentials: 'include',
-            body: {},
-          },
-          api,
-          extraOptions
-        );
-      } catch (err) {
-        console.warn('Logout request failed or user already logged out.', err);
-      }
+      await baseQuery(
+        {
+          url: '/auth/logout',
+          method: 'POST',
+          credentials: 'include',
+          body: {},
+        },
+        api,
+        extraOptions
+      );
 
       await signOut({ callbackUrl: '/login' });
     }

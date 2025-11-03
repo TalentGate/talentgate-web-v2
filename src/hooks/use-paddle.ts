@@ -2,7 +2,7 @@
 
 import { initializePaddle, Paddle } from '@paddle/paddle-js';
 import { useEffect, useState } from 'react';
-import { useUpdatePaddleCheckoutMutation } from '@/app/(company)/company-settings/billing-and-subscription/_lib/slice';
+import { useUpdatePaddleCheckoutMutation } from '@/app/(company)/company/billing-and-subscription/_lib/slice';
 import { toast } from 'sonner';
 
 export const usePaddle = () => {

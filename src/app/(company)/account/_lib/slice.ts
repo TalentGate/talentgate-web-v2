@@ -68,7 +68,6 @@ export const usersApi = createApi({
           url: '/me/profile',
           method: 'POST',
           body: formData,
-          headers: {},
         };
       },
     }),

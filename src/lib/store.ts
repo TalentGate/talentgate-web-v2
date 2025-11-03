@@ -6,8 +6,8 @@ import { linkedinApi } from '@/app/(auth)/_lib/slice';
 import { loginApi } from '@/app/(auth)/login/_lib/slice';
 import { registerApi } from '@/app/(auth)/register/_lib/slice';
 import { usersApi } from '@/app/(company)/account/_lib/slice';
-import { companiesApi } from '@/app/(company)/company-settings/_lib/slice';
-import { paymentApi } from '@/app/(company)/company-settings/billing-and-subscription/_lib/slice';
+import { companiesApi } from '@/app/(company)/company/_lib/slice';
+import { paymentApi } from '@/app/(company)/company/billing-and-subscription/_lib/slice';
 import { logoutApi } from '@/app/_lib/slice';
 import { companyJobsApi } from '@/app/(company)/jobs/_lib/slice';
 

@@ -127,9 +127,7 @@ export const columns: ColumnDef<DataTableEmployeeType>[] = [
                 Copy employee ID
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/company-settings/employees/${employee.id}`}>
-                  View employee details
-                </Link>
+                <Link href={`/company/employees/${employee.id}`}>View employee details</Link>
               </DropdownMenuItem>
               <DropdownMenuItem variant="destructive">Remove Employee</DropdownMenuItem>
             </DropdownMenuContent>

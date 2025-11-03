@@ -329,25 +329,21 @@ const data = {
       ],
     },
     {
-      title: 'Company Settings',
-      url: '/company-settings/company-information',
+      title: 'Company',
+      url: '/company/overview',
       icon: SettingsIcon,
       subItems: [
         {
-          title: 'Company Information',
-          url: '/company-settings/company-information',
+          title: 'Overview',
+          url: '/company/overview',
         },
         {
           title: 'Employees',
-          url: '/company-settings/employees',
+          url: '/company/employees',
         },
         {
-          title: 'Billing and Subscription',
-          url: '/company-settings/billing-and-subscription',
-        },
-        {
-          title: 'Contact Talentgate',
-          url: '/company-settings/contact-talentgate',
+          title: 'Billing & Subscription',
+          url: '/company/billing-and-subscription',
         },
       ],
     },
