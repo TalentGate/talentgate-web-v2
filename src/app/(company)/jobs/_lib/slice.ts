@@ -30,12 +30,13 @@ export interface RetrieveCompanyJobResponse {
 }
 
 export interface RetrieveCompanyJobsParams {
+  company_id: number;
   offset?: string;
   limit?: string;
   title?: string;
-  employment_type?: string;
-  location_type?: string;
-  department?: string;
+  employment_type?: string[];
+  location_type?: string[];
+  departments?: string[];
 }
 
 export interface RetrieveCompanyJobsError {
@@ -47,17 +48,30 @@ export const companyJobsApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     retrieveCompanyJobs: builder.query<RetrieveCompanyJobResponse[], RetrieveCompanyJobsParams>({
-      query: ({ title, employment_type, location_type, department, offset = 0, limit = 10 }) => {
+      query: ({ company_id, title, employment_type, location_type, departments, offset = 0, limit = 10 }) => {
         const searchParams = new URLSearchParams();
         searchParams.append('offset', offset.toString());
         searchParams.append('limit', limit.toString());
         if (title) searchParams.append('title', title);
-        if (employment_type) searchParams.append('employment_type', employment_type);
-        if (location_type) searchParams.append('location_type', location_type);
-        if (department) searchParams.append('department', department);
+        if (employment_type) {
+          employment_type.forEach((type) => {
+            searchParams.append('employment_type', type);
+          });
+        }
+        if (location_type) {
+          location_type.forEach((type) => {
+            searchParams.append('location_type', type);
+          });
+        }
+        if (departments) {
+          departments.forEach((type) => {
+            searchParams.append('department', type);
+          });
+        }
 
         return {
-          url: `/me/company/jobs?${searchParams}`,
+          url: `/careers/companies/${company_id}/jobs?${searchParams}`,
+          // url: `/me/company/jobs?${searchParams}`,
           method: 'GET',
         };
       },
