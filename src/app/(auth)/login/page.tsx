@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import * as React from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -23,10 +23,9 @@ import type { Session } from 'next-auth';
 
 export default function Login() {
   const { data: session } = useSession() as { data: Session | null };
-  const [login, { isLoading: isLoginLoading, isSuccess: isLoginSuccess }] = useLoginMutation();
-  const [google, { isLoading: isGoogleLoading, isSuccess: isGoogleSuccess }] = useGoogleMutation();
-  const [linkedin, { isLoading: isLinkedinLoading, isSuccess: isLinkedinSuccess }] =
-    useLinkedinMutation();
+  const [login, { isLoading: isLoginLoading }] = useLoginMutation();
+  const [google, { isLoading: isGoogleLoading }] = useGoogleMutation();
+  const [linkedin, { isLoading: isLinkedinLoading }] = useLinkedinMutation();
   const router = useRouter();
 
   const [loginRequest, setLoginRequest] = useState<LoginRequest>({
@@ -42,7 +41,8 @@ export default function Login() {
 
   const handleLoginSubmit = async () => {
     try {
-      await login(loginRequest).unwrap();
+      await login(loginRequest);
+      router.push('/dashboard');
     } catch (err) {
       toast.error('Authentication Failed', {
         description:
@@ -52,28 +52,37 @@ export default function Login() {
     }
   };
 
-  const handleForgotPasswordSubmit = async () => {
-    router.push('/password/forgot');
-  };
-
   const handleRegisterSubmit = async () => {
     router.push('/register');
   };
 
-  React.useEffect(() => {
-    if (session?.provider == 'google' && session?.idToken) {
-      google({ token: session.idToken }).unwrap();
-    }
-    if (session?.provider == 'linkedin' && session?.accessToken) {
-      linkedin({ token: session.accessToken }).unwrap();
-    }
-  }, [google, linkedin, session]);
+  const handleForgotPasswordSubmit = async () => {
+    router.push('/password/forgot');
+  };
 
   React.useEffect(() => {
-    if (isLoginSuccess || isGoogleSuccess || isLinkedinSuccess) {
-      router.push('/dashboard');
+    if (!session) return;
+
+    if (session.provider === 'google' && session.idToken) {
+      google({ token: session.idToken })
+        .unwrap()
+        .then(() => router.push('/dashboard'))
+        .catch(() => {
+          signOut();
+          signIn('google');
+        });
     }
-  }, [isLoginSuccess, isGoogleSuccess, isLinkedinSuccess, router]);
+
+    if (session.provider === 'linkedin' && session.accessToken) {
+      linkedin({ token: session.accessToken })
+        .unwrap()
+        .then(() => router.push('/dashboard'))
+        .catch(() => {
+          signOut();
+          signIn('linkedin');
+        });
+    }
+  }, [session]);
 
   return (
     <main className="flex h-screen justify-center items-center">

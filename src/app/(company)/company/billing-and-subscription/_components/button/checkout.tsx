@@ -1,35 +1,16 @@
 'use client';
 
-import { Paddle } from '@paddle/paddle-js';
-
 import { Button } from '@/components/ui/button';
 import { usePaddle } from '@/hooks/use-paddle';
 
 // const starterProduct = 'pro_01k7c3gjc334s49mn5ds4zafnc';
 // const proProduct = 'pro_01k7ctxdhfp67ff6hwwr69cren';
-const monthItems = [
-  {
-    quantity: 1,
-    priceId: 'pri_01k7c3j010wg96nhzcxdzhey9n',
-  },
-  {
-    quantity: 1,
-    priceId: 'pri_01k7ctyrsc4h3pxtarv75mmdcb',
-  },
+const items = [
+  { quantity: 1, priceId: 'pri_01k9mg56qkzs1g57m5pjaymx52' },
+  // { quantity: 1, priceId: 'pri_01k9mgyxdqj8ym2ey7wtge5ja0' },
+  // { quantity: 1, priceId: 'pri_01k9n20hkm645z3m2mbwzqwya3' },
+  // { quantity: 1, priceId: 'pri_01k9n226yxc9jaq5n1r4dcvabg' },
 ];
-const yearItems = [
-  {
-    quantity: 1,
-    priceId: 'pri_01k7cv21eb5xem5fy21ct7t1pm',
-  },
-  {
-    quantity: 1,
-    priceId: 'pri_01k7cv0k014a6d6rp8jr0ppth7',
-  },
-];
-const customerInfo = {
-  email: 'cerrahoglu.erim@gmail.com',
-};
 
 function Checkout({
   title,
@@ -46,12 +27,10 @@ function Checkout({
 
   const handleCheckout = () => {
     paddle!.Checkout.open({
-      items: monthItems,
-      customer: customerInfo,
+      items: items,
       settings: {
         displayMode: 'overlay',
         theme: 'dark',
-        // successUrl: "http://localhost:3000/company-settings/billing-and-subscription"
       },
     });
   };

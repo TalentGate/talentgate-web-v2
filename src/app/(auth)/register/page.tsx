@@ -3,7 +3,7 @@
 import { redirect, useRouter } from 'next/navigation';
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import * as React from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -30,10 +30,9 @@ import type { Session } from 'next-auth';
 
 export default function Register() {
   const { data: session } = useSession() as { data: Session | null };
-  const [register, { isLoading: isRegisterLoading, isSuccess: isRegisterSuccess }] =
-    useRegisterMutation();
-  const [google, { isSuccess: isGoogleSuccess }] = useGoogleMutation();
-  const [linkedin, { isSuccess: isLinkedinSuccess }] = useLinkedinMutation();
+  const [register, { isLoading: isRegisterLoading }] = useRegisterMutation();
+  const [google, { isLoading: isGoogleLoading }] = useGoogleMutation();
+  const [linkedin, { isLoading: isLinkedinLoading }] = useLinkedinMutation();
 
   const router = useRouter();
 
@@ -54,6 +53,7 @@ export default function Register() {
   const handleRegisterSubmit = async () => {
     try {
       await register(registerRequest).unwrap();
+      router.push('/login');
     } catch (err) {
       toast.error('Authentication Failed', {
         description:
@@ -68,22 +68,28 @@ export default function Register() {
   };
 
   React.useEffect(() => {
-    if (session?.provider == 'google' && session?.idToken) {
-      google({ token: session.idToken }).unwrap();
-    }
-    if (session?.provider == 'linkedin' && session?.accessToken) {
-      linkedin({ token: session.accessToken }).unwrap();
-    }
-  }, [google, linkedin, session]);
+    if (!session) return;
 
-  React.useEffect(() => {
-    if (isRegisterSuccess) {
-      router.push('/login');
+    if (session.provider === 'google' && session.idToken) {
+      google({ token: session.idToken })
+        .unwrap()
+        .then(() => router.push('/dashboard'))
+        .catch(() => {
+          signOut();
+          signIn('google');
+        });
     }
-    if (isGoogleSuccess || isLinkedinSuccess) {
-      router.push('/dashboard');
+
+    if (session.provider === 'linkedin' && session.accessToken) {
+      linkedin({ token: session.accessToken })
+        .unwrap()
+        .then(() => router.push('/dashboard'))
+        .catch(() => {
+          signOut();
+          signIn('linkedin');
+        });
     }
-  }, [isRegisterSuccess, isGoogleSuccess, isLinkedinSuccess, router]);
+  }, [session]);
 
   return (
     <main className="flex h-screen justify-center items-center">
@@ -176,8 +182,13 @@ export default function Register() {
           </div>
         </CardContent>
         <CardContent className="grid grid-cols-1 gap-4">
-          <GoogleButton id="google" name="google" variant="outline" />
-          <LinkedinButton id="linkedin" name="google" variant="outline" />
+          <GoogleButton id="google" name="google" variant="outline" isLoading={isGoogleLoading} />
+          <LinkedinButton
+            id="linkedin"
+            name="google"
+            variant="outline"
+            isLoading={isLinkedinLoading}
+          />
         </CardContent>
       </Card>
     </main>

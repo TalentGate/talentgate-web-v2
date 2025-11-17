@@ -32,7 +32,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-
 export default function Jobs() {
   const [offset, setOffset] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);

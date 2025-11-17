@@ -48,8 +48,7 @@ export default function CurrentPlan({ className }: { className?: string }) {
       </CardContent>
 
       <CardFooter className="w-full grid gap-4 grid-cols-1 md:flex md:flex-row md:w-fit">
-        <Button className="w-full md:w-fit">Update Payment Method</Button>
-        <Button variant="destructive" className="w-full md:w-fit">
+        <Button variant="destructive" className="">
           Cancel Subscription
         </Button>
       </CardFooter>

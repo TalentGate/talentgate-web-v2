@@ -2,42 +2,39 @@
 
 import { initializePaddle, Paddle } from '@paddle/paddle-js';
 import { useEffect, useState } from 'react';
-import { useUpdatePaddleCheckoutMutation } from '@/app/(company)/company/billing-and-subscription/_lib/slice';
 import { toast } from 'sonner';
+
+import { useCreatePaddleCheckoutMutation } from '@/app/(company)/company/billing-and-subscription/_lib/slice';
 
 export const usePaddle = () => {
   const [paddle, setPaddle] = useState<Paddle | undefined>();
-  const [
-    updatePaddleCheckout,
-    {
-      // data: updatePaddleCheckoutData,
-      // isLoading: isUpdatePaddleCheckoutLoading,
-      isSuccess: isUpdatePaddleCheckoutSuccess,
-    },
-  ] = useUpdatePaddleCheckoutMutation();
+  const [createPaddleCheckout, { isSuccess: isCreatePaddleCheckoutSuccess }] =
+    useCreatePaddleCheckoutMutation();
 
   useEffect(() => {
     initializePaddle({
-      token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN!,
-      environment: 'sandbox',
-      eventCallback: (data) => {
-        if (data.name === 'checkout.completed') {
-          updatePaddleCheckout({ transaction_id: data.data!.transaction_id });
+      token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN,
+      environment: process.env.NEXT_PUBLIC_PADDLE_ENV,
+      eventCallback: (event) => {
+        if (event.name === 'checkout.completed' && event.data?.transaction_id) {
+          createPaddleCheckout({ transaction_id: event.data!.transaction_id });
         }
       },
-    }).then((instance) => {
-      if (instance) {
-        setPaddle(instance);
+    }).then((value) => {
+      if (value) {
+        setPaddle(value);
       }
     });
-  }, []);
+  }, [createPaddleCheckout]);
 
   useEffect(() => {
-    if (!isUpdatePaddleCheckoutSuccess) return;
-
-    paddle?.Checkout.close();
-    toast.success('Checkout Successful! Your new subscription has been activated.');
-  }, [isUpdatePaddleCheckoutSuccess]);
+    if (isCreatePaddleCheckoutSuccess) {
+      paddle?.Checkout.close();
+      toast.success('Subscription Updated', {
+        description: 'Your subscription has been successfully updated.',
+      });
+    }
+  }, [isCreatePaddleCheckoutSuccess, paddle]);
 
   return paddle;
 };

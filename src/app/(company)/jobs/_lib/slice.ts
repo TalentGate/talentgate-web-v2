@@ -48,7 +48,15 @@ export const companyJobsApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     retrieveCompanyJobs: builder.query<RetrieveCompanyJobResponse[], RetrieveCompanyJobsParams>({
-      query: ({ company_id, title, employment_type, location_type, departments, offset = 0, limit = 10 }) => {
+      query: ({
+        company_id,
+        title,
+        employment_type,
+        location_type,
+        departments,
+        offset = 0,
+        limit = 10,
+      }) => {
         const searchParams = new URLSearchParams();
         searchParams.append('offset', offset.toString());
         searchParams.append('limit', limit.toString());

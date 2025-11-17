@@ -342,7 +342,7 @@ const data = {
           url: '/company/employees',
         },
         {
-          title: 'Billing & Subscription',
+          title: 'Subscriptions',
           url: '/company/billing-and-subscription',
         },
       ],

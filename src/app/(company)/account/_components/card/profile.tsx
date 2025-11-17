@@ -16,11 +16,18 @@ import {
 } from '@/app/(company)/account/_lib/slice';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-const AccountInformation = () => {
+const Profile = () => {
   const [
     retrieveCurrentUser,
     {
@@ -154,6 +161,10 @@ const AccountInformation = () => {
 
   return (
     <Card>
+      <CardHeader>
+        <CardTitle className={'text-xl'}>Profile</CardTitle>
+        <CardDescription>Edit your personal details and customize your profile</CardDescription>
+      </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex flex-col w-fit gap-4">
           <Avatar className="size-36">
@@ -230,4 +241,4 @@ const AccountInformation = () => {
   );
 };
 
-export default AccountInformation;
+export default Profile;
