@@ -9,10 +9,6 @@ export interface GoogleRequest {
   token?: string;
 }
 
-export interface GoogleError {
-  detail: string;
-}
-
 export interface LinkedinResponse {
   access_token?: string;
   refresh_token?: string;
@@ -20,10 +16,6 @@ export interface LinkedinResponse {
 
 export interface LinkedinRequest {
   token?: string;
-}
-
-export interface LinkedinError {
-  detail: string;
 }
 
 export const googleApi = createApi({

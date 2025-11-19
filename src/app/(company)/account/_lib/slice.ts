@@ -80,13 +80,31 @@ export interface RetrieveSubscriptionResponse {
   amount: string;
 }
 
-export interface RetrieveSubscriptionRequest {}
+export type RetrieveSubscriptionRequest = object;
+
+export interface RetrieveUnitPriceResponse {
+  amount: string;
+  currency_code: string;
+}
+
+export interface RetrievePriceResponse {
+  billing_cycle: string;
+  unit_price: RetrieveUnitPriceResponse;
+}
+
+export interface RetrieveProductResponse {
+  name: string;
+  description: string;
+  prices: RetrievePriceResponse[];
+}
+
+export type RetrieveProductRequest = object;
 
 export interface CancelSubscriptionResponse {
   subscription_id: string;
 }
 
-export interface CancelSubscriptionRequest {}
+export type CancelSubscriptionRequest = object;
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -154,7 +172,6 @@ export const paymentApi = createApi({
         url: `payment/transactions/${transaction_id}/invoice/document`,
         method: 'GET',
         responseHandler: async (response) => {
-          // Parse response as Blob instead of JSON
           return response.blob();
         },
       }),
@@ -165,6 +182,12 @@ export const paymentApi = createApi({
     >({
       query: () => ({
         url: 'payment/subscription',
+        method: 'GET',
+      }),
+    }),
+    retrieveProducts: builder.mutation<RetrieveProductResponse[], RetrieveProductRequest>({
+      query: () => ({
+        url: 'payment/products',
         method: 'GET',
       }),
     }),
@@ -190,5 +213,6 @@ export const {
   useRetrieveInvoicesMutation,
   useRetrieveInvoiceDocumentMutation,
   useRetrieveSubscriptionMutation,
+  useRetrieveProductsMutation,
   useCancelSubscriptionMutation,
 } = paymentApi;
