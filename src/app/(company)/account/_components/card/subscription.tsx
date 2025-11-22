@@ -28,32 +28,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { usePaddle } from '@/hooks/use-paddle';
 
 const Subscription = () => {
   const [billingCycle, setBillingCycle] = useState<string>('month');
   const [subscriptionPlan, setSubscriptionPlan] = useState<string>('standard');
-
-  const items = [
-    { quantity: 1, priceId: 'pri_01k9wxqvh4q97cbyp9hns06da4' },
-    // { quantity: 1, priceId: 'pri_01k9mgyxdqj8ym2ey7wtge5ja0' },
-    // { quantity: 1, priceId: 'pri_01k9n20hkm645z3m2mbwzqwya3' },
-    // { quantity: 1, priceId: 'pri_01k9n226yxc9jaq5n1r4dcvabg' },
-  ];
-
   const paddle = usePaddle();
-
-  const handleCheckout = () => {
-    paddle!.Checkout.open({
-      items: items,
-      settings: {
-        displayMode: 'overlay',
-        theme: 'dark',
-      },
-    });
-  };
 
   const [
     retrieveSubscription,
@@ -79,6 +60,18 @@ const Subscription = () => {
       isSuccess: isCancelSubscriptionSuccess,
     },
   ] = useCancelSubscriptionMutation();
+
+  const handleCheckout = () => {
+      const product = retrieveProductsData?.find((product) => product.name === subscriptionPlan);
+      const price = product?.prices?.find((price) => price.billing_cycle === billingCycle);
+    paddle!.Checkout.open({
+      items: [{quantity: 1, priceId: price!.id}],
+      settings: {
+        displayMode: 'overlay',
+        theme: 'dark',
+      },
+    });
+  };
   const handleCancelSubscriptionSubmit = (): void => {
     cancelSubscription({});
   };

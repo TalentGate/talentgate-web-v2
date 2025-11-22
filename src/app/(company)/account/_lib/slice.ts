@@ -88,11 +88,13 @@ export interface RetrieveUnitPriceResponse {
 }
 
 export interface RetrievePriceResponse {
+  id: string;
   billing_cycle: string;
   unit_price: RetrieveUnitPriceResponse;
 }
 
 export interface RetrieveProductResponse {
+  id: string;
   name: string;
   description: string;
   prices: RetrievePriceResponse[];
