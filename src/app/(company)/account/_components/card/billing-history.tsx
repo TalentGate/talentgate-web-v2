@@ -13,6 +13,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { toast } from 'sonner';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { LoginError } from '@/app/(auth)/login/_lib/slice';
+import {
+  useRetrieveInvoicesMutation,
+  useRetrieveInvoiceDocumentMutation,
+} from '@/app/(company)/account/_lib/slice';
 
 // import { useRetrieveInvoiceDocumentMutation } from '@/app/(company)/company/billing-and-subscription/_lib/slice';
 
@@ -30,6 +37,16 @@ type InvoicesProps = {
 
 // function BillingHistory({ invoices }: InvoicesProps) {
 function BillingHistory() {
+  const [
+    retrieveInvoices,
+    {
+      data: retrieveInvoicesData,
+      isLoading: isRetrieveInvoicesLoading,
+      isSuccess: isRetrieveInvoicesSuccess,
+    },
+  ] = useRetrieveInvoicesMutation();
+  const [retrieveInvoiceDocument, {}] = useRetrieveInvoiceDocumentMutation();
+
   const invoices = [
     {
       transaction_id: '11',
@@ -59,20 +76,23 @@ function BillingHistory() {
       billed_at: 'aaa',
     },
   ];
-  // const [
-  //   retrieveInvoiceDocument,
-  //   { data: retrieveInvoiceDocumentData, isLoading: isRetrieveInvoiceDocumentLoading },
-  // ] = useRetrieveInvoiceDocumentMutation();
+
+  React.useEffect(() => {
+    try {
+      retrieveInvoices({}).unwrap();
+    } catch (err) {
+      toast.error('Retrieve Invoices Failed', {
+        description:
+          ((err as FetchBaseQueryError)?.data as LoginError)?.detail ||
+          'Something went wrong. Please try again later.',
+      });
+    }
+  }, [retrieveInvoices]);
 
   const handleClick = async (transaction_id: string | undefined) => {
     try {
-      // Get PDF as blob
-      const pdfBlob = ''; // await retrieveInvoiceDocument(transaction_id).unwrap(); // see note below
-
-      // Create blob URL
+      const pdfBlob = await retrieveInvoiceDocument(transaction_id).unwrap(); // see note below
       const url = URL.createObjectURL(pdfBlob);
-
-      // Open in new tab
       window.open(url, '_blank', 'noopener,noreferrer');
     } catch (err) {
       console.error(err);
@@ -87,28 +107,33 @@ function BillingHistory() {
           <CardTitle className={'text-xl'}>Billing History</CardTitle>
           <CardDescription>See a complete timeline of your billing activity</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4"></CardContent>
         <CardContent className="space-y-4">
           <section>
             <Table className="w-full">
               <TableHeader>
                 <TableRow>
                   <TableHead>Invoice Number</TableHead>
+                  <TableHead>Payment Method</TableHead>
                   <TableHead>Total</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Billing Date</TableHead>
-                  <TableHead className="text-right">Document</TableHead>
+                  <TableHead className="text-right"></TableHead>
                 </TableRow>
               </TableHeader>
 
               <TableBody>
-                {invoices?.map((invoice) => (
+                {retrieveInvoicesData?.map((invoice) => (
                   <TableRow key={invoice.transaction_id}>
                     <TableCell className="font-medium">{invoice.invoice_number}</TableCell>
-                    <TableCell className="font-bold">{invoice.total}</TableCell>
+                    <TableCell className="font-medium uppercase">
+                      {invoice.card_type} {'**** **** ****'} {invoice.card_last4}
+                    </TableCell>
+                    <TableCell className="font-bold">
+                      {invoice.total} {invoice.currency_code}
+                    </TableCell>
                     <TableCell>
-                      {invoice.status === 'Completed' ? (
-                        <Badge className="bg-green-600/10 text-green-600 font-semibold">
+                      {invoice.status === 'completed' ? (
+                        <Badge className="bg-green-600/10 text-green-600 font-semibold capitalize">
                           <span>{invoice.status}</span>
                         </Badge>
                       ) : (
@@ -117,7 +142,13 @@ function BillingHistory() {
                         </Badge>
                       )}
                     </TableCell>
-                    <TableCell>{invoice.billed_at?.toLocaleString()}</TableCell>
+                    <TableCell>
+                      {new Date(invoice.billed_at * 1000).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: '2-digit',
+                        year: 'numeric',
+                      })}
+                    </TableCell>
                     <TableCell className="text-right">
                       <Button
                         variant="outline"

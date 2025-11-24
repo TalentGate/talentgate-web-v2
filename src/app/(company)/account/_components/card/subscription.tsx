@@ -7,6 +7,7 @@ import {
   CreditCardIcon,
   SaveIcon,
   DollarSignIcon,
+  WalletIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 import * as React from 'react';
@@ -17,6 +18,7 @@ import {
   useRetrieveSubscriptionMutation,
   useRetrieveProductsMutation,
   useCancelSubscriptionMutation,
+  useRetrieveInvoicesMutation,
   RetrieveProductResponse,
 } from '@/app/(company)/account/_lib/slice';
 import { Button } from '@/components/ui/button';
@@ -60,20 +62,40 @@ const Subscription = () => {
       isSuccess: isCancelSubscriptionSuccess,
     },
   ] = useCancelSubscriptionMutation();
+  const [
+    retrieveInvoices,
+    {
+      data: retrieveInvoicesData,
+      isLoading: isRetrieveInvoicesLoading,
+      isSuccess: isRetrieveInvoicesSuccess,
+    },
+  ] = useRetrieveInvoicesMutation();
 
   const handleCheckout = () => {
-      const product = retrieveProductsData?.find((product) => product.name === subscriptionPlan);
-      const price = product?.prices?.find((price) => price.billing_cycle === billingCycle);
+    const product = retrieveProductsData?.find((product) => product?.name === subscriptionPlan);
+    const price = product?.prices?.find((price) => price?.billing_cycle === billingCycle);
     paddle!.Checkout.open({
-      items: [{quantity: 1, priceId: price!.id}],
+      items: [{ quantity: 1, priceId: price!.id }],
       settings: {
         displayMode: 'overlay',
         theme: 'dark',
       },
     });
   };
+
   const handleCancelSubscriptionSubmit = (): void => {
-    cancelSubscription({});
+    try {
+      cancelSubscription({}).unwrap();
+      toast.success('Subscription Canceled', {
+        description: 'Your subscription has been successfully canceled.',
+      });
+    } catch (err) {
+      toast.error('Subscription can not be canceled', {
+        description:
+          ((err as FetchBaseQueryError)?.data as LoginError)?.detail ||
+          'Something went wrong. Please try again later.',
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -136,7 +158,11 @@ const Subscription = () => {
           </div>
           <span className="text-base">
             {retrieveSubscriptionData?.start_date
-              ? new Date(retrieveSubscriptionData.start_date * 1000).toDateString()
+              ? new Date(retrieveSubscriptionData.start_date * 1000).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric',
+                })
               : ''}
           </span>
         </div>
@@ -148,7 +174,11 @@ const Subscription = () => {
           </div>
           <span className="text-base">
             {retrieveSubscriptionData?.end_date
-              ? new Date(retrieveSubscriptionData.end_date * 1000).toDateString()
+              ? new Date(retrieveSubscriptionData.end_date * 1000).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric',
+                })
               : ''}
           </span>
         </div>
@@ -160,14 +190,21 @@ const Subscription = () => {
           </div>
           <span className="text-base">
             {retrieveSubscriptionData?.next_billing_date
-              ? new Date(retrieveSubscriptionData.next_billing_date * 1000).toDateString()
+              ? new Date(retrieveSubscriptionData.next_billing_date * 1000).toLocaleDateString(
+                  'en-US',
+                  {
+                    month: 'short',
+                    day: '2-digit',
+                    year: 'numeric',
+                  }
+                )
               : ''}
           </span>
         </div>
 
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-muted-foreground">
-            <DollarSignIcon className="h-4 w-4" />
+            <WalletIcon className="h-4 w-4" />
             <span>Amount</span>
           </div>
           <span className="text-base">
@@ -235,14 +272,15 @@ const Subscription = () => {
                       {product.name} Plan
                     </span>
 
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-bold text-foreground">
+                    <div className="flex items-baseline gap-1 items-center">
+                      <span className="text-2xl font-bold text-foreground flex items-center">
+                        {<DollarSignIcon className="h-5 w-5" strokeWidth={3} />}
                         {
                           product.prices?.find((price) => price?.billing_cycle === billingCycle)
                             ?.unit_price.amount
                         }
                       </span>
-                      <span className="text-sm text-muted-foreground">
+                      <span className="text-sm text-muted-foreground flex items-center">
                         /
                         {
                           product.prices?.find((price) => price?.billing_cycle === billingCycle)
@@ -264,10 +302,14 @@ const Subscription = () => {
           <SaveIcon />
           <span>Select Plan</span>
         </Button>
-        <Button variant="destructive" className="h-fit" onClick={handleCancelSubscriptionSubmit}>
-          <SaveIcon />
-          <span>Cancel Subscription</span>
-        </Button>
+        {retrieveSubscriptionData?.next_billing_date ? (
+          <Button variant="destructive" className="h-fit" onClick={handleCancelSubscriptionSubmit}>
+            <SaveIcon />
+            <span>Cancel Subscription</span>
+          </Button>
+        ) : (
+          ''
+        )}
       </CardFooter>
     </Card>
   );
