@@ -29,7 +29,7 @@ const LoginButton = ({ ...props }: Partial<LoginButtonProps>) => {
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         </>
       ) : (
-        'Send Reset Link'
+        'Send Email'
       )}
     </Button>
   );

@@ -126,7 +126,7 @@ function BillingHistory() {
                   <TableRow key={invoice.transaction_id}>
                     <TableCell className="font-medium">{invoice.invoice_number}</TableCell>
                     <TableCell className="font-medium uppercase">
-                      {invoice.card_type} {'**** **** ****'} {invoice.card_last4}
+                      {invoice.card_type} {'****'} {invoice.card_last4}
                     </TableCell>
                     <TableCell className="font-bold">
                       {invoice.total} {invoice.currency_code}

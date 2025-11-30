@@ -50,22 +50,22 @@ export interface UpdatePaddleCheckoutError {
 }
 
 export interface RetrieveInvoiceResponse {
-  firstname: string;
-  lastname: string;
-  username: string;
-  email: string;
+  transaction_id: string;
+  invoice_id: string;
+  invoice_number: string;
+  total: string;
+  currency_code: string;
+  status: number;
+  billed_at: string;
+  card_type: string;
+  card_last4: string;
 }
 
 export interface RetrieveInvoicesRequest {
   token?: string;
 }
 
-export interface RetrieveInvoiceDocumentResponse {
-  firstname: string;
-  lastname: string;
-  username: string;
-  email: string;
-}
+export interface RetrieveInvoiceDocumentResponse {}
 
 export interface RetrieveInvoiceDocumentRequest {
   transaction_id?: string;
