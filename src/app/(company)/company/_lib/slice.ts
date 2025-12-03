@@ -5,6 +5,11 @@ import { baseQueryWithReauth } from '@/app/api/baseQuery';
 export interface RetrieveCurrentCompanyResponse {
   name?: string;
   overview?: string;
+  links?: Array<{
+    id?: number;
+    type?: string;
+    url?: string;
+  }>;
 }
 
 export interface RetrieveCurrentCompanyRequest {
@@ -23,6 +28,11 @@ export interface UpdateCurrentCompanyResponse {
 export interface UpdateCurrentCompanyRequest {
   name?: string;
   overview?: string;
+  links?: Array<{
+    id?: number;
+    type?: string;
+    url?: string;
+  }>;
 }
 
 export interface UpdateCurrentCompanyError {
@@ -33,7 +43,7 @@ export const companiesApi = createApi({
   reducerPath: 'companiesApi',
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
-    retrieveCurrentCompany: builder.mutation<
+    retrieveCurrentCompany: builder.query<
       RetrieveCurrentCompanyResponse,
       RetrieveCurrentCompanyRequest
     >({
@@ -77,7 +87,7 @@ export const companiesApi = createApi({
 });
 
 export const {
-  useRetrieveCurrentCompanyMutation,
+  useRetrieveCurrentCompanyQuery,
   useRetrieveCurrentCompanyLogoMutation,
   useUpdateCurrentCompanyMutation,
   useUploadCurrentCompanyLogoMutation,

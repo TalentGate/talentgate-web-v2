@@ -10,21 +10,35 @@ import { LoginError } from '@/app/(auth)/login/_lib/slice';
 import {
   UpdateCurrentCompanyRequest,
   RetrieveCurrentCompanyResponse,
-  useRetrieveCurrentCompanyMutation,
   useUpdateCurrentCompanyMutation,
   useUploadCurrentCompanyLogoMutation,
+  useRetrieveCurrentCompanyQuery,
 } from '@/app/(company)/company/_lib/slice';
 import Header from '@/components/section/header';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Spinner } from '@/components/ui/spinner';
+import CreateLink from '@/app/(company)/company/overview/_components/dialog/create-link';
+import LinksTable from '@/app/(company)/company/overview/_components/table/links-table';
 
 const Company = () => {
-  const [retrieveCurrentCompany, { data: retrieveCurrentCompanyData }] =
-    useRetrieveCurrentCompanyMutation();
+  const {
+    data: retrieveCurrentCompanyData,
+    isLoading: retrieveCurrentCompanyLoading,
+    error: retrieveCurrentCompanyError,
+    refetch: retrieveCurrentCompany,
+  } = useRetrieveCurrentCompanyQuery({});
   const [updateCurrentCompany, { isSuccess: isUpdateCurrentCompanySuccess }] =
     useUpdateCurrentCompanyMutation();
   const [uploadCurrentCompanyLogo, { isSuccess: isUploadCurrentCompanyLogoSuccess }] =
@@ -72,16 +86,11 @@ const Company = () => {
   };
 
   React.useEffect(() => {
-    try {
-      retrieveCurrentCompany({}).unwrap();
-    } catch (err) {
-      toast.error('Company can not be retrieved.', {
-        description:
-          ((err as FetchBaseQueryError)?.data as LoginError)?.detail ||
-          'Something went wrong. Please try again later.',
-      });
-    }
-  }, [retrieveCurrentCompany]);
+    toast.error('Company can not be retrieved.', {
+      description:
+        retrieveCurrentCompanyError?.toString() || 'Something went wrong. Please try again later.',
+    });
+  }, [retrieveCurrentCompanyError]);
 
   React.useEffect(() => {
     if (retrieveCurrentCompanyData) {
@@ -94,7 +103,7 @@ const Company = () => {
   React.useEffect(() => {
     if (isUpdateCurrentCompanySuccess) {
       try {
-        retrieveCurrentCompany({}).unwrap();
+        retrieveCurrentCompany();
       } catch (err) {
         toast.error('Company can not be retrieved.', {
           description:
@@ -123,6 +132,14 @@ const Company = () => {
       }
     }
   }, [setLogoImage, isUploadCurrentCompanyLogoSuccess]);
+
+  if (retrieveCurrentCompanyLoading) {
+    return <Spinner className="size-10 h-full mx-auto col-span-2" />;
+  }
+
+  if (retrieveCurrentCompanyError) {
+    return <p>Error loading company data.</p>;
+  }
 
   return (
     <main className="p-6 space-y-6 h-full w-full">
@@ -173,6 +190,25 @@ const Company = () => {
             Cancel
           </Button>
         </CardFooter>
+      </Card>
+
+      <Card>
+        <div className="flex justify-between items-center pr-6">
+          <CardHeader className="w-full">
+            <CardTitle>Links</CardTitle>
+            <CardDescription>
+              Add, modify and delete links of your company from this card.
+            </CardDescription>
+          </CardHeader>
+          <CreateLink
+            retrievedLinks={retrieveCurrentCompanyData!.links!}
+            refetch={retrieveCurrentCompany}
+          />
+        </div>
+
+        <CardContent className="space-y-4">
+          <LinksTable />
+        </CardContent>
       </Card>
     </main>
   );
