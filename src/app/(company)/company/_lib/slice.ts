@@ -10,6 +10,21 @@ export interface RetrieveCurrentCompanyResponse {
     type?: string;
     url?: string;
   }>;
+  locations?: Array<{
+    id?: number;
+    type?: string;
+    latitude?: string;
+    longitude?: string;
+    address?: {
+      id?: number;
+      unit?: string;
+      street?: string;
+      city?: string;
+      state?: string;
+      country?: string;
+      postal_code?: string;
+    };
+  }>;
 }
 
 export interface RetrieveCurrentCompanyRequest {
@@ -32,6 +47,21 @@ export interface UpdateCurrentCompanyRequest {
     id?: number;
     type?: string;
     url?: string;
+  }>;
+  locations?: Array<{
+    id?: number;
+    type?: string;
+    latitude?: string;
+    longitude?: string;
+    address?: {
+      id?: number;
+      unit?: string;
+      street?: string;
+      city?: string;
+      state?: string;
+      country?: string;
+      postal_code?: string;
+    };
   }>;
 }
 

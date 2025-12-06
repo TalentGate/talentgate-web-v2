@@ -31,6 +31,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Spinner } from '@/components/ui/spinner';
 import CreateLink from '@/app/(company)/company/overview/_components/dialog/create-link';
 import LinksTable from '@/app/(company)/company/overview/_components/table/links-table';
+import LocationsTable from '@/app/(company)/company/overview/_components/table/locations-table';
+import CreateLocation from '@/app/(company)/company/overview/_components/dialog/create-location';
 
 const Company = () => {
   const {
@@ -208,6 +210,25 @@ const Company = () => {
 
         <CardContent className="space-y-4">
           <LinksTable />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <div className="flex justify-between items-center pr-6">
+          <CardHeader className="w-full">
+            <CardTitle>Locations</CardTitle>
+            <CardDescription>
+              Add, modify and delete locations of your company from this card.
+            </CardDescription>
+          </CardHeader>
+          <CreateLocation
+            retrievedLocations={retrieveCurrentCompanyData!.locations!}
+            refetch={retrieveCurrentCompany}
+          />
+        </div>
+
+        <CardContent className="space-y-4">
+          <LocationsTable />
         </CardContent>
       </Card>
     </main>
