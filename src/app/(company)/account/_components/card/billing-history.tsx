@@ -89,7 +89,7 @@ function BillingHistory() {
     }
   }, [retrieveInvoices]);
 
-  const handleClick = async (transaction_id: string | undefined) => {
+  const handleClick = async (transaction_id: string) => {
     try {
       const pdfBlob = await retrieveInvoiceDocument(transaction_id).unwrap(); // see note below
       const url = URL.createObjectURL(pdfBlob);

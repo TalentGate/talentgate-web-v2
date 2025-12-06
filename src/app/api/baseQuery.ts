@@ -44,8 +44,6 @@ export const baseQueryWithReauth = async (
     refreshPromise = null;
 
     if (refreshResult?.data) {
-      console.info('Token refresh successful. Retrying original request...');
-
       await new Promise((r) => setTimeout(r, 200));
 
       result = await baseQuery(args, api, extraOptions);
