@@ -30,9 +30,10 @@ import { formatTimestamp } from '@/lib/utils';
 
 type JobItemProps = {
   job: RetrieveCompanyJobResponse;
+  onDeleteJob: (id: number) => void;
 };
 
-const JobItem = ({ job }: JobItemProps) => {
+const JobItem = ({ job, onDeleteJob }: JobItemProps) => {
   job = { ...job, total_applicants: 5 }; // TODO REMOVE WHEN RESPONSE PROPER FIELDS
   job.location = { ...job.location, type: 'On-site', country: 'Turkey', city: 'Istanbul' }; // TODO REMOVE WHEN RESPONSE HAS PROPER LOCATION FIELDS
   job.salary = { min: 5000.0, max: 7000.0, frequency: 'YEARLY' }; // TODO REMOVE WHEN RESPONSE HAS PROPER SALARY FIELDS
@@ -89,7 +90,7 @@ const JobItem = ({ job }: JobItemProps) => {
                 <Copy />
                 <span>Duplicate</span>
               </DropdownMenuItem>
-              <DropdownMenuItem variant="destructive">
+              <DropdownMenuItem variant="destructive" onClick={() => onDeleteJob(job.id)}>
                 <Trash2 />
                 <span>Delete</span>
               </DropdownMenuItem>

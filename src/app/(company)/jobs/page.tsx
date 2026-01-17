@@ -22,7 +22,7 @@ import EmploymentTypeFilter from './_components/dropdown/employment_type_filter'
 import LocationTypeFilter from './_components/dropdown/location_type_filter';
 import TitleSearchFilter from '@/app/(company)/jobs/_components/field/title_search_filter';
 import { Spinner } from '@/components/ui/spinner';
-import { useRetrieveCompanyJobsQuery } from '@/app/(company)/jobs/_lib/slice';
+import { useDeleteCompanyJobMutation, useRetrieveCompanyJobsQuery } from '@/app/(company)/jobs/_lib/slice';
 import { useState } from 'react';
 import {
   Select,
@@ -31,6 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { toast } from 'sonner';
 
 export default function Jobs() {
   const [offset, setOffset] = useState<number>(0);
@@ -39,7 +40,12 @@ export default function Jobs() {
   const [employmentTypes, setEmploymentTypes] = useState<string[]>([]);
   const [locationTypes, setLocationTypes] = useState<string[]>([]);
   const [departments, setDepartments] = useState<string[]>([]);
-  const { data, isLoading, error } = useRetrieveCompanyJobsQuery({
+  const {
+    data: retrieveCompanyJobData,
+    isLoading: retrieveCompanyJobIsLoading,
+    error: retrieveCompanyJobError,
+    refetch: retrieveCompanyJobRefetch,
+  } = useRetrieveCompanyJobsQuery({
     company_id: 1,
     title: title,
     employment_type: employmentTypes,
@@ -48,6 +54,30 @@ export default function Jobs() {
     offset: offset.toString(),
     limit: limit.toString(),
   });
+
+  const [deleteCompanyJob, {
+    data: deleteCompanyJobData,
+    isLoading: deleteCompanyJobIsLoading,
+    error: deleteCompanyJobError,
+  }] = useDeleteCompanyJobMutation();
+
+  const cleanupFilters = () => {
+    setTitle(undefined);
+    setEmploymentTypes([]);
+    setLocationTypes([]);
+    setDepartments([]);
+  };
+
+  const handleDeleteJob = async (job_id: number) => {
+    try {
+      await deleteCompanyJob({ id: job_id }).unwrap();
+      if (deleteCompanyJobError) throw new Error(deleteCompanyJobError.toString());
+      toast.success('Company deleted successfully.');
+      retrieveCompanyJobRefetch();
+    } catch (error) {
+      toast.error('Error deleting job.', { description: error instanceof Error ? error.message : undefined });
+    }
+  };
 
   return (
     <main className="p-6 space-y-6 h-full w-full">
@@ -73,9 +103,10 @@ export default function Jobs() {
 
       {/* JOBS GRID */}
       <section className="grid md:grid-cols-2 gap-4">
-        {data && data.map((job) => <JobItem key={job.id} job={job} />)}
-        {isLoading && <Spinner className={'size-10 h-full mx-auto col-span-2'} />}
-        {error && <p>Error loading jobs.</p>}
+        {retrieveCompanyJobData && retrieveCompanyJobData.map((job) => <JobItem key={job.id} job={job}
+                                                                                onDeleteJob={handleDeleteJob} />)}
+        {retrieveCompanyJobIsLoading && <Spinner className={'size-10 h-full mx-auto col-span-2'} />}
+        {retrieveCompanyJobError && <p>Error loading jobs.</p>}
       </section>
 
       {/*PAGINATION AND LIMIT*/}
@@ -101,7 +132,7 @@ export default function Jobs() {
               <PaginationNext
                 onClick={(e) => {
                   e.preventDefault();
-                  if (!data || data.length < limit) return;
+                  if (!retrieveCompanyJobData || retrieveCompanyJobData.length < limit) return;
                   setOffset((prev) => prev + limit);
                 }}
               />

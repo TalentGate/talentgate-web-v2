@@ -1,15 +1,7 @@
-import { SaveIcon, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Select,
@@ -19,18 +11,23 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-interface PipelineObserversProps {
-  mockAddObserversFormStep: string[];
-}
+const mockAddObserversFormStep = [
+  'Name Surname 1',
+  'Name Surname 2',
+  'Name Surname 3',
+  'Name Surname 4',
+  'Name Surname 5',
+  'Name Surname 6',
+  'Name Surname 7',
+  'Name Surname 8',
+  'Name Surname 9',
+  'Name Surname 10',
+];
 
-const PipelineObservers = ({ mockAddObserversFormStep }: PipelineObserversProps) => {
+const AddObserversForm = () => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Pipeline Observers</CardTitle>
-      </CardHeader>
-
-      <CardContent className="space-y-6">
+    <section className="w-full h-fit max-h-[60dvh] mt-5 flex flex-col gap-4 justify-between">
+      <div className="w-full space-y-6">
         <Select>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select Observer(s)" />
@@ -68,16 +65,9 @@ const PipelineObservers = ({ mockAddObserversFormStep }: PipelineObserversProps)
             ))}
           </ul>
         </ScrollArea>
-      </CardContent>
-
-      <CardFooter>
-        <Button className="mt-4">
-          <SaveIcon />
-          <span>Save Changes</span>
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </section>
   );
 };
 
-export default PipelineObservers;
+export default AddObserversForm;

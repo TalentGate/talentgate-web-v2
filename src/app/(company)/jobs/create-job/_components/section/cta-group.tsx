@@ -15,26 +15,25 @@ import {
 interface CtaGroupProps {
   formPage: number;
   setFormPage: Function;
+  isLastStep?: boolean;
+  onSubmit: () => void;
 }
 
-const CtaGroup = ({ formPage, setFormPage }: CtaGroupProps) => {
+const CtaGroup = ({ formPage, setFormPage, isLastStep, onSubmit }: CtaGroupProps) => {
   return (
     <section className="grid gap-4 mt-auto">
-      {/* CONFIRM BUTTON */}
-      {formPage === 4 && (
-        <Button type="submit" className="w-full">
+      {/*CANCEL AND/OR NEXT BUTTONS*/}
+      {isLastStep ? (
+        <Button type="submit" className="w-full" onClick={onSubmit}>
           Create Job Post
         </Button>
-      )}
-
-      {/* NEXT BUTTON */}
-      {formPage !== 4 && (
+      ) : (
         <Button
           type="submit"
           variant={'secondary'}
           className="w-full"
           onClick={() => {
-            if (1 <= formPage && formPage <= 4) setFormPage(formPage + 1);
+            setFormPage(formPage + 1);
           }}
         >
           Next step

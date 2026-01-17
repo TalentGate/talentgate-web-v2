@@ -9,22 +9,45 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { CreateCompanyJobRequest } from '@/app/(company)/jobs/_lib/slice';
 
-const FormPage1 = () => {
+type JobDetailsFormProps = {
+  formData?: any;
+  setFormData?: (x: CreateCompanyJobRequest) => void;
+}
+
+const JobDetailsForm = ({ formData, setFormData }: JobDetailsFormProps) => {
+  const onChange = (field: string, value: any) => {
+    if (setFormData) {
+      setFormData({
+        ...formData,
+        [field]: value,
+      });
+    }
+  };
+
   return (
     <section className="grid items-start gap-6">
       <div className="grid gap-2">
         <Label htmlFor="jobTitle">Job Title</Label>
-        <Input type="text" id="jobTitle" placeholder="Job Title" />
+        <Input defaultValue={formData.title || undefined} type="text" id="jobTitle" placeholder="Job Title"
+               onChange={(e) => {
+                 onChange('title', e.target.value);
+               }} />
       </div>
 
       <div className="grid gap-2">
         <Label htmlFor="jobDescription">Job Description</Label>
-        <Textarea id="jobDescription" placeholder="Job Description" />
+        <Textarea defaultValue={formData.description || undefined} id="jobDescription" placeholder="Job Description"
+                  onChange={(e) => {
+                    onChange('description', e.target.value);
+                  }} />
       </div>
 
       <div className="grid gap-2">
-        <Select>
+        <Select onValueChange={(e) => {
+          onChange('department', e);
+        }} value={formData.department || undefined}>
           <Label htmlFor="jobDepartment">Job Department</Label>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select Department" />
@@ -39,23 +62,11 @@ const FormPage1 = () => {
       </div>
 
       <div className="grid gap-2">
-        <Select>
-          <Label htmlFor="jobLocation">Job Location</Label>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select Location" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Istanbul, Turkey">Istanbul, Turkey</SelectItem>
-            <SelectItem value="Ankara, Turkey">Ankara, Turkey</SelectItem>
-            <SelectItem value="Talinn, Estonia">Talinn, Estonia</SelectItem>
-            <SelectItem value="EMEA">EMEA</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div className="grid gap-2">
-        <Label htmlFor="jobRemote">Job Type</Label>
-        <RadioGroup defaultValue={'Full-Time'} className="space-y-1 lg:flex lg:gap-6">
+        <Label htmlFor="employmentType">Employment Type</Label>
+        <RadioGroup value={formData.employment_type || 'Full-Time'} className="space-y-1 lg:flex lg:gap-6"
+                    onValueChange={(e) => {
+                      onChange('employment_type', e);
+                    }}>
           <div className="self-end flex items-center space-x-2">
             <RadioGroupItem value="Full-Time" id="Full-Time" />
             <Label htmlFor="Full-Time">Full-Time</Label>
@@ -68,23 +79,9 @@ const FormPage1 = () => {
             <RadioGroupItem value="Internship" id="Internship" />
             <Label htmlFor="Internship">Internship</Label>
           </div>
-        </RadioGroup>
-      </div>
-
-      <div className="grid gap-2">
-        <Label htmlFor="jobRemote">Location Type</Label>
-        <RadioGroup defaultValue={'On-Site'} className="space-y-1 lg:flex lg:gap-6">
-          <div className="self-end flex items-center space-x-2">
-            <RadioGroupItem value="On-Site" id="On-Site" />
-            <Label htmlFor="On-Site">On-Site</Label>
-          </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Hybrid" id="Hybrid" />
-            <Label htmlFor="Hybrid">Hybrid</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Remote" id="Remote" />
-            <Label htmlFor="Remote">Remote</Label>
+            <RadioGroupItem value="Contractor" id="Contractor" />
+            <Label htmlFor="Contractor">Contractor</Label>
           </div>
         </RadioGroup>
       </div>
@@ -92,4 +89,4 @@ const FormPage1 = () => {
   );
 };
 
-export default FormPage1;
+export default JobDetailsForm;

@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 
-const PipelineObservers = () => {
+const PublishJobPostCard = () => {
   return (
     <Card>
       <CardHeader>
@@ -58,4 +58,4 @@ const PipelineObservers = () => {
   );
 };
 
-export default PipelineObservers;
+export default PublishJobPostCard;

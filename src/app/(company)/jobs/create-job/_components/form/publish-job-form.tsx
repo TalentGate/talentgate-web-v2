@@ -2,7 +2,7 @@ import { LinkedinIcon, PanelTop, TwitterIcon } from 'lucide-react';
 
 import { Checkbox } from '@/components/ui/checkbox';
 
-const FormPage4 = () => {
+const PublishJobForm = () => {
   return (
     <section className="space-y-4 px-0 gap-8">
       <div className="flex gap-3 items-center">
@@ -36,4 +36,4 @@ const FormPage4 = () => {
   );
 };
 
-export default FormPage4;
+export default PublishJobForm;

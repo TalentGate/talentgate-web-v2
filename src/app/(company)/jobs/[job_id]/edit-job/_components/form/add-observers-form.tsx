@@ -11,11 +11,20 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-interface FormPage3Props {
-  mockAddObserversFormStep: string[];
-}
+const mockAddObserversFormStep = [
+  'Name Surname 1',
+  'Name Surname 2',
+  'Name Surname 3',
+  'Name Surname 4',
+  'Name Surname 5',
+  'Name Surname 6',
+  'Name Surname 7',
+  'Name Surname 8',
+  'Name Surname 9',
+  'Name Surname 10',
+];
 
-const FormPage3 = ({ mockAddObserversFormStep }: FormPage3Props) => {
+const AddObserversForm = () => {
   return (
     <section className="w-full h-fit max-h-[60dvh] mt-5 flex flex-col gap-4 justify-between">
       <div className="w-full space-y-6">
@@ -61,4 +70,4 @@ const FormPage3 = ({ mockAddObserversFormStep }: FormPage3Props) => {
   );
 };
 
-export default FormPage3;
+export default AddObserversForm;
