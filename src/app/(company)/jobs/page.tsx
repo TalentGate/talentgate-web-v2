@@ -22,7 +22,10 @@ import EmploymentTypeFilter from './_components/dropdown/employment_type_filter'
 import LocationTypeFilter from './_components/dropdown/location_type_filter';
 import TitleSearchFilter from '@/app/(company)/jobs/_components/field/title_search_filter';
 import { Spinner } from '@/components/ui/spinner';
-import { useDeleteCompanyJobMutation, useRetrieveCompanyJobsQuery } from '@/app/(company)/jobs/_lib/slice';
+import {
+  useDeleteCompanyJobMutation,
+  useRetrieveCompanyJobsQuery,
+} from '@/app/(company)/jobs/_lib/slice';
 import { useState } from 'react';
 import {
   Select,
@@ -55,11 +58,14 @@ export default function Jobs() {
     limit: limit.toString(),
   });
 
-  const [deleteCompanyJob, {
-    data: deleteCompanyJobData,
-    isLoading: deleteCompanyJobIsLoading,
-    error: deleteCompanyJobError,
-  }] = useDeleteCompanyJobMutation();
+  const [
+    deleteCompanyJob,
+    {
+      data: deleteCompanyJobData,
+      isLoading: deleteCompanyJobIsLoading,
+      error: deleteCompanyJobError,
+    },
+  ] = useDeleteCompanyJobMutation();
 
   const cleanupFilters = () => {
     setTitle(undefined);
@@ -75,7 +81,9 @@ export default function Jobs() {
       toast.success('Company deleted successfully.');
       retrieveCompanyJobRefetch();
     } catch (error) {
-      toast.error('Error deleting job.', { description: error instanceof Error ? error.message : undefined });
+      toast.error('Error deleting job.', {
+        description: error instanceof Error ? error.message : undefined,
+      });
     }
   };
 
@@ -103,8 +111,10 @@ export default function Jobs() {
 
       {/* JOBS GRID */}
       <section className="grid md:grid-cols-2 gap-4">
-        {retrieveCompanyJobData && retrieveCompanyJobData.map((job) => <JobItem key={job.id} job={job}
-                                                                                onDeleteJob={handleDeleteJob} />)}
+        {retrieveCompanyJobData &&
+          retrieveCompanyJobData.map((job) => (
+            <JobItem key={job.id} job={job} onDeleteJob={handleDeleteJob} />
+          ))}
         {retrieveCompanyJobIsLoading && <Spinner className={'size-10 h-full mx-auto col-span-2'} />}
         {retrieveCompanyJobError && <p>Error loading jobs.</p>}
       </section>

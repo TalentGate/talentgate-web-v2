@@ -14,7 +14,7 @@ import { CreateCompanyJobRequest } from '@/app/(company)/jobs/_lib/slice';
 type JobDetailsFormProps = {
   formData?: any;
   setFormData?: (x: CreateCompanyJobRequest) => void;
-}
+};
 
 const JobDetailsForm = ({ formData, setFormData }: JobDetailsFormProps) => {
   const onChange = (field: string, value: any) => {
@@ -30,24 +30,36 @@ const JobDetailsForm = ({ formData, setFormData }: JobDetailsFormProps) => {
     <section className="grid items-start gap-6">
       <div className="grid gap-2">
         <Label htmlFor="jobTitle">Job Title</Label>
-        <Input defaultValue={formData.title || undefined} type="text" id="jobTitle" placeholder="Job Title"
-               onChange={(e) => {
-                 onChange('title', e.target.value);
-               }} />
+        <Input
+          defaultValue={formData.title || undefined}
+          type="text"
+          id="jobTitle"
+          placeholder="Job Title"
+          onChange={(e) => {
+            onChange('title', e.target.value);
+          }}
+        />
       </div>
 
       <div className="grid gap-2">
         <Label htmlFor="jobDescription">Job Description</Label>
-        <Textarea defaultValue={formData.description || undefined} id="jobDescription" placeholder="Job Description"
-                  onChange={(e) => {
-                    onChange('description', e.target.value);
-                  }} />
+        <Textarea
+          defaultValue={formData.description || undefined}
+          id="jobDescription"
+          placeholder="Job Description"
+          onChange={(e) => {
+            onChange('description', e.target.value);
+          }}
+        />
       </div>
 
       <div className="grid gap-2">
-        <Select onValueChange={(e) => {
-          onChange('department', e);
-        }} value={formData.department || undefined}>
+        <Select
+          onValueChange={(e) => {
+            onChange('department', e);
+          }}
+          value={formData.department || undefined}
+        >
           <Label htmlFor="jobDepartment">Job Department</Label>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select Department" />
@@ -63,10 +75,13 @@ const JobDetailsForm = ({ formData, setFormData }: JobDetailsFormProps) => {
 
       <div className="grid gap-2">
         <Label htmlFor="employmentType">Employment Type</Label>
-        <RadioGroup value={formData.employment_type || 'Full-Time'} className="space-y-1 lg:flex lg:gap-6"
-                    onValueChange={(e) => {
-                      onChange('employment_type', e);
-                    }}>
+        <RadioGroup
+          value={formData.employment_type || 'Full-Time'}
+          className="space-y-1 lg:flex lg:gap-6"
+          onValueChange={(e) => {
+            onChange('employment_type', e);
+          }}
+        >
           <div className="self-end flex items-center space-x-2">
             <RadioGroupItem value="Full-Time" id="Full-Time" />
             <Label htmlFor="Full-Time">Full-Time</Label>

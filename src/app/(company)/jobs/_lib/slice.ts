@@ -66,7 +66,7 @@ export interface CreateCompanyJobRequest {
       state: string;
       country: string;
       postal_code: string;
-    }
+    };
     type: string;
     latitude: number;
     longitude: number;
@@ -103,7 +103,7 @@ export interface UpdateCompanyJobRequest {
       state: string;
       country: string;
       postal_code: string;
-    }
+    };
     type: string;
     latitude: number;
     longitude: number;
@@ -154,14 +154,14 @@ export const companyJobsApi = createApi({
     }),
     retrieveCompanyJobs: builder.query<RetrieveCompanyJobResponse[], RetrieveCompanyJobsParams>({
       query: ({
-                company_id,
-                title,
-                employment_type,
-                location_type,
-                departments,
-                offset = 0,
-                limit = 10,
-              }) => {
+        company_id,
+        title,
+        employment_type,
+        location_type,
+        departments,
+        offset = 0,
+        limit = 10,
+      }) => {
         const searchParams = new URLSearchParams();
         searchParams.append('offset', offset.toString());
         searchParams.append('limit', limit.toString());
@@ -197,7 +197,10 @@ export const companyJobsApi = createApi({
         body,
       }),
     }),
-    updateCompanyJob: builder.mutation<UpdateCompanyJobResponse, { id: number; body: UpdateCompanyJobRequest }>({
+    updateCompanyJob: builder.mutation<
+      UpdateCompanyJobResponse,
+      { id: number; body: UpdateCompanyJobRequest }
+    >({
       query: ({ id, body }) => ({
         // url: `/me/company/jobs/${id}`,
         url: `/jobs/${id}`,
